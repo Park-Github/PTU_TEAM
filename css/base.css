@@ -1,0 +1,110 @@
+/* =================================
+ * 기본 스타일
+ * ================================= */
+
+/* Reset */
+ *,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  min-width: 1280px;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+/* Layout */
+.page-container {
+  height: 100%;
+  width: 100%;
+
+  /* grid container settings */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+   'header'
+   'main'
+   'footer'
+}
+
+.page-header {
+  grid-area: header;
+  position: fixed;
+  left: 0;
+  right: 0;
+	height: 52px;
+	z-index: 1;
+}
+
+.page-main {
+  grid-area: main;
+  padding-top: 52px;
+}
+
+.page-footer {
+	grid-area: footer;
+	background: #ddd;
+}
+
+/* Bootstrap container 반응형 방지 */
+.container {
+  max-width: none !important;
+  width: 1200px;
+}
+
+/* Header */
+.page-header {
+  padding: 0;
+  background-color: #157347;
+  color: #fff;
+}
+.page-header .search-btn,
+.navbar-brand,
+.navbar-brand:hover {
+  color: #fff;
+}
+.page-header .nav-item .dropdown-menu {
+  display: none;
+}
+.page-header .nav-item:hover .dropdown-menu {
+  display: block;
+}
+.page-header .nav-item > .nav-link:hover {
+  color: inherit;
+}
+.page-header .nav-item > .nav-link.active {
+  color: salmon;
+}
+.page-header .dropdown-item {
+  font-size: 90%;
+}
+.main-nav .nav-link {
+  padding: 0.875rem 1.125rem;
+}
+.util-nav .nav-link {
+  font-size: 85%
+}
+
+/* Footer */
+.page-footer .nav {
+  font-size: 13px;
+}
+
+/* Main */
+.page-main {
+  word-wrap: break-word;
+  word-break: keep-all;
+}
