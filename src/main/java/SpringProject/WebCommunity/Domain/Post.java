@@ -16,8 +16,8 @@ public class Post {
     private String writerId;
     @Column int views;
     @Column int likes;
-    @Column String title;
-    @Column(length = 450) String contents;
+    @Column(length = 400, nullable = false) String title;
+    @Column(length = 2000, nullable = false) String contents;
     @Column Timestamp createTime;
 
     @Builder // setter 역할
