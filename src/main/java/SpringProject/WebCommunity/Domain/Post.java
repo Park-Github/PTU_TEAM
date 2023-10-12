@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity // 게시글 엔티티 클래스
 @NoArgsConstructor //기본 생성자 추가
-public class Post {
+public class Post extends BaseTimeEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) // PK auto_increment 옵션
     private Long id; //id 필드

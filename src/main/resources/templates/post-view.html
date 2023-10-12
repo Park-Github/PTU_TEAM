@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="ko" data-bs-theme="auto">
-<head><script src="assets/js/color-modes.js"></script>
+<head><script src="../../../../src/main/resources/static/js/color-modes.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>글쓰기</title>
+    <title>(글제목)</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-	<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="style.css" rel="stylesheet">
+	<link href="../../../../src/main/resources/static/js/bootstrap.bundle.min.js" rel="stylesheet">
+	<link href="../../../../src/main/resources/static/css/style.css" rel="stylesheet">
 	<style>
 		.form-control-dark {
 		  border-color: var(--bs-gray);
@@ -31,10 +31,11 @@
 	<main>	
 		<header class="py-3 border-bottom"> <!-- 상단바 -->
 			<div class="container d-flex flex-wrap justify-content-center">
-				<img class="mx-3" src="assets/brand/ptuteam_logo.png" alt="" width="40" height="40">
+				<img class="mx-3" src="../../../../src/main/resources/static/img/ptuteam_logo.png" alt="" width="40" height="40">
   				<a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
     				<span class="fs-4">대학생 커뮤니티 (가제)</span>
   				</a>
+			</div>
   			<div class="col-md-3 text-end">
 		        <button type="button" class="btn btn-outline-primary me-2">로그인</button>
 		        <button type="button" class="btn btn-primary">회원가입</button>
@@ -102,30 +103,54 @@
     		</div>
   		</nav>
   		<div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
-			<h1 class="h3 fw-normal"> (게시판명) - 글쓰기</h1>
-			</div>
-		<div class="container my-1"> <!-- 글쓰기 공간 -->
-    		<div class="bg-body-tertiary p-5 rounded">
-      			<div class="col-sm-10 py-5.5 mx-auto">
-					<div><input type="text" class="form-control" id="post-title" placeholder="제목"></div>
-					<div class="py-3">
-  						<textarea class="form-control" id="post-content" rows="16" placeholder="내용"></textarea>
+			<h1 class="h3 fw-normal">(게시판명)</h1>
+		</div>
+		<div class="container my-1">
+			<hr class="divider">
+    		<div class="bg-white p-4 rounded">
+      			<div class="col-sm-10 mx-auto">
+					<h4 class="h4 fw-normal">(글 제목)</h4>
+						<div class="d-flex hstack gap-2"> <!-- 본문 헤더 -->
+							<div class="me-auto">(글 작성자)</div>
+							<div>댓글 (숫자)</div>
+							<div class="vr"></div>
+							<div>조회수 (숫자)</div>
+							<div class="vr"></div>
+							<div>(글 작성일/시간)</div>
+						</div>
+					<hr class="divider">
+					<div class="py-1">
+  						<div>(글 내용)</div>
 					</div>
-					<div class="input-group mb-3">
-  						<input type="file" class="form-control" id="inputGroupFile">
+					<div class="text-center mt-5">
+						<button type="button" class="btn btn-primary me-2">공감 (숫자)</button>
+		        		<button type="button" class="btn btn-danger">신고</button>
+		        		<hr class="divider">
+      				</div>	
+      				<h4 class="h5 mb-3">댓글</h4>
+      				<div><!-- 댓글 목록 -->
+	      				<div class="d-flex hstack gap-2"> 
+							<div>(댓글 작성자)</div>
+							<div class="vr"></div>
+							<div class="me-auto">(댓글 내용)</div>
+							<div class="vr"></div>
+							<div class="text-black-50">(댓글 작성일/시간)</div>
+						</div>
+						<hr class="divider mt-2">
 					</div>
-					<div class="form-check">
-					        <input class="form-check-input text-center" type="checkbox" value="remember-me" id="flexCheckDefault">
-					        <label class="form-check-label" for="flexcheckdefault">익명으로 글쓰기</label>
-      				</div>
-					<div class="text-center">
-		        		<button type="button" class="btn btn-outline-primary me-2">취소</button>
-		        		<button type="button" class="btn btn-primary">등록</button>
-      				</div>
+					<div class="bg-body-tertiary p-3 rounded">
+						<div class="form-group row">
+  							<div class="input-group">
+								<label for="reply-input" class="col-1 col-form-label">(닉네임)</label>
+    							<input class="form-control" type="text" id="reply-input">
+    							<button class="btn btn-outline-secondary" type="button">작성</button>
+  							</div>
+						</div>
+					</div>
     			</div>
     		</div>
   		</div>
 	</main>
-	<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../../../../src/main/resources/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
