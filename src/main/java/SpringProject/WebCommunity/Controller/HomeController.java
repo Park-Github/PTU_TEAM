@@ -2,14 +2,21 @@ package SpringProject.WebCommunity.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
 
-    @GetMapping("/home")
+    @GetMapping("/post-view")
     public String welcomeHome(){
-        return "test홈화면";
+        return "post-view";
     }
 
+    @GetMapping("/sign-up")
+    public String signUp() { return "sign-up"; }
+
+    @GetMapping("/sign-in")
+    public String signIn() { return "sign-in"; }
+
+    @GetMapping("/post-write")
+    public String write() { return "post-write"; }
 }
