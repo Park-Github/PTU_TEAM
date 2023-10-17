@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<th:block th:replace="~{/common/essential::header}"></th:block>
+<body>
 <div th:replace="~{/common/navbar::headline}"></div>
 <div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
-<body>
 <div class="container">
   <div class="row justify-content-center">
     <div class="card border-success mb-3 text-center w-75" style="width: 18rem;">
