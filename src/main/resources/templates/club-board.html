@@ -1,15 +1,7 @@
-<!doctype html>
-<html lang="ko" data-bs-theme="auto">
-<head><script src="../../../../src/main/resources/static/js/color-modes.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>동아리</title>
-    
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-	<link href="../../../../src/main/resources/static/css/bootstrap.min.css" rel="stylesheet">
-	<link href="../../../../src/main/resources/static/css/style.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<th:block th:replace="~{/common/navbar::header}"></th:block>
+	<link href="/css/style.css" rel="stylesheet">
 	<style>
 		.image-thumbnail {
 		  width: 400px;
@@ -41,80 +33,9 @@
 		}
 	</style>
 <body>
+	<div th:replace="~{/common/navbar::headline}"></div>
+	<div th:replace="~{/common/navbar::navigation}"></div>
 	<main>	
-		<header class="py-3 border-bottom"> <!-- 상단바 -->
-			<div class="container d-flex flex-wrap justify-content-center">
-				<img class="mx-3" src="../../../../src/main/resources/static/img/ptuteam_logo.png" alt="" width="40" height="40">
-  				<a href="#" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none color-inherit">
-    				<span class="fs-3">대학생 커뮤니티 (가제)</span>
-  				</a>
-  				<div class="col-md-3 text-end">
-			        <button type="button" class="btn btn-outline-primary me-2">로그인</button>
-			        <button type="button" class="btn btn-primary">회원가입</button>
-		        </div>
-      		</div>
-		</header>
-		<nav class="py-2 bg-body-tertiary border-bottom">
-    		<div class="container d-flex flex-wrap">
-      			<ul class="nav me-auto">
-        			<li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">전체보기</a></li>
-        			<li class="nav-item dropdown">
-	              		<a class="nav-link dropdown-toggle link-body-emphasis" href="#" data-bs-toggle="dropdown" aria-expanded="false">게시판</a>
-	              		<ul class="dropdown-menu">
-		                	<li><a class="dropdown-item" href="#">전체보기</a></li>
-		                	<li><a class="dropdown-item" href="#">자유게시판</a></li>
-		                	<li><a class="dropdown-item" href="#">정보공유게시판</a></li>
-		                	<li><a class="dropdown-item" href="#">질문·답변게시판</a></li>
-		                	<li><a class="dropdown-item" href="#">홍보게시판</a></li>
-              			</ul>
-        			</li>
-              		<li class="nav-item dropdown">
-	              		<a class="nav-link dropdown-toggle link-body-emphasis" href="#" data-bs-toggle="dropdown" aria-expanded="false">동아리</a>
-	              		<ul class="dropdown-menu">
-		                	<li><a class="dropdown-item" href="#">전체보기</a></li>
-		                	<li><a class="dropdown-item" href="#">친목</a></li>
-		                	<li><a class="dropdown-item" href="#">취업·창업</a></li>
-		                	<li><a class="dropdown-item" href="#">학술·교양</a></li>
-		                	<li><a class="dropdown-item" href="#">문화·예술</a></li>
-		                	<li><a class="dropdown-item" href="#">스포츠</a></li>
-		                	<li><a class="dropdown-item" href="#">봉사·사회활동</a></li>
-              			</ul>
-              		</li>
-              		<li class="nav-item dropdown">
-	              		<a class="nav-link dropdown-toggle link-body-emphasis" href="#" data-bs-toggle="dropdown" aria-expanded="false">외부활동</a>
-	              		<ul class="dropdown-menu">
-		                	<li><a class="dropdown-item" href="#">대외활동</a></li>
-		                	<li><a class="dropdown-item" href="#">공모전</a></li>
-              			</ul>
-              		</li>
-              		<li class="nav-item dropdown">
-	              		<a class="nav-link dropdown-toggle link-body-emphasis" href="#" data-bs-toggle="dropdown" aria-expanded="false">취업정보</a>
-	              		<ul class="dropdown-menu">
-		                	<li><a class="dropdown-item" href="#">채용공고</a></li>
-		                	<li><a class="dropdown-item" href="#">기업검색</a></li>
-		                	<li><a class="dropdown-item" href="#">취업컨텐츠</a></li>
-		                	<li><a class="dropdown-item" href="#">취업교육</a></li>
-              			</ul>
-              		</li>
-              		<li class="nav-item dropdown">
-	              		<a class="nav-link dropdown-toggle link-body-emphasis" href="#" data-bs-toggle="dropdown" aria-expanded="false">스터디·모임</a>
-	              		<ul class="dropdown-menu">
-		                	<li><a class="dropdown-item" href="#">자격증</a></li>
-		                	<li><a class="dropdown-item" href="#">어학</a></li>
-		                	<li><a class="dropdown-item" href="#">국가고시</a></li>
-		                	<li><a class="dropdown-item" href="#">공무원시험</a></li>
-		                	<li><a class="dropdown-item" href="#">전공시험</a></li>
-		                	<li><a class="dropdown-item" href="#">기타</a></li>
-              			</ul>
-        			</li>
-        			<li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">중고장터</a></li>
-        			<li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">학점계산</a></li>
-      			</ul>
-      			<form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-    				<input type="search" class="form-control" placeholder="검색..." aria-label="Search">
-  				</form>
-    		</div>
-  		</nav>
   		<div class="container d-flex my-3"> <!--검색창-->
     		<input type="search" class="form-control" placeholder="동아리 검색..." aria-label="Search">
 		</div>
@@ -122,16 +43,15 @@
     		<div class="d-grid gap-4 my-3" style="grid-template-columns: 1fr 1fr 1fr;">
 				<div class="bg-white border rounded-3"> <!--동아리 홍보글-->
 					<div class="d-flex flex-wrap justify-content-center">
-						<img class="mx-2 mt-2" src="../../../../src/main/resources/static/img/club_logo_sample.png" width="40" height="40">
+						<img class="mx-2 mt-2" src="/img/club_logo_sample.png" width="40" height="40">
 						<a href="#" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none color-inherit">
     						<span class="fs-4">(동아리명)</span>
   						</a>
   						<div class="image-thumbnail mt-2">
-						<img src="../../../../src/main/resources/static/img/club_ad_sample.png">
+						<img src="/img/club_ad_sample.png">
 					</div>
 				</div>
 			</div>
   		</div>
   	</main>
-	<script src="../../../../src/main/resources/static/js/bootstrap.bundle.min.js"></script>
 </html>
