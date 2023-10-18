@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/post-view")
-    public String welcomeHome(){
+    public String postView(){
         return "post-view";
     }
 
@@ -19,4 +19,7 @@ public class HomeController {
 
     @GetMapping("/post-write")
     public String write() { return "post-write"; }
+
+    @GetMapping("/home")
+    public String welcomeHome() { return "home"; }
 }
