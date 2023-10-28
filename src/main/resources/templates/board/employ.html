@@ -3,6 +3,16 @@
     <th:block th:replace="~{/common/essential::header}"></th:block>
     <div th:replace="~{/common/navbar::headline}"></div>
     <div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
+	<style>
+		.logo-thumbnail img {
+		  width: 75px;
+		  height: 75px;
+		}
+		
+		.page-link {
+		  color:black
+		}
+	</style>
 <body>
   <div class="container d-flex my-3"> <!--검색창-->
 		<input type="search" class="form-control" placeholder="기업 찾기..." aria-label="Search">
