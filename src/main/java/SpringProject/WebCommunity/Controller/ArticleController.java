@@ -15,17 +15,17 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    @GetMapping("/articles")
+    @GetMapping("/article-list/article")
     public String articleView() {
-        return "/board/article";
+        return "/menu/article";
     }
 
-    @GetMapping("/articles/form")
+    @GetMapping("/article-list/form")
     public String newArticleForm() {
         return "/form/post-write";
     }
 
-    @PostMapping("/articles/create")
+    @PostMapping("/article-list/create")
     public String createArticle(ArticleCreateDto form) {
         log.info(form.getTitle());
         log.info(form.getContents());
@@ -35,7 +35,7 @@ public class ArticleController {
 
         log.info(boardId.toString());
 
-        return "redirect:/articles";
+        return "redirect:/article-list/article";
     }
 
 }
