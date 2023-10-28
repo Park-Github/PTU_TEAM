@@ -18,11 +18,7 @@ public class PageRenderingController {
     public String sitemapView(){
         return "/menu/sitemap";
     }
-    @GetMapping("/board-all")
-    public String allCategoryView() {
-        return "/menu/board-all";
-    }
-    @GetMapping("/board-all/article-list")
+    @GetMapping("/article-list")
     public String articleListView() {
         return "/menu/article-list";
     }
@@ -63,6 +59,10 @@ public class PageRenderingController {
     @GetMapping("/find-pw")
     public String findPwView(){
         return "/certification/find-pw";
+    }
+    @GetMapping("/change-pw")
+    public String changePwView(){
+        return "/certification/change-pw";
     }
 
 }

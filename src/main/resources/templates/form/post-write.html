@@ -1,3 +1,4 @@
+<!--게시글 입력 화면-->
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
 <th:block th:replace="~{/common/navbar::header}"></th:block>
@@ -8,7 +9,7 @@
 			<div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
 				<h1 class="h3 fw-normal"> (게시판명) - 글쓰기</h1>
 			</div>
-			<form action="/articles/create" method="POST">
+			<form action="/article-list/create" method="POST">
 				<div class="container my-1"> <!-- 글쓰기 공간 -->
 					<div class="bg-body-tertiary p-5 rounded">
 						<div class="col-sm-10 py-5.5 mx-auto">
