@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<th:block th:replace="~{/common/essential::header}"></th:block>
+<body>
+<div th:replace="~{/common/navbar::headline}"></div>
+<div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
+<div class="row justify-content-center">
+  <div class="card border-success mb-3" style="width: 18rem;">
+    <div class="card-body">
+      <div class="btn-group-vertical">
+        <input class="form-control" type="text" value="아직 한 번도 스크랩하지 않으셨네요.
+            원하는 글을 스크랩해 보세요!" aria-label="readonly input example" readonly>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="width: 50rem;">
+  <header>
+    <h5>스크랩한 글</h5>
+  </header>
+  <hr/>
+</div>
+
+<div class="row justify-content-center">
+  <div class="card text-dark bg-light mb-3" style="width: 50rem; height: 200px;">
+    <div class="card-body">
+      <input class="form-control" type="text" value="아직 한 번도 스크랩하지 않으셨네요. 원하는 글을 스크랩해 보세요!" aria-label="readonly input example" readonly>
+    </div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="d-flex justify-content-center">
+    <nav class="nav">
+      <a href="#" class="nav-link">회원탈퇴</a>
+      <a href="#" class="nav-link">개인정보처리방침</a>
+    </nav>
+  </div>
+</footer>
+
+<footer class="page-footer">
+  <div class="d-flex justify-content-center">
+    <div class="position-absolute bottom-0 start-50 translate-middle-x">
+      <nav class="nav">
+        <a href="#" class="nav-link">회원탈퇴</a>
+        <a href="#" class="nav-link">개인정보처리방침</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

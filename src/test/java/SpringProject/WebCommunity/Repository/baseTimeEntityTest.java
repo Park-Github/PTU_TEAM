@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Domain.Post;
+import SpringProject.WebCommunity.Domain.Article;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,23 +9,22 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest
-public class PostReposTest {
+public class baseTimeEntityTest {
     @Autowired
-    PostRepos PostRepos;
+    ArticleRepos ArticleRepos;
     @Test
     public void reg_BaseTimeEntity(){
         LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0,0);
-        PostRepos.save(Post.builder()
+        ArticleRepos.save(Article.builder()
                 .title("테스트용 제목")
-                .likes(2)
-                .views(110)
+                .nickName("lsfa")
                 .contents("테스트용 본문")
                 .build());
 
-        List<Post> postList = PostRepos.findAll();
+        List<Article> articleList = ArticleRepos.findAll();
 
-        Post post = postList.get(0);
+        Article article = articleList.get(0);
 
-        System.out.println(">>>>>>>>>> createDate = " + post.getCreatedTime() + " revisedDated = " + post.getRevisedTime());
+        System.out.println(">>>>>>>>>> createDate = " + article.getCreatedTime() + " revisedDated = " + article.getRevisedTime());
     }
 }
