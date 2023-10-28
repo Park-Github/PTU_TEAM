@@ -1,7 +1,7 @@
 package SpringProject.WebCommunity;
 
-import SpringProject.WebCommunity.Domain.Post;
-import SpringProject.WebCommunity.Repository.PostRepos;
+import SpringProject.WebCommunity.Domain.Article;
+import SpringProject.WebCommunity.Repository.ArticleRepos;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,22 +10,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 class WebCommunityApplicationTests {
 
 	@Autowired
-	PostRepos postRepos;
+	ArticleRepos articleRepos;
 
 	@Test
 	void contextLoads() {
 		String title = "제목";
 		String content = "본문";
-		postRepos.save(Post.builder()
+		articleRepos.save(Article.builder()
 				.title(title)
 				.contents(content)
-				.likes(1)
-				.views(1)
 				.build());
 	}
-
-//	@AfterEach
-//	public void clean() {
-//		postRepos.deleteAll();
-//	}
 }

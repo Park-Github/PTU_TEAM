@@ -31,8 +31,8 @@
                 <span class="fs-4">대학생 커뮤니티 (가제)</span>
             </a>
             <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2">로그인</button>
-                <button type="button" class="btn btn-primary">회원가입</button>
+                <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/login'">로그인</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='/register'">회원가입</button>
             </div>
         </div>
     </div>
@@ -40,36 +40,36 @@
         <nav class="py-2 bg-body-tertiary border-bottom">
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto">
-                    <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">전체보기</a></li>
+                    <li class="nav-item"><a href="/sitemap" class="nav-link link-body-emphasis px-2 active" aria-current="page">전체보기</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">게시판</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">전체보기</a></li>
+                            <li><a class="dropdown-item" href="/full-view">전체보기</a></li>
                             <li><a class="dropdown-item" href="#">자유게시판</a></li>
                             <li><a class="dropdown-item" href="#">정보공유게시판</a></li>
                             <li><a class="dropdown-item" href="#">질문·답변게시판</a></li>
                             <li><a class="dropdown-item" href="#">홍보게시판</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">동아리</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">동아리찾기</a></li>
-                            <li><a class="dropdown-item" href="#">친목</a></li>
-                            <li><a class="dropdown-item" href="#">취업·창업</a></li>
-                            <li><a class="dropdown-item" href="#">학술·교양</a></li>
-                            <li><a class="dropdown-item" href="#">문화·예술</a></li>
-                            <li><a class="dropdown-item" href="#">스포츠</a></li>
-                            <li><a class="dropdown-item" href="#">봉사·사회활동</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">외부활동</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">대외활동</a></li>
-                            <li><a class="dropdown-item" href="#">공모전</a></li>
-                        </ul>
-                    </li>
+<!--                    <li class="nav-item dropdown">-->
+<!--                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">동아리</a>-->
+<!--                        <ul class="dropdown-menu">-->
+<!--                            <li><a class="dropdown-item" href="#">동아리찾기</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">친목</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">취업·창업</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">학술·교양</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">문화·예술</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">스포츠</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">봉사·사회활동</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item dropdown">-->
+<!--                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">외부활동</a>-->
+<!--                        <ul class="dropdown-menu">-->
+<!--                            <li><a class="dropdown-item" href="#">대외활동</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">공모전</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">취업정보</a>
                         <ul class="dropdown-menu">
@@ -80,7 +80,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">스터디·모임</a>
+                        <a class="nav-link dropdown-toggle" href="/study" data-bs-toggle="dropdown" aria-expanded="false">스터디·모임</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">자격증</a></li>
                             <li><a class="dropdown-item" href="#">어학</a></li>
@@ -90,8 +90,8 @@
                             <li><a class="dropdown-item" href="#">기타</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">중고장터</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">학점계산</a></li>
+                    <li class="nav-item"><a href="/market" class="nav-link link-body-emphasis px-2">중고장터</a></li>
+<!--                    <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">학점계산</a></li>-->
                 </ul>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
                     <input type="search" class="form-control" placeholder="검색..." aria-label="Search">
