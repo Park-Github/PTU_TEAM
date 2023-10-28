@@ -1,8 +1,6 @@
 package SpringProject.WebCommunity.Controller;
 
-import SpringProject.WebCommunity.Domain.Article;
 import SpringProject.WebCommunity.Dto.ArticleCreateDto;
-import SpringProject.WebCommunity.Repository.ArticleRepos;
 import SpringProject.WebCommunity.Service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

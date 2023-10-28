@@ -2,7 +2,6 @@ package SpringProject.WebCommunity.Dto;
 
 import SpringProject.WebCommunity.Domain.Article;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
