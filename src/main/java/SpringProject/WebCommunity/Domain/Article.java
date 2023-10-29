@@ -23,6 +23,7 @@ public class Article extends BaseTimeEntity{
     @Column(columnDefinition = "TEXT", nullable = false)
     String contents;
 
+
     @Builder
     public Article(String nickName, String title, String contents) {
         this.nickName = nickName;

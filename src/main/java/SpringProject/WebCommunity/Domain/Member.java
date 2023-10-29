@@ -7,17 +7,15 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
-@Table(name = "Member")
+@Table(name = "member")
 public class Member {
-    @Id @Column(updatable = false, nullable = false, length = 64)
-    private String id;
+    @Id @Column(updatable = false, nullable = false)
+    private Long id;
     @Column(nullable = false, length = 256)
     private String password;
-    @Column(nullable = false, length = 32)
-    private String name;
-    @Column(nullable = false, unique = true, length = 32)
+    @Column(nullable = false, unique = true, length = 64)
     private String nickName;
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 64)
     private String email;
     @Column(length = 15)
     private String contact;
@@ -28,10 +26,8 @@ public class Member {
     private String profileImg;
 
     @Builder // setter
-    public Member(String id, String password, String name, String nickName, String email, String contact, String birth) {
-        this.id = id;
+    public Member(String password,String nickName, String email, String contact, String birth) {
         this.password = password;
-        this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.contact = contact;

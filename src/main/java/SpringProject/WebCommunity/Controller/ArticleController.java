@@ -48,9 +48,8 @@ public class ArticleController {
         log.info("id = " + id);
         Optional<ArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
         articleReadDto.ifPresent(i -> model.addAttribute("article", i));
-
-
-        return "redirect:/";
+        articleReadDto.orElseThrow();
+        return "/menu/article";
     }
 
 }
