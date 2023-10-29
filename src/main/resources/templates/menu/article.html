@@ -12,19 +12,21 @@
 			<div class="container my-1">
 				<hr style="border: solid 1px rgb(0, 0, 0);"></hr>
 				<div class="bg-white p-4 rounded">
-					<div class="col-sm-11 mx-auto">
-						<h4 class="h4 fw-normal">(글 제목)</h4>
+					<div class="col-sm-10 mx-auto">
+						<h4 class="h4 fw-normal">[[${article.title}]]</h4>
 							<div class="d-flex hstack gap-2"> <!-- 본문 헤더 -->
-								<div class="me-auto">(글 작성자)</div>
+								<div class="me-auto">[[${article.nickName}]]</div>
 								<div>댓글 (숫자)</div>
 								<div class="vr"></div>
-								<div>조회수 (숫자)</div>
+								<div>조회수: [[${article.views}]]</div>
 								<div class="vr"></div>
-								<div>(글 작성일, 시간)</div>
+								<div>작성일: [[${#temporals.format(article.createdTime, 'yyyy-MM-dd')}]]</div>
+								<div class="vr"></div>
+								<div>수정일: [[${#temporals.format(article.revisedTime, 'yyyy-MM-dd')}]]</div>
 							</div>
 						<hr class="divider">
 						<div class="py-1">
-							<div>(글 내용)</div>
+							<div><div>[[${article.contents}]]</div></div>
 						</div>
 						<div class="text-center mt-5">
 							<button type="button" class="btn btn-primary me-2">공감 (숫자)</button>
