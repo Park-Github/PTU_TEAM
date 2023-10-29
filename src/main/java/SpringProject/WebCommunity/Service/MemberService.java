@@ -21,4 +21,9 @@ public class MemberService {
         String id = (String) session.getAttribute("member-id");
         return Optional.empty();
     }
+
+    public Long save(Member member) {
+        return memberRepos.save(member).getId();
+    }
+
 }
