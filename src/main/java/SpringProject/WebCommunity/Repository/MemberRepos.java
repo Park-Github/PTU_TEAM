@@ -1,7 +1,8 @@
 package SpringProject.WebCommunity.Repository;
 
-import org.springframework.stereotype.Repository;
-@Repository
-public class MemberRepos {
+import SpringProject.WebCommunity.Domain.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepos extends JpaRepository<Member, String> {
 
 }
