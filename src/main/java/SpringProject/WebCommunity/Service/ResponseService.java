@@ -10,13 +10,22 @@ import java.util.List;
 @Service
 public class ResponseService {
 
-    public Response getResponse(boolean success) {
+    public Response getSuccessResponse() {
         Response response = new Response();
-        if (success) {
-            markSuccess(response);
-        } else {
-            markFail(response);
-        }
+        markSuccess(response);
+        return response;
+    }
+
+    public Response getFailResponse() {
+        Response response = new Response();
+        markFail(response);
+        return response;
+    }
+
+    public Response getFailResponse(int status, String message) {
+        Response response = getFailResponse();
+        response.setStatus(status);
+        response.setMessage(message);
         return response;
     }
 
