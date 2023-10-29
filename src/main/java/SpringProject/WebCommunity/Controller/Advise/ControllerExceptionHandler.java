@@ -16,12 +16,6 @@ public class ControllerExceptionHandler {
 
     private final ResponseService responseService;
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    protected Response handleException(HttpServletRequest request, Exception e) {
-        return responseService.getFailResponse();
-    }
-
     @ExceptionHandler(ControllerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected Response handleControllerException(HttpServletRequest request, ControllerException e) {
