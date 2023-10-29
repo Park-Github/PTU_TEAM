@@ -1,12 +1,17 @@
 package SpringProject.WebCommunity.Controller;
 
 import SpringProject.WebCommunity.Dto.ArticleCreateDto;
+import SpringProject.WebCommunity.Dto.ArticleReadDto;
 import SpringProject.WebCommunity.Service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -15,8 +20,8 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    @GetMapping("/article-list/article")
-    public String articleView() {
+    @GetMapping("/article-list/articles")
+    public String articleListView() {
         return "/menu/article";
     }
 
@@ -35,7 +40,16 @@ public class ArticleController {
 
         log.info(boardId.toString());
 
-        return "redirect:/article-list/article";
+        return "redirect:/article-list/articles/" + boardId;
+    }
+
+    @GetMapping("/article-list/articles/{id}")
+    public String getArticle(@PathVariable Long id, Model model) {
+        log.info("id = " + id);
+        Optional<ArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
+        articleReadDto.ifPresent(i -> model.addAttribute("article", i));
+        articleReadDto.orElseThrow();
+        return "/menu/article";
     }
 
 }
