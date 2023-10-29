@@ -1,129 +1,155 @@
-<!--스터디 모임 페이지 /study-->
+<!--게시글 목록 페이지 /article-list-->
 <!DOCTYPE html>
-  <html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
-    <th:block th:replace="~{/common/essential::header}"></th:block>
-    <div th:replace="~{/common/navbar::headline}"></div>
-    <div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
-    <style>
-      .image-thumbnail {
-        width: 215px;
-        height: 300px;
-        overflow: hidden;
-        margin: 0 auto;
-      }
-
-      .image-thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-		  }
-    </style>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<th:block th:replace="~{/common/essential::header}"></th:block>
 <body>
-  <main>
-    <div class="container d-flex flex-wrap mb-2 my-2"> <!-- 제목 -->
-			<h1 class="h3 fw-normal"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">대외활동</a></h1>
-		</div>
-  	<div class="container bg-body-tertiary border rounded-3 mb-4"> 
-      <div class="d-grid gap-4 my-3" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--대외활동 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(활동명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--대외활동 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(활동명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--대외활동 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(활동명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--대외활동 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(활동명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--대외활동 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(활동명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-      </div>
-    </div>
-    <div class="container d-flex flex-wrap mb-2 my-2"> <!-- 제목 -->
-			<h1 class="h3 fw-normal"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">공모전</a></h1>
-		</div>
-  	<div class="container bg-body-tertiary border rounded-3 mb-4"> 
-      <div class="d-grid gap-4 my-3" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--공모전 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(공모전명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--공모전 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(공모전명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--공모전 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(공모전명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--공모전 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(공모전명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-        <div class="bg-white border rounded-3 d-flex flex-wrap"> <!--공모전 홍보글-->
-          <div class="image-thumbnail mt-2">
-            <a href="#"><img src="/img/club_ad_sample.png"></a>
-          </div>
-          <div class="mx-2 mt-2 mb-2">
-            <a href="#" class="link-body-emphasis text-decoration-none color-inherit"><b>(공모전명)</b></a>
-            <div><a>(개요)</a></div>
-          </div>	  
-        </div>
-      </div>
-    </div>
-  </main>
+<div th:replace="~{/common/navbar::headline}"></div>
+<div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
+<style>
+  td {
+    vertical-align: middle;
+  }
+
+  span {
+    vertical-align: middle;
+  }
+
+  .title-short {
+    display: inline-block;
+    max-width: 45rem;
+  }
+
+  .nickname-short {
+    display: inline-block;
+    max-width: 8rem;
+  }
+</style>
+<div class="container mt-3">
+    <a href="/study" class="btn btn-outline-primary" role="button" aria-pressed="true">자격증</a>
+    <a href="/study" class="btn btn-outline-primary" role="button" aria-pressed="true">어학</a>
+    <a href="/study" class="btn btn-outline-primary" role="button" aria-pressed="true">국가고시</a>
+    <a href="/study" class="btn btn-outline-primary" role="button" aria-pressed="true">공무원시험</a>
+    <a href="/study" class="btn btn-outline-primary" role="button" aria-pressed="true">전공시험</a>
+    <a href="/study" class="btn btn-outline-primary" role="button" aria-pressed="true">기타</a>
+  <table class="table table-hover table-striped my-3">
+    <tbody>
+      <tr>
+        <td style="text-align: center"><button type="button" class="btn btn-secondary btn-sm" disabled>자격증</button></td>
+        <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+          </span>
+          <span>(대괄호 안에 댓글수)</span>
+        </td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
+        <td style="text-align: center">(글 작성일, 시간)</td>
+        <td style="text-align: center">(조회수)</td>
+        <td style="text-align: center">(공감수)</td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><button type="button" class="btn btn-secondary btn-sm" disabled>어학</button></td>
+        <td style>
+          <span class="title-short text-truncate">
+            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+          </span>
+          <span>(대괄호 안에 댓글수)</span>
+        </td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
+        <td style="text-align: center">(글 작성일, 시간)</td>
+        <td style="text-align: center">(조회수)</td>
+        <td style="text-align: center">(공감수)</td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><button type="button" class="btn btn-secondary btn-sm" disabled>국가고시</button></td>
+        <td style>
+          <span class="title-short text-truncate">
+            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+          </span>
+          <span>(대괄호 안에 댓글수)</span>
+        </td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
+        <td style="text-align: center">(글 작성일, 시간)</td>
+        <td style="text-align: center">(조회수)</td>
+        <td style="text-align: center">(공감수)</td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><button type="button" class="btn btn-secondary btn-sm" disabled>공무원시험</button></td>
+        <td style>
+          <span class="title-short text-truncate">
+            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+          </span>
+          <span>(대괄호 안에 댓글수)</span>
+        </td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
+        <td style="text-align: center">(글 작성일, 시간)</td>
+        <td style="text-align: center">(조회수)</td>
+        <td style="text-align: center">(공감수)</td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><button type="button" class="btn btn-secondary btn-sm" disabled>전공시험</button></td>
+        <td style>
+          <span class="title-short text-truncate">
+            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+          </span>
+          <span>(대괄호 안에 댓글수)</span>
+        </td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
+        <td style="text-align: center">(글 작성일, 시간)</td>
+        <td style="text-align: center">(조회수)</td>
+        <td style="text-align: center">(공감수)</td>
+      </tr>
+      <tr>
+        <td style="text-align: center"><button type="button" class="btn btn-secondary btn-sm" disabled>기타</button></td>
+        <td style>
+          <span class="title-short text-truncate">
+            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+          </span>
+          <span>(대괄호 안에 댓글수)</span>
+        </td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
+        <td style="text-align: center">(글 작성일, 시간)</td>
+        <td style="text-align: center">(조회수)</td>
+        <td style="text-align: center">(공감수)</td>
+      </tr> 
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-md-end">
+    <a href="/article-list/form" class="btn btn-primary">글쓰기</a>
+  </div>
+
+  <div class="container d-flex justify-content-center">
+		<ul class="pagination">
+			<li class="page-item"><a href="/study" class="page-link">이전</a></li>
+			<li class="page-item"><a href="/study" class="page-link">1</a></li>
+			<li class="page-item"><a href="/study" class="page-link">2</a></li>
+			<li class="page-item"><a href="/study" class="page-link">3</a></li>
+			<li class="page-item"><a href="/study" class="page-link">4</a></li>
+			<li class="page-item"><a href="/study" class="page-link">5</a></li>
+			<li class="page-item"><a href="/study" class="page-link">6</a></li>
+			<li class="page-item"><a href="/study" class="page-link">7</a></li>
+			<li class="page-item"><a href="/study" class="page-link">8</a></li>
+			<li class="page-item"><a href="/study" class="page-link">9</a></li>
+			<li class="page-item"><a href="/study" class="page-link">다음</a></li>
+		</ul>
+  </div>
+
+  <div class="container d-flex justify-content-center">
+    <form class="col-4 mb-3 mb-lg-0" role="search">
+      <input type="search" class="form-control" placeholder="검색..." aria-label="Search">
+    </form>
+  </div>
+</div>
+
+<hr class="divider my-3">
+
+<footer class="page-footer">
+  <div class="d-flex justify-content-center">
+    <nav class="nav">
+      <a href="#" class="nav-link">회원탈퇴</a>
+      <a href="#" class="nav-link">개인정보처리방침</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>

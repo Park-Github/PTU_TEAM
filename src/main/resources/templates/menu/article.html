@@ -6,13 +6,13 @@
 	<div th:replace="~{/common/navbar::headline}"></div>
 	<div th:replace="~{/common/navbar::navigation}"></div>
 		<main>
-			<div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
+			<div class="container mt-3"> <!-- 제목 -->
 				<h1 class="h3 fw-normal">(게시판명)</h1>
 			</div>
 			<div class="container my-1">
-				<hr class="divider">
+				<hr style="border: solid 1px rgb(0, 0, 0);"></hr>
 				<div class="bg-white p-4 rounded">
-					<div class="col-sm-10 mx-auto">
+					<div class="col-sm-11 mx-auto">
 						<h4 class="h4 fw-normal">(글 제목)</h4>
 							<div class="d-flex hstack gap-2"> <!-- 본문 헤더 -->
 								<div class="me-auto">(글 작성자)</div>
@@ -20,7 +20,7 @@
 								<div class="vr"></div>
 								<div>조회수 (숫자)</div>
 								<div class="vr"></div>
-								<div>(글 작성일/시간)</div>
+								<div>(글 작성일, 시간)</div>
 							</div>
 						<hr class="divider">
 						<div class="py-1">
@@ -31,22 +31,32 @@
 							<button type="button" class="btn btn-danger">신고</button>
 							<hr class="divider">
 						</div>
-						<h4 class="h5 mb-3">댓글</h4>
-						<div><!-- 댓글 목록 -->
-							<div class="d-flex hstack gap-2">
-								<div>(댓글 작성자)</div>
-								<div class="vr"></div>
-								<div class="me-auto">(댓글 내용)</div>
-								<div class="vr"></div>
-								<div class="text-black-50">(댓글 작성일/시간)</div>
-							</div>
-							<hr class="divider mt-2">
-						</div>
+						<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
+						<table class="table">
+							<thead><tr></tr></thead>
+							<tbody>
+								<tr>
+									<th>(닉네임)</th>
+									<td style="width: 72%">(댓글 내용)</td>
+									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
+								</tr>
+								<tr>
+									<th>(닉네임)</th>
+									<td style="width: 72%">(댓글 내용)</td>
+									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
+								</tr>
+								<tr>
+									<th>(닉네임)</th>
+									<td style="width: 72%">(댓글 내용)</td>
+									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
+								</tr>
+							</tbody>
+						</table>
 						<div class="bg-body-tertiary p-3 rounded">
 							<div class="form-group row">
 								<div class="input-group">
-									<label for="reply-input" class="col-1 col-form-label">(닉네임)</label>
-									<input class="form-control" type="text" id="reply-input">
+									<label for="reply-input" class="col-form-label">(닉네임)</label>
+									<input class="form-control mx-3" type="text" id="reply-input">
 									<button class="btn btn-outline-secondary" type="button">작성</button>
 								</div>
 							</div>
