@@ -5,10 +5,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ArticleUpdateDto {
+public class BoardArticleUpdateDto {
     private String title;
     private String contents;
-    public ArticleUpdateDto(String title, String contents) {
+    public BoardArticleUpdateDto(String title, String contents) {
         this.title = title;
         this.contents = contents;
     }
