@@ -37,7 +37,9 @@
 						</div>
 						<div class="text-center mt-5">
 							<button type="button" class="btn btn-primary me-2">공감 [[${boardArticle.likes}]]</button>
-							<button type="button" class="btn btn-primary me-2">수정</button>
+							<button type="button"
+									th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+									class="btn btn-primary me-2">수정</button>
 							<button type="button" class="btn btn-danger me-2">삭제</button>
 							<hr class="divider">
 						</div>
