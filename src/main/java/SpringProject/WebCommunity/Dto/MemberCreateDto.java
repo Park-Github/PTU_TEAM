@@ -1,6 +1,5 @@
 package SpringProject.WebCommunity.Dto;
 
-import SpringProject.WebCommunity.Domain.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
