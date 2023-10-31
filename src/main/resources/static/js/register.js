@@ -10,13 +10,14 @@ document.addEventListener("DOMContentLoaded", onInit);
 
 function onInit() {
     let form = document.querySelector("#form");
-    emailInput = document.querySelector("#email-input");
-    passwordInput = document.querySelector("#password-input");
-    passwordCheck = document.querySelector("#password-check");
-    nicknameInput = document.querySelector("#nickname-input");
-    phoneInput = document.querySelector("#phone-input");
-    birthInput = document.querySelector("#birth-input");
-    privacyConsent = document.querySelector("#privacy-consent");
+    emailInput = form.elements.namedItem("email");
+    passwordInput = form.elements.namedItem("password");
+    passwordCheck = form.elements.namedItem("password-check");
+    nicknameInput = form.elements.namedItem("nickname");
+    phoneInput = form.elements.namedItem("contact");
+    birthInput = form.elements.namedItem("birth");
+    privacyConsent = form.elements.namedItem("privacy-consent");
+    birthInput.addEventListener("click", () => resetInput(birthInput));
     emailInput.addEventListener("input", validateForm);
     passwordInput.addEventListener("input", validateForm);
     passwordCheck.addEventListener("input", validateForm);
@@ -32,6 +33,7 @@ function submitForm(event) {
         event.preventDefault();
     }
     // todo compute response
+
 }
 
 function validateForm() {
@@ -47,7 +49,7 @@ function validateForm() {
         && validate(passwordInput, (password1 && password1.length >= 8))
         && validate(passwordCheck, (password1 === password2))
         && validate(nicknameInput, nickname)
-        && validate(phoneInput, phone)
+        && validate(phoneInput, phone && phone.match(/^[0-9]+$/) != null)
         && validate(birthInput, birth)
         && validate(privacyConsent, consent));
 }
@@ -65,4 +67,8 @@ function validate(input, expr) {
 function updateInput(input, valid) {
     input.classList.add(valid ? "is-valid" : "is-invalid");
     input.classList.remove(valid ? "is-invalid" : "is-valid");
+}
+
+function resetInput(input) {
+    input.classList.remove("is-invalid", "is-valid");
 }
