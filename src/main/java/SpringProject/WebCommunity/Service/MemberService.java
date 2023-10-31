@@ -46,8 +46,13 @@ public class MemberService {
             throw new RegisterException(RegisterException.Reason.INCOMPLETE_FORM);
         }
 
-        // todo check duplicate nickname
-        // todo check duplicate email
+        if (memberRepos.findByEmail(email) != null) {
+            throw new RegisterException(RegisterException.Reason.DUPLICATE_EMAIL);
+        }
+
+        if (memberRepos.findByNickname(nickname) != null) {
+            throw new RegisterException(RegisterException.Reason.DUPLICATE_NAME);
+        }
 
         if (password.length() < 8) {
             throw new RegisterException(RegisterException.Reason.SHORT_PASSWORD);

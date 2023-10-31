@@ -11,6 +11,8 @@ public class RegisterException extends ControllerException {
     public enum Reason {
         INCOMPLETE_FORM(1, "Incomplete form"),
         SHORT_PASSWORD(2, "Password too short"),
+        DUPLICATE_EMAIL(3, "Email already in use"),
+        DUPLICATE_NAME(4, "Name already in use"),
         ;
 
         private final int status;
