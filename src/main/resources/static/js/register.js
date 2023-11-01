@@ -1,108 +1,96 @@
-let emailInput;
-let passwordInput;
-let passwordCheck;
-let nicknameInput;
-let phoneInput;
-let birthInput;
-let privacyConsent;
+import {resetInput, updateInput, validateInput} from "./common.js";
 
-document.addEventListener("DOMContentLoaded", onInit);
 
-function onInit() {
-    let form = document.querySelector("#form");
-    emailInput = form.elements.namedItem("email");
-    passwordInput = form.elements.namedItem("password");
-    passwordCheck = form.elements.namedItem("password-check");
-    nicknameInput = form.elements.namedItem("nickname");
-    phoneInput = form.elements.namedItem("contact");
-    birthInput = form.elements.namedItem("birth");
-    privacyConsent = form.elements.namedItem("privacy-consent");
-    birthInput.addEventListener("click", () => resetInput(birthInput));
-    emailInput.addEventListener("input", validateForm);
-    passwordInput.addEventListener("input", validateForm);
-    passwordCheck.addEventListener("input", validateForm);
-    nicknameInput.addEventListener("input", validateForm);
-    phoneInput.addEventListener("input", validateForm);
-    birthInput.addEventListener("input", validateForm);
-    privacyConsent.addEventListener("input", validateForm);
-    form.addEventListener("submit", e => onSubmit(e, form));
-}
-
-async function onSubmit(event, form) {
-    event.preventDefault();
-
-    if (!validateForm()) return;
-
-    let r = await fetch("/member/register", {
-        method: "POST",
-        body: new FormData(form)
-    });
-    let json = await r.json();
-
-    if (r.ok) {
-        location.href = "/";
-    } else {
-        onError(json);
+class RegisterService {
+    static init() {
+        let service = new RegisterService();
+        document.addEventListener("DOMContentLoaded", () => service.onInit());
     }
-}
 
-function onError(response) {
-    let status = parseInt(response["status"]);
-
-    switch (status) {
-        case 1:  // INCOMPLETE_FORM
-            window.alert("누락된 내용이 있습니다.");
-            break;
-        case 2:  // SHORT_PASSWORD
-            updateInput(passwordInput, false);
-            window.alert("비밀번호는 최소 8글자로 구성해야 합니다.")
-            break;
-        case 3:  // DUPLICATE_EMAIL
-            updateInput(emailInput, false);
-            window.alert("본 이메일은 이미 사용중입니다.");
-            break;
-        case 4:  // DUPLICATE_NAME
-            updateInput(nicknameInput, false);
-            window.alert("본 이름은 이미 사용중입니다.");
-            break;
-        default:
-            window.alert("서버 오류!");
+    onInit() {
+        this.form = document.querySelector("#form");
+        this.emailInput = this.form.elements.namedItem("email");
+        this.passwordInput = this.form.elements.namedItem("password");
+        this.passwordCheck = this.form.elements.namedItem("password-check");
+        this.nicknameInput = this.form.elements.namedItem("nickname");
+        this.phoneInput = this.form.elements.namedItem("contact");
+        this.birthInput = this.form.elements.namedItem("birth");
+        this.privacyConsent = this.form.elements.namedItem("privacy-consent");
+        this.birthInput.addEventListener("click", () => resetInput(this.birthInput));
+        this.emailInput.addEventListener("input", () => this.validateForm());
+        this.passwordInput.addEventListener("input", () => this.validateForm());
+        this.passwordCheck.addEventListener("input", () => this.validateForm());
+        this.nicknameInput.addEventListener("input", () => this.validateForm());
+        this.phoneInput.addEventListener("input", () => this.validateForm());
+        this.birthInput.addEventListener("input", () => this.validateForm());
+        this.privacyConsent.addEventListener("input", () => this.validateForm());
+        this.form.addEventListener("submit", e => this.onSubmit(e));
     }
-}
 
-function validateForm() {
-    let email = emailInput.value;
-    let password1 = passwordInput.value;
-    let password2 = passwordCheck.value;
-    let nickname = nicknameInput.value;
-    let phone = phoneInput.value;
-    let birth = birthInput.value;
-    let consent = privacyConsent.checked;
+    async onSubmit(event) {
+        event.preventDefault();
 
-    return (validate(emailInput, (email && email.includes("@")))
-        && validate(passwordInput, (password1 && password1.length >= 8))
-        && validate(passwordCheck, (password1 === password2))
-        && validate(nicknameInput, nickname)
-        && validate(phoneInput, (phone && phone.match(/^[0-9]+$/) != null))
-        && validate(birthInput, birth)
-        && validate(privacyConsent, consent));
-}
+        if (this.validateForm()) {
+            let r = await fetch("/member/register", {
+                method: "POST",
+                body: new FormData(this.form)
+            });
+            let json = await r.json();
 
-function validate(input, expr) {
-    if (expr) {
-        updateInput(input, true);
+            if (r.ok) {
+                location.href = "/";
+            } else {
+                this.onError(json);
+            }
+        }
+    }
+
+    onError(data) {
+        let status = parseInt(data["status"]);
+
+        switch (status) {
+            case 1:  // INCOMPLETE_FORM
+                window.alert("누락된 내용이 있습니다.");
+                break;
+            case 2:  // SHORT_PASSWORD
+                updateInput(this.passwordInput, false);
+                window.alert("비밀번호는 최소 8글자로 구성해야 합니다.")
+                break;
+            case 3:  // DUPLICATE_EMAIL
+                updateInput(this.emailInput, false);
+                window.alert("본 이메일은 이미 사용중입니다.");
+                break;
+            case 4:  // DUPLICATE_NAME
+                updateInput(this.nicknameInput, false);
+                window.alert("본 이름은 이미 사용중입니다.");
+                break;
+            default:
+                window.alert("서버 오류!");
+        }
+    }
+
+    validateForm() {
+        try {
+            let email = this.emailInput.value;
+            let password1 = this.passwordInput.value;
+            let password2 = this.passwordCheck.value;
+            let nickname = this.nicknameInput.value;
+            let phone = this.phoneInput.value;
+            let birth = this.birthInput.value;
+            let consent = this.privacyConsent.checked;
+
+            validateInput(this.emailInput, (email && email.includes("@")))
+            validateInput(this.passwordInput, (password1 && password1.length >= 8))
+            validateInput(this.passwordCheck, (password1 === password2))
+            validateInput(this.nicknameInput, nickname)
+            validateInput(this.phoneInput, (phone && phone.match(/^[0-9]+$/)))
+            validateInput(this.birthInput, birth)
+            validateInput(this.privacyConsent, consent);
+        } catch (e) {
+            return false;
+        }
         return true;
-    } else {
-        updateInput(input, false);
-        return false;
     }
 }
 
-function updateInput(input, valid) {
-    input.classList.add(valid ? "is-valid" : "is-invalid");
-    input.classList.remove(valid ? "is-invalid" : "is-valid");
-}
-
-function resetInput(input) {
-    input.classList.remove("is-invalid", "is-valid");
-}
+RegisterService.init();
