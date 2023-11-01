@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Domain;
 
-import SpringProject.WebCommunity.Service.SecurityService;
+import SpringProject.WebCommunity.Service.PasswordService;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = SecurityService.SALT_LENGTH)
+    @Column(nullable = false, length = PasswordService.SALT_LENGTH)
     private String passwordSalt;
-    @Column(nullable = false, length = SecurityService.HASH_LENGTH)
+    @Column(nullable = false, length = PasswordService.HASH_LENGTH)
     private String passwordHash;
     @Column(nullable = false, unique = true, length = 64)
     private String nickName;

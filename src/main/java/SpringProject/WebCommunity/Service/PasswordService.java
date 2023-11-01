@@ -1,5 +1,7 @@
 package SpringProject.WebCommunity.Service;
 
+import SpringProject.WebCommunity.Domain.Member;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,9 @@ import java.util.Base64;
 import java.util.logging.Level;
 
 @Log
+@RequiredArgsConstructor
 @Service
-public class SecurityService {
+public class PasswordService {
 
     public static final int SALT_LENGTH = 24;  // 24 = 4 * ceil(SALT_BYTES / 3)
     public static final int HASH_LENGTH = 24;  // 24 = 4 * ceil(HASH_BYTES / 3)
@@ -49,6 +52,12 @@ public class SecurityService {
         }
 
         return hash;
+    }
+
+    public boolean matchPassword(Member member, String password) {
+        String salt = member.getPasswordSalt();
+        String hash = encodePassword(password, salt);
+        return member.getPasswordHash().equals(hash);
     }
 
     private String encodeBinary(byte[] bytes) {

@@ -17,7 +17,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepos memberRepos;
-    private final SecurityService securityService;
+    private final PasswordService passwordService;
     private final ResponseService responseService;
 
     public Optional<Member> getMember(HttpSession session) {
@@ -27,12 +27,6 @@ public class MemberService {
 
     public Long save(Member member) {
         return memberRepos.save(member).getId();
-    }
-
-    public boolean matchPassword(Member member, String password) {
-        String salt = member.getPasswordSalt();
-        String hash = securityService.encodePassword(password, salt);
-        return member.getPasswordHash().equals(hash);
     }
 
     public Response register(MemberCreateDto dto) throws RegisterException {
@@ -58,8 +52,8 @@ public class MemberService {
             throw new RegisterException(RegisterException.Reason.SHORT_PASSWORD);
         }
 
-        String salt = securityService.getRandomSalt();
-        String hash = securityService.encodePassword(password, salt);
+        String salt = passwordService.getRandomSalt();
+        String hash = passwordService.encodePassword(password, salt);
         Member entity = Member.builder()
                 .passwordHash(hash)
                 .passwordSalt(salt)
