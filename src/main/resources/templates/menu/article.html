@@ -6,6 +6,12 @@
 	<div th:replace="~{/common/navbar::headline}"></div>
 	<div th:replace="~{/common/navbar::navigation}"></div>
 		<main>
+			<th:block th:if="${success}">
+				<div class="alert alert-primary alert-dismissible">
+					<h4 style="text-align: center">[[${success}]]</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</th:block>
 			<div class="container mt-3"> <!-- 제목 -->
 				<h1 th:if="${boardArticle.category == 'free'}" class="h3 fw-normal"><a href="/board/view?category=free" class="link-body-emphasis
 				text-decoration-none color-inherit">자유게시판</a></h1>
@@ -38,9 +44,10 @@
 						<div class="text-center mt-5">
 							<button type="button" class="btn btn-primary me-2">공감 [[${boardArticle.likes}]]</button>
 							<button type="button"
-									th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+									id="deleteErrorBtn" th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
 									class="btn btn-primary me-2">수정</button>
-							<button type="button" class="btn btn-danger me-2">삭제</button>
+							<button type="button" th:onclick="|location.href='@{/board/delete/{category}(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+									class="btn btn-danger me-2">삭제</button>
 							<hr class="divider">
 						</div>
 						<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->

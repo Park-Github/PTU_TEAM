@@ -24,15 +24,26 @@
     max-width: 8rem;
   }
 </style>
+<th:block th:if="${success}">
+  <div class="alert alert-primary alert-dismissible">
+    <h4 style="text-align: center">[[${success}]]</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</th:block>
+<th:block th:if="${fail}">
+  <div class="alert alert-primary alert-dismissible">
+    <h4 style="text-align: center">[[${fail}]]</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</th:block>
 <div class="container mt-3">
   <h1 th:if="${boardCat == 'free'}" class="h3 fw-normal">자유게시판</h1>
   <h1 th:if="${boardCat == 'sharing'}" class="h3 fw-normal">정보공유게시판</h1>
   <h1 th:if="${boardCat == 'qna'}" class="h3 fw-normal">질문답변게시판</h1>
   <h1 th:if="${boardCat == 'promotion'}" class="h3 fw-normal">홍보게시판</h1>
   <hr style="border: solid 1px rgb(0, 0, 0);">
-  </hr-solid>
   <div class="d-flex justify-content-between">
-    <select class="form-select" select style="width:125px;font-size:16px" aria-label="Default select example">
+    <select class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
       <option selected>등록순</option>
       <option value="1">공감순</option>
       <option value="2">댓글순</option>

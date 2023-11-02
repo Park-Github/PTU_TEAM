@@ -8,10 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,30 +25,30 @@ public class BoardArticleController {
     @GetMapping("/board/form/{cat}")
     public String newArticleForm(@PathVariable(name = "cat") String category,
                                  Model model, BoardArticleCreateDto dto) {
-        model.addAttribute("articleDto", dto);
-        model.addAttribute("articleCat", category);
+        model.addAttribute("boardArticle", dto);
+        model.addAttribute("category", category);
         return "/form/post-write";
     }
 
     // 게시판 게시글 입력 데이터 POST mapping
-    @PostMapping("/board/create/{articleCat}")
-    public String createBoardArticle(@PathVariable(name = "articleCat")String category, BoardArticleCreateDto form) {
+    @PostMapping("/board/create")
+    public String createBoardArticle(@RequestParam(name = "category")String category,
+                                     BoardArticleCreateDto form,
+                                     RedirectAttributes redirectAttr) {
         log.info(form.getTitle());
         log.info(form.getContents());
         log.info(form.toString());
         log.info(category);
 
-        form.setCategory(category);
-
-        Long boardId = articleService.save(form);
-
+        Long boardId = articleService.saveToCreate(form);
+        redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
         log.info(boardId.toString());
 
         return "redirect:/board/view/" + boardId;
     }
 
     // 게시판 게시글 조회
-    @GetMapping("/board/view/{id}")
+    @GetMapping("/board/view/{id}") // TODO: 2023-11-03 articleReadDto null 예외처리
     public String showArticle(@PathVariable Long id, Model model) {
         log.info("id = " + id);
         Optional<BoardArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
@@ -72,19 +70,69 @@ public class BoardArticleController {
     }
 
     // 게시판 게시글 수정 페이지 요청 처리
-    @GetMapping("/board/edit")
+    @GetMapping("/board/edit") // TODO: 2023-11-03 findById nullPointException 예외처리
     public String articleEditPageView(@RequestParam(name = "category") String category,
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
         BoardArticleReadDto readDto = articleService.findById(id);
-        BoardArticleUpdateDto updateDto = new BoardArticleUpdateDto(readDto.getTitle(), readDto.getContents());
+        BoardArticleUpdateDto updateDto = new BoardArticleUpdateDto(id, readDto.getTitle(), readDto.getContents());
         log.info(String.valueOf(id));
         log.info(updateDto.getTitle());
         log.info(updateDto.getContents());
 
-        model.addAttribute("articleDto", updateDto);
         model.addAttribute("cat", category);
+        model.addAttribute("articleDto", updateDto);
+        model.addAttribute("id", id);
 
         return "/form/post-edit";
     }
+
+    // 게시판 게시글 수정 데이터 POST mapping
+    @PostMapping ("/board/edit")
+    public String editBoardArticle(@RequestParam(name = "id") Long id,
+                                   BoardArticleUpdateDto form,
+                                   Model model) {
+        log.info(form.getTitle() + "제목");
+        log.info(form.getContents() + "내용");
+        log.info(id.toString() + "id");
+
+        BoardArticleReadDto article = articleService.update(id, form);
+        Long newId = articleService.saveToUpdate(article);
+        articleService.delete(id);
+
+        log.info(article.getCategory() + "카테고리");
+
+        model.addAttribute("boardArticle", article);
+
+        return "redirect:/board/view/" + newId;
+    }
+
+    // 게시판 게시글 삭제 요청
+    @GetMapping("/board/delete/{category}") // TODO: 2023-11-02 게시글 삭제 요청시 삭제글 없을 시 예외 처리
+    public String articleDeletePageView(@RequestParam(name = "id") Long id,
+                                        @PathVariable(name = "category") String category,
+                                        RedirectAttributes redirectAttr) {
+        Optional<BoardArticleReadDto> dto = articleService.optionalFindById(id);
+
+        if (dto.isPresent()) {
+            articleService.delete(id);
+            redirectAttr.addFlashAttribute("success", "게시글이 삭제되었습니다.");
+            return switch (category) {
+                default -> "redirect:/board/view?category=free";
+                case "sharing" -> "redirect:/board/view?category=sharing";
+                case "qna" -> "redirect:/board/view?category=qna";
+                case "promotion" -> "redirect:/board/view?category=promotion";
+            };
+        }
+        else {
+            redirectAttr.addFlashAttribute("fail", "게시글을 찾을 수 없어 삭제에 실패하였습니다..");
+            return switch (category) {
+                default -> "redirect:/board/view?category=free";
+                case "sharing" -> "redirect:/board/view?category=sharing";
+                case "qna" -> "redirect:/board/view?category=qna";
+                case "promotion" -> "redirect:/board/view?category=promotion";
+            };
+        }
+    }
 }
+

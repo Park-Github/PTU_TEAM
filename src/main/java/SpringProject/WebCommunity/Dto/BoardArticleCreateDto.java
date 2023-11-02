@@ -8,15 +8,12 @@ import lombok.*;
 public class BoardArticleCreateDto {
     private final String title;
     private final String contents;
-    private String Category;
+    private final String category;
 
-    public BoardArticleCreateDto(String title, String contents) {
+    public BoardArticleCreateDto(String title, String contents, String category) {
         this.title = title;
         this.contents = contents;
-    }
-
-    public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public BoardArticle toEntity() {

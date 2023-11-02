@@ -30,4 +30,15 @@ public class BoardArticleReadDto {
         this.createdTime = entity.getCreatedTime();
         this.revisedTime = entity.getRevisedTime();
     }
+
+    public BoardArticle toEntity() {
+        return BoardArticle.builder()
+                .title(getTitle())
+                .contents(getContents())
+                .nickName(getNickName())
+                .category(getCategory())
+                .likes(getLikes())
+                .views(getViews())
+                .build();
+    }
 }

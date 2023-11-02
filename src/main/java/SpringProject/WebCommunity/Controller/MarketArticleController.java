@@ -31,7 +31,7 @@ public class MarketArticleController {
         log.info(form.getContents());
         log.info(form.toString());
 
-        Long boardId = articleService.save(form);
+        Long boardId = articleService.saveToCreate(form);
 
         log.info(boardId.toString());
 
