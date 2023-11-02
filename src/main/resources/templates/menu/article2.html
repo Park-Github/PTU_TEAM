@@ -1,4 +1,4 @@
-<!--게시글 화면 /article-list/articles-->
+<!--게시글 화면 /article-list/market-articles2-->
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
 <th:block th:replace="~{/common/navbar::header}"></th:block>
@@ -29,8 +29,6 @@
 							<div><div>[[${article.contents}]]</div></div>
 						</div>
 						<div class="text-center mt-5">
-							<button type="button" class="btn btn-primary btn-lg me-2">공감 (숫자)</button>
-							<div class="text-center mt-2">
 								<button type="button" class="btn btn-primary me-2">수정</button>
 								<button type="button" class="btn btn-danger me-2">삭제</button>
 							</div>
