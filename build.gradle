@@ -74,14 +74,6 @@ sourceSets {
 	main.java.srcDirs += [ querydslDir ]
 }
 
-tasks.withType(JavaCompile).configureEach{
-	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
-}
-
 clean {
 	delete file('src/main/generated')
-}
-
-clean.doLast {
-	file(querydslDir).deleteDir()
 }
