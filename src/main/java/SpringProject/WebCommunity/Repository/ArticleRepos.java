@@ -1,8 +1,8 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Domain.Article;
+import SpringProject.WebCommunity.Domain.BoardArticle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ArticleRepos extends JpaRepository<Article, Long> {
+public interface ArticleRepos extends JpaRepository<BoardArticle, Long> {
     
 }
