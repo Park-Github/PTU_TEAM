@@ -6,34 +6,48 @@
 	<div th:replace="~{/common/navbar::headline}"></div>
 	<div th:replace="~{/common/navbar::navigation}"></div>
 		<main>
+			<th:block th:if="${success}">
+				<div class="alert alert-primary alert-dismissible">
+					<h4 style="text-align: center">[[${success}]]</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</th:block>
 			<div class="container mt-3"> <!-- 제목 -->
-				<h1 class="h3 fw-normal">(게시판명)</h1>
+				<h1 th:if="${boardArticle.category == 'free'}" class="h3 fw-normal"><a href="/board/view?category=free" class="link-body-emphasis
+				text-decoration-none color-inherit">자유게시판</a></h1>
+				<h1 th:if="${boardArticle.category == 'sharing'}" class="h3 fw-normal"><a href="/board/view?category=sharing" class="link-body-emphasis
+				text-decoration-none color-inherit">정보공유게시판</a></h1>
+				<h1 th:if="${boardArticle.category == 'qna'}" class="h3 fw-normal"><a href="/board/view?category=qna" class="link-body-emphasis
+				text-decoration-none color-inherit">질문답변게시판</a></h1>
+				<h1 th:if="${boardArticle.category == 'promothion'}" class="h3 fw-normal"><a href="/board/view?category=promotion" class="link-body-emphasis
+				text-decoration-none color-inherit">홍보게시판</a></h1>
 			</div>
 			<div class="container my-1">
 				<hr style="border: solid 1px rgb(0, 0, 0);">
 				<div class="bg-white p-4 rounded">
 					<div class="col-sm-10 mx-auto">
-						<h4 class="h4 fw-normal">[[${article.title}]]</h4>
+						<h4 class="h4 fw-normal">[[${boardArticle.title}]]</h4>
 							<div class="d-flex hstack gap-2"> <!-- 본문 헤더 -->
-								<div class="me-auto">[[${article.nickName}]]</div>
+								<div class="me-auto">닉네임: [[${boardArticle.nickName}]]</div>
 								<div>댓글 (숫자)</div>
 								<div class="vr"></div>
-								<div>조회수: [[${article.views}]]</div>
+								<div>조회수: [[${boardArticle.views}]]</div>
 								<div class="vr"></div>
-								<div>작성일: [[${#temporals.format(article.createdTime, 'yyyy-MM-dd HH:mm')}]]</div>
+								<div>작성일: [[${#temporals.format(boardArticle.createdTime, 'yyyy-MM-dd HH:mm')}]]</div>
 								<div class="vr"></div>
-								<div>수정일: [[${#temporals.format(article.revisedTime, 'yyyy-MM-dd HH:mm')}]]</div>
+								<div>수정일: [[${#temporals.format(boardArticle.revisedTime, 'yyyy-MM-dd HH:mm')}]]</div>
 							</div>
 						<hr class="divider">
 						<div class="py-1">
-							<div><div>[[${article.contents}]]</div></div>
+							<div><div>[[${boardArticle.contents}]]</div></div>
 						</div>
 						<div class="text-center mt-5">
-							<button type="button" class="btn btn-primary btn-lg me-2">공감 (숫자)</button>
-							<div class="text-center mt-2">
-								<button type="button" class="btn btn-primary me-2">수정</button>
-								<button type="button" class="btn btn-danger me-2">삭제</button>
-							</div>
+							<button type="button" class="btn btn-primary me-2">공감 [[${boardArticle.likes}]]</button>
+							<button type="button"
+									id="deleteErrorBtn" th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+									class="btn btn-primary me-2">수정</button>
+							<button type="button" th:onclick="|location.href='@{/board/delete/{category}(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+									class="btn btn-danger me-2">삭제</button>
 							<hr class="divider">
 						</div>
 						<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
