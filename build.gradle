@@ -74,7 +74,7 @@ sourceSets {
 	main.java.srcDirs += [ querydslDir ]
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach{
 	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
 }
 
