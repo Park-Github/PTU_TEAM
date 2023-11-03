@@ -12,10 +12,10 @@
 				<h1 th:if="${cat == 'qna'}" class="h3 fw-normal"> 질문답변게시판 - 글쓰기</h1>
 				<h1 th:if="${cat == 'promotion'}" class="h3 fw-normal"> 홍보게시판 - 글쓰기</h1>
 			</div>
-			<form th:action="@{/board/create(category = ${category})}" th:object="${boardArticle}" method="POST">
+			<form th:action="@{/board/edit(id = ${id})}" th:object="${articleDto}" method="POST">
 				<div class="container my-1"> <!-- 글쓰기 공간 -->
-					<div class="bg-body-tertiary py-3 rounded">
-						<div class="col-sm-10 mx-auto">
+					<div class="bg-body-tertiary p-5 rounded">
+						<div class="col-sm-10 py-5.5 mx-auto">
 							<div><input type="text" class="form-control" th:field="*{title}" placeholder="제목"></div>
 							<div class="py-3">
 								<textarea class="form-control" th:field="*{contents}" rows="16" placeholder="내용"></textarea>
@@ -34,7 +34,6 @@
 						</div>
 					</div>
 				</div>
-
 			</form>
 		</main>
 </body>
