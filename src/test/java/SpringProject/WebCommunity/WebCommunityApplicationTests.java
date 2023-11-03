@@ -9,16 +9,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class WebCommunityApplicationTests {
 
-	@Autowired
-	ArticleRepos articleRepos;
-
-	@Test
-	void contextLoads() {
-		String title = "제목";
-		String content = "본문";
-		articleRepos.save(BoardArticle.builder()
-				.title(title)
-				.contents(content)
-				.build());
-	}
 }
