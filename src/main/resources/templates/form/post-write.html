@@ -14,35 +14,18 @@
 			</div>
 			<form th:action="@{/board/create(category = ${category})}" th:object="${boardArticle}" method="POST">
 				<div class="container my-1"> <!-- 글쓰기 공간 -->
-					<div class="bg-body-tertiary p-5 rounded">
-						<div class="col-sm-10 py-5.5 mx-auto">
-							<div><input type="text" class="form-control" th:field="*{title}" placeholder="제목"></div>
 					<div class="bg-body-tertiary py-3 rounded">
 						<div class="col-sm-10 mx-auto">
-							<div class="form-check mb-3">
-								<input class="form-check-input text-center" type="checkbox" value="remember-me" id="flexCheckDefault">
-								<label class="form-check-label" for="flexcheckdefault">익명으로 글쓰기</label>
-							</div>
-							<div><input type="text" class="form-control" id="article-title" name="title" placeholder="제목"></div>
+							<div><input type="text" class="form-control" th:field="*{title}" placeholder="제목"></div>
 							<div class="py-3">
 								<textarea class="form-control" th:field="*{contents}" rows="16" placeholder="내용"></textarea>
 							</div>
 							<div class="input-group mb-3">
 								<input type="file" class="form-control" id="inputGroupFile">
 							</div>
-							<div class="d-flex justify-content-center my-3">
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="writeCategory" id="writesell" checked>
-									<label class="form-check-label" for="writesell">
-										판매글 쓰기
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="writeCategory" id="writebuy">
-									<label class="form-check-label" for="writebuy">
-										구매글 쓰기
-									</label>
-								</div>
+							<div class="form-check">
+								<input class="form-check-input text-center" type="checkbox" value="remember-me" id="flexCheckDefault">
+								<label class="form-check-label" for="flexcheckdefault">익명으로 글쓰기</label>
 							</div>
 							<div class="text-center">
 								<button type="button" class="btn btn-outline-primary me-2">취소</button>
@@ -51,6 +34,7 @@
 						</div>
 					</div>
 				</div>
+
 			</form>
 		</main>
 </body>

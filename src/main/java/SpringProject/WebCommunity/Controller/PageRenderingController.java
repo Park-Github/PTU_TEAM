@@ -59,4 +59,14 @@ public class PageRenderingController {
         return "/certification/change-pw";
     }
 
+    @GetMapping("/market-write")
+    public String marketWrite(){
+        return "/form/market-write";
+    }
+
+    @GetMapping("/job-info")
+    public String jobInfo(){
+        return "/menu/job-info";
+    }
+
 }
