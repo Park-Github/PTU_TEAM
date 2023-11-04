@@ -7,26 +7,27 @@ import SpringProject.WebCommunity.Model.Response.Response;
 import SpringProject.WebCommunity.Repository.MemberRepos;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.extern.java.Log;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Log
+@Setter
 @RequiredArgsConstructor
 @Service
 public class MemberService {
 
     private final MemberRepos memberRepos;
-    private final PasswordService passwordService;
+    private final PasswordEncoder passwordEncoder;
     private final ResponseService responseService;
 
     public Optional<Member> getMember(HttpSession session) {
         String id = (String) session.getAttribute("member-id");
         return Optional.empty();
-    }
-
-    public Long save(Member member) {
-        return memberRepos.save(member).getId();
     }
 
     public Response register(MemberCreateDto dto) throws RegisterException {
@@ -52,18 +53,18 @@ public class MemberService {
             throw new RegisterException(RegisterException.Reason.SHORT_PASSWORD);
         }
 
-        String salt = passwordService.getRandomSalt();
-        String hash = passwordService.encodePassword(password, salt);
         Member entity = Member.builder()
-                .passwordHash(hash)
-                .passwordSalt(salt)
+                .password(passwordEncoder.encode(password))
                 .nickName(nickname)
                 .email(email)
                 .contact(contact)
                 .birth(birth.toString())
+                .credentialsExpired(false)
+                .role("USER")
                 .build();
 
-        save(entity);
+        memberRepos.save(entity);
         return responseService.getSuccessResponse();
     }
+
 }
