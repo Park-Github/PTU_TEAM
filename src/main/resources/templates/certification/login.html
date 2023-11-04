@@ -6,13 +6,14 @@
 		<th:block th:replace="~{common/essential::header}"></th:block>
 	    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 		<link href="/css/style.css" rel="stylesheet">
+		<script src="/js/login.js" type="module"></script>
 	    <style>
 			.form-sign input[type="email"] {
 			  margin-bottom: -1px;
 			  border-bottom-right-radius: 0;
 			  border-bottom-left-radius: 0;
 			}
-			
+
 			.form-sign input[type="password"] {
 			  margin-bottom: 10px;
 			  border-top-left-radius: 0;
@@ -22,23 +23,22 @@
   	</head>
   	<body class="d-flex align-items-center text-center py-4 bg-body-tertiary">
 		<main class="form-sign w-100 m-auto">
-
-		    	<img class="mb-4" src="/img/ptuteam_logo.png" alt="" width="72" height="72">
-				<h1 class="h3 mb-3 fw-normal">로그인</h1>
-			<form>
+            <img class="mb-4" src="/img/ptuteam_logo.png" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 fw-normal">로그인</h1>
+			<form id="form">
 		    	<div class="form-floating">
-		      		<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-		      		<label for="floatingInput">이메일</label>
+		      		<input type="email" class="form-control" id="email-input" name="username" placeholder="name@example.com">
+		      		<label for="email-input">이메일</label>
 		    	</div>
 		    	<div class="form-floating">
-		      		<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-		      		<label for="floatingPassword">비밀번호</label>
-		    	</div>   	
+		      		<input type="password" class="form-control" id="password-input" name="password" placeholder="Password">
+		      		<label for="password-input">비밀번호</label>
+		    	</div>
 		    	<div class="row mt-3 mb-3">
     				<div class="col d-flex justify-content-center">
       					<div class="form-check">
 					        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-					        <label class="form-check-label" for="flexcheckdefault">자동 로그인</label>
+					        <label class="form-check-label" for="flexCheckDefault">자동 로그인</label>
       					</div>
     				</div>
 
@@ -47,7 +47,10 @@
 				    </div>
 				</div>
 		    	<button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
-				<p class="mt-3 mb-3"><a href="#" class="stretched-link">회원가입</a></p>
+				<p class="mt-3 mb-3"><a href="/register">회원가입</a></p>
+
+				<!-- authentication key (do not remove) -->
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			</form>
 			<p class="mt-3 mb-3 text-body-secondary">&copy; PTU-TEAM 2023</p>
 		</main>
