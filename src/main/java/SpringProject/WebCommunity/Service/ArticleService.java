@@ -4,6 +4,7 @@ import SpringProject.WebCommunity.Domain.BoardArticle;
 import SpringProject.WebCommunity.Dto.BoardArticleCreateDto;
 import SpringProject.WebCommunity.Dto.BoardArticleReadDto;
 import SpringProject.WebCommunity.Dto.BoardArticleUpdateDto;
+import SpringProject.WebCommunity.Repository.ArticleQueryRepos;
 import SpringProject.WebCommunity.Repository.ArticleRepos;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static SpringProject.WebCommunity.Domain.QBoardArticle.boardArticle;
+
 @RequiredArgsConstructor // final 필드 생성자 자동 생성
 @Service
 public class ArticleService {
     private final ArticleRepos articleRepos;
+    private final ArticleQueryRepos articleQueryRepos;
 
     @Transactional
     public Long saveToCreate(BoardArticleCreateDto boardArticleCreateDto){
@@ -49,7 +53,6 @@ public class ArticleService {
     public Optional<BoardArticleReadDto> optionalFindById(Long id) {
         BoardArticle entity = articleRepos.findById(id).orElse(null);
 
-
         return Optional.of(new BoardArticleReadDto(entity));
     }
 
@@ -66,5 +69,20 @@ public class ArticleService {
         return articleRepos.findAll().stream()
                 .map(BoardArticleReadDto::new)
                 .collect(Collectors.toList());
+    }
+
+    /// Using Query DSL
+
+    public List<BoardArticle> findAllByTitle(String title) {
+        return articleQueryRepos.findAllByTitle(title);
+    }
+    public List<BoardArticle> findAllByContents(String contents) {
+        return articleQueryRepos.findAllByContents(contents);
+    }
+    public List<BoardArticle> findAllByCategory(String category) {
+        return articleQueryRepos.findAllByCategory(category);
+    }
+    public List<BoardArticle> findAllByTimeDesc(String category) {
+        return articleQueryRepos.findAllOrderByTimeDesc(category);
     }
 }

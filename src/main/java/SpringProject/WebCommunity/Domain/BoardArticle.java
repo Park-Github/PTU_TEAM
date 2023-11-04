@@ -42,5 +42,9 @@ public class BoardArticle extends BaseTimeEntity{
         this.title = title;
         this.contents = contents;
     }
+    @PreUpdate
+    public void updateRevisedTime() {
+        super.updateRevisedTime();
+    }
 
 }
