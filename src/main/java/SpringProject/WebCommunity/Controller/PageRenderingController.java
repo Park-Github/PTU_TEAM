@@ -18,10 +18,6 @@ public class PageRenderingController {
     public String sitemapView(){
         return "/menu/sitemap";
     }
-    @GetMapping("/article-list")
-    public String articleListView() {
-        return "/menu/article-list";
-    }
     @GetMapping("/job")
     public String jobView(){
         return "/menu/job";
@@ -30,8 +26,6 @@ public class PageRenderingController {
     public String studyView(){
         return "/menu/study";
     }
-    @GetMapping("/market")
-    public String marketView() { return "/menu/market";}
     @GetMapping("/search")
     public String searchView(){
         return "/menu/search";
@@ -63,6 +57,16 @@ public class PageRenderingController {
     @GetMapping("/change-pw")
     public String changePwView(){
         return "/certification/change-pw";
+    }
+
+    @GetMapping("/market-write")
+    public String marketWrite(){
+        return "/form/market-write";
+    }
+
+    @GetMapping("/job-info")
+    public String jobInfo(){
+        return "/menu/job-info";
     }
 
 }
