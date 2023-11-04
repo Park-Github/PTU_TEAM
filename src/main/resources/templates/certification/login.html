@@ -27,7 +27,7 @@
             <h1 class="h3 mb-3 fw-normal">로그인</h1>
 			<form id="form">
 		    	<div class="form-floating">
-		      		<input type="email" class="form-control" id="email-input" name="email" placeholder="name@example.com">
+		      		<input type="email" class="form-control" id="email-input" name="username" placeholder="name@example.com">
 		      		<label for="email-input">이메일</label>
 		    	</div>
 		    	<div class="form-floating">
@@ -47,7 +47,10 @@
 				    </div>
 				</div>
 		    	<button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
-				<p class="mt-3 mb-3"><a href="#">회원가입</a></p>
+				<p class="mt-3 mb-3"><a href="/register">회원가입</a></p>
+
+				<!-- authentication key (do not remove) -->
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			</form>
 			<p class="mt-3 mb-3 text-body-secondary">&copy; PTU-TEAM 2023</p>
 		</main>

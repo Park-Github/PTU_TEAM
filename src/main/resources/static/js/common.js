@@ -13,6 +13,12 @@ export class InputError extends Error {
     }
 }
 
+export class ResponseError extends Error {
+    constructor(message) {
+        super(message);
+    }
+}
+
 export function validateInput(input, expr) {
     if (expr) {
         updateInput(input, true);

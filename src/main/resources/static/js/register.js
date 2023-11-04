@@ -31,7 +31,7 @@ class RegisterService {
         event.preventDefault();
 
         if (this.validateForm()) {
-            let r = await fetch("/member/register", {
+            let r = await fetch("/register", {
                 method: "POST",
                 body: new FormData(this.form)
             });
@@ -65,7 +65,7 @@ class RegisterService {
                 window.alert("본 이름은 이미 사용중입니다.");
                 break;
             default:
-                window.alert("서버 오류!");
+                window.alert("서버 오류가 발생했습니다!");
         }
     }
 

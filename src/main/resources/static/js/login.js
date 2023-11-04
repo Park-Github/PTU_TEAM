@@ -1,4 +1,4 @@
-import {resetInput, validateInput} from "./common.js";
+import {resetInput, validateInput, ResponseError} from "./common.js";
 
 
 class LoginService {
@@ -9,7 +9,7 @@ class LoginService {
 
     onInit() {
         this.form = document.querySelector("#form");
-        this.emailInput = this.form.elements.namedItem("email");
+        this.emailInput = this.form.elements.namedItem("username");
         this.passwordInput = this.form.elements.namedItem("password");
         this.emailInput.addEventListener("input", () => this.validateForm());
         this.passwordInput.addEventListener("input", () => this.validateForm());
@@ -20,32 +20,31 @@ class LoginService {
         event.preventDefault();
 
         if (this.validateForm()) {
-            let response = await fetch("/member/login", {
+            let response = await fetch("/login", {
                 method: "POST",
                 body: new FormData(this.form),
             });
 
-            if (response.ok) {
-                history.back();
-            } else {
-                let json = await response.json();
-                this.onError(json);
+            try {
+                this.validateResponse(response);
+                location.href = response.url;
+            } catch (e) {
+                window.alert(e.message);
             }
         }
     }
 
-    onError(data) {
-        let status = parseInt(data["status"]);
+    validateResponse(response) {
+        let url = response.url;
+        let t = url.indexOf('?') + 1;
+        let param = url.slice(t);
 
-        switch (status) {
-            case 1:  // INCOMPLETE_FORM
-                window.alert("누락된 내용이 있습니다.");
-                break;
-            case 2:  // CREDENTIAL_ERROR
-                window.alert("비밀번호가 틀렸거나 존재하지 않는 계정입니다!");
-                break;
-            default:
-                window.alert("서버 오류!");
+        if (!response.ok && !response.redirected) {
+            throw new ResponseError("서버 오류가 발생했습니다!");
+        } else if (param === "error") {
+            throw new ResponseError("비밀번호가 틀렸거나 존재하지 않는 계정입니다!");
+        } else if (param === "logout") {
+            throw new ResponseError("성공적으로 로그아웃 되었습니다.");
         }
     }
 
