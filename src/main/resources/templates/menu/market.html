@@ -5,6 +5,14 @@
   <div th:replace="~{/common/navbar::headline}"></div>
 <div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
   <style>
+    td {
+      vertical-align: middle;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+
     .photo-thumbnail {
       width: 100px;
       height: 100px;
@@ -17,86 +25,85 @@
       height: 100%;
       object-fit: cover;
     }
+
+    .title-short {
+      display: inline-block;
+      max-width: 20rem;
+    }
   </style>
 <body>
-<div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
-  <h1 class="h3 fw-normal"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">중고장터</a></h1>
-</div>
-<div class="container bg-body-tertiary border rounded-3 mt-3 mb-4">
-  <div class="d-grid gap-4 my-3" style="grid-template-columns: 1fr 1fr;">
-    <div class="bg-white border rounded-3">
-      <div>
-        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">판매</a></h4>
-        <hr class="divider m-2">
+  <div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
+    <h1 class="h3 fw-normal"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">중고장터</a></h1>
+  </div>
+  <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4">
+    <div class="d-grid gap-4 my-3" style="grid-template-columns: 1fr 1fr;">
+      <div class="bg-white border rounded-3">
+        <div>
+          <h4 class="fw-normal m-2"><a href="/article-list" class="link-body-emphasis text-decoration-none">판매</a></h4>
+          <hr class="divider m-2">
+        </div>
+        <div class="d-flex hstack gap-2 m-2">
+          <div class="photo-thumbnail mx-2 my-2"><a href="/article-list/articles2"><img src="/img/product_sample.webp"></a></div>
+          <table class="table table-hover table-borderless">
+            <td style>
+              <span class="title-short text-truncate">
+                <a href="/article-list/articles2" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+              </span>
+              <span>(대괄호 안에 댓글수)</span>
+            </td>
+            <td style="text-align: right; color:#a3a3a3">(글 작성일, 시간)</td>
+          </table>
+        </div>
       </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-    </div>
-    <div class="bg-white border rounded-3">
-      <div>
-        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">구매</a></h4>
-        <hr class="divider m-2">
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
-      </div>
-      <div class="d-flex hstack gap-2 m-2">
-        <div class="photo-thumbnail mx-2 my-2"><img src="https://img.allurekorea.com/allure/2020/04/style_5ea94969da622-534x700.jpg"></div>
-        <div><a>(글 제목)</a></div>
-        <div class="me-auto">[(댓글 수)]</div>
-        <div class="text-black-50">(글 작성일/시간)</div>
+      <div class="bg-white border rounded-3">
+        <div>
+          <h4 class="fw-normal m-2"><a href="/article-list" class="link-body-emphasis text-decoration-none">구매</a></h4>
+          <hr class="divider m-2">
+        </div>
+        <div class="d-flex hstack gap-2 m-2">
+          <div class="photo-thumbnail mx-2 my-2"><a href="/article-list/articles2"><img src="/img/product_sample.webp"></a></div>
+          <table class="table table-hover table-borderless">
+            <td style>
+              <span class="title-short text-truncate">
+                <a href="/article-list/articles2" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+              </span>
+              <span>(대괄호 안에 댓글수)</span>
+            </td>
+            <td style="text-align: right; color:#a3a3a3">(글 작성일, 시간)</td>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="container rounded-3">
+    <div class="d-flex justify-content-md-end">
+      <a href="/market/form" class="btn btn-primary">글쓰기</a>
+    </div>
+  </div>
+
+  <div class="container d-flex justify-content-center">
+    <ul class="pagination">
+      <li class="page-item"><a href="/market" class="page-link">이전</a></li>
+      <li class="page-item"><a href="/market" class="page-link">1</a></li>
+      <li class="page-item"><a href="/market" class="page-link">다음</a></li>
+    </ul>
+  </div>
+  
+  <div class="container d-flex justify-content-center">
+    <form class="col-4 mb-3 mb-lg-0" role="search">
+      <input type="search" class="form-control" placeholder="검색..." aria-label="Search">
+    </form>
+  </div>
+  
+  <hr class="divider my-3">
+  
+  <footer class="page-footer">
+    <div class="d-flex justify-content-center">
+      <nav class="nav">
+        <a href="#" class="nav-link">회원탈퇴</a>
+        <a href="#" class="nav-link">개인정보처리방침</a>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!--게시글 화면 /article-list/article-->
+<!--게시글 화면 /article-list/articles-->
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
 <th:block th:replace="~{/common/navbar::header}"></th:block>
@@ -6,47 +6,76 @@
 	<div th:replace="~{/common/navbar::headline}"></div>
 	<div th:replace="~{/common/navbar::navigation}"></div>
 		<main>
-			<div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
-				<h1 class="h3 fw-normal">(게시판명)</h1>
+			<th:block th:if="${success}">
+				<div class="alert alert-primary alert-dismissible">
+					<h4 style="text-align: center">[[${success}]]</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</th:block>
+			<div class="container mt-3"> <!-- 제목 -->
+				<h1 th:if="${boardArticle.category == 'free'}" class="h3 fw-normal"><a href="/board/view?category=free" class="link-body-emphasis
+				text-decoration-none color-inherit">자유게시판</a></h1>
+				<h1 th:if="${boardArticle.category == 'sharing'}" class="h3 fw-normal"><a href="/board/view?category=sharing" class="link-body-emphasis
+				text-decoration-none color-inherit">정보공유게시판</a></h1>
+				<h1 th:if="${boardArticle.category == 'qna'}" class="h3 fw-normal"><a href="/board/view?category=qna" class="link-body-emphasis
+				text-decoration-none color-inherit">질문답변게시판</a></h1>
+				<h1 th:if="${boardArticle.category == 'promotion'}" class="h3 fw-normal"><a href="/board/view?category=promotion" class="link-body-emphasis
+				text-decoration-none color-inherit">홍보게시판</a></h1>
 			</div>
 			<div class="container my-1">
-				<hr class="divider">
+				<hr style="border: solid 1px rgb(0, 0, 0);">
 				<div class="bg-white p-4 rounded">
 					<div class="col-sm-10 mx-auto">
-						<h4 class="h4 fw-normal">(글 제목)</h4>
+						<h4 class="h4 fw-normal">[[${boardArticle.title}]]</h4>
 							<div class="d-flex hstack gap-2"> <!-- 본문 헤더 -->
-								<div class="me-auto">(글 작성자)</div>
+								<div class="me-auto">닉네임: [[${boardArticle.nickName}]]</div>
 								<div>댓글 (숫자)</div>
 								<div class="vr"></div>
-								<div>조회수 (숫자)</div>
+								<div>조회수: [[${boardArticle.views}]]</div>
 								<div class="vr"></div>
-								<div>(글 작성일/시간)</div>
+								<div>작성일: [[${#temporals.format(boardArticle.createdTime, 'yyyy-MM-dd HH:mm')}]]</div>
+								<div class="vr"></div>
+								<div>수정일: [[${#temporals.format(boardArticle.revisedTime, 'yyyy-MM-dd HH:mm')}]]</div>
 							</div>
 						<hr class="divider">
 						<div class="py-1">
-							<div>(글 내용)</div>
+							<div><div>[[${boardArticle.contents}]]</div></div>
 						</div>
 						<div class="text-center mt-5">
-							<button type="button" class="btn btn-primary me-2">공감 (숫자)</button>
-							<button type="button" class="btn btn-danger">신고</button>
+							<button type="button" class="btn btn-primary me-2">공감 [[${boardArticle.likes}]]</button>
+							<button type="button"
+									id="deleteErrorBtn" th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+									class="btn btn-primary me-2">수정</button>
+							<button type="button" th:onclick="|location.href='@{/board/delete/{category}(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+									class="btn btn-danger me-2">삭제</button>
 							<hr class="divider">
 						</div>
-						<h4 class="h5 mb-3">댓글</h4>
-						<div><!-- 댓글 목록 -->
-							<div class="d-flex hstack gap-2">
-								<div>(댓글 작성자)</div>
-								<div class="vr"></div>
-								<div class="me-auto">(댓글 내용)</div>
-								<div class="vr"></div>
-								<div class="text-black-50">(댓글 작성일/시간)</div>
-							</div>
-							<hr class="divider mt-2">
-						</div>
+						<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
+						<table class="table">
+							<thead><tr></tr></thead>
+							<tbody>
+								<tr>
+									<th>(닉네임)</th>
+									<td style="width: 72%">(댓글 내용)</td>
+									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
+								</tr>
+								<tr>
+									<th>(닉네임)</th>
+									<td style="width: 72%">(댓글 내용)</td>
+									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
+								</tr>
+								<tr>
+									<th>(닉네임)</th>
+									<td style="width: 72%">(댓글 내용)</td>
+									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
+								</tr>
+							</tbody>
+						</table>
 						<div class="bg-body-tertiary p-3 rounded">
 							<div class="form-group row">
 								<div class="input-group">
-									<label for="reply-input" class="col-1 col-form-label">(닉네임)</label>
-									<input class="form-control" type="text" id="reply-input">
+									<label for="reply-input" class="col-form-label">(닉네임)</label>
+									<input class="form-control mx-3" type="text" id="reply-input">
 									<button class="btn btn-outline-secondary" type="button">작성</button>
 								</div>
 							</div>

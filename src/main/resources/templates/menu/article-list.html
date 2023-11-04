@@ -5,110 +5,101 @@
 <body>
 <div th:replace="~{/common/navbar::headline}"></div>
 <div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
-<div class="container">
-  <h5 class="mt-5">xx게시판</h5>
-  <hr style="border: solid 1px rgb(0, 0, 0);"></hr>
-  </hr-solid>
-  <div class="d-flex justify-content-between">
-    <div class="dropdown me-1">
-      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-        등록순
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-        <li><a class="dropdown-item" href="#">등록순</a></li>
-        <li><a class="dropdown-item" href="#">좋아요순</a></li>
-        <li><a class="dropdown-item" href="#">댓글순</a></li>
-      </ul>
-    </div>
-    <a href="#" onClick="fn_write()" class="btn btn-success">글쓰기</a>
-  </div>
+<style>
+  td {
+    vertical-align: middle;
+  }
 
-  <div class="card border-success mb-3" style="width: 75rem;">
-    <h5 class="card-header">
-      중고장터
-    </h5>
-    <div class="card-body">
-      <div class="border d-flex justify-content-around" style="height:30px;">
-        <div class="border">글 제목</div>
-        <div class="border">닉네임</div>
-        <div class="border">시간&날짜</div>
-        <div class="border">좋아요수</div>
-      </div>
-    </div>
+  span {
+    vertical-align: middle;
+  }
+
+  .title-short {
+    display: inline-block;
+    max-width: 45rem;
+  }
+
+  .nickname-short {
+    display: inline-block;
+    max-width: 8rem;
+  }
+</style>
+<th:block th:if="${success}">
+  <div class="alert alert-primary alert-dismissible">
+    <h4 style="text-align: center">[[${success}]]</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
-</div>
-<div class="container">
-  <h5 class="mt-5">xx게시판</h5>
-  <hr style="border: solid 1px rgb(0, 0, 0);"></hr>
-  </hr-solid>
+</th:block>
+<th:block th:if="${fail}">
+  <div class="alert alert-primary alert-dismissible">
+    <h4 style="text-align: center">[[${fail}]]</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</th:block>
+<div class="container mt-3">
+  <h1 th:if="${boardCat == 'free'}" class="h3 fw-normal">자유게시판</h1>
+  <h1 th:if="${boardCat == 'sharing'}" class="h3 fw-normal">정보공유게시판</h1>
+  <h1 th:if="${boardCat == 'qna'}" class="h3 fw-normal">질문답변게시판</h1>
+  <h1 th:if="${boardCat == 'promotion'}" class="h3 fw-normal">홍보게시판</h1>
+  <hr style="border: solid 1px rgb(0, 0, 0);">
   <div class="d-flex justify-content-between">
-    <select class="form-select" select style="width:125px;font-size:16px" aria-label="Default select example">
+    <select class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
       <option selected>등록순</option>
-      <option value="1">좋아요순</option>
+      <option value="1">공감순</option>
       <option value="2">댓글순</option>
     </select>
-    <a href="#" class="btn btn-success">글쓰기</a>
   </div>
 
-  <table class="table table-hover">
+  <table class="table table-hover table-striped">
     <thead>
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>닉네임</th>
-      <th>시간&날짜</th>
-      <th>조회수</th>
-    </tr>
+      <tr>
+        <th>제목</th>
+        <th>작성자</th>
+        <th style="text-align: center">작성일</th>
+        <th style="text-align: center">조회수</th>
+        <th style="text-align: center">공감</th>
+      </tr>
     </thead>
     <tbody>
-    <tr>
-      <th>3</th>
-      <th>그래</th>
-      <th>가</th>
-      <th>2023-10-12</th>
-      <th>5</th>
-    </tr>
-
-    <tr>
-      <th>2</th>
-      <th>그래그래</th>
-      <th>나</th>
-      <th>2023-10-11</th>
-      <th>10</th>
-    </tr>
-
-    <tr>
-      <th>1</th>
-      <th>그래그래그래</th>
-      <th>다</th>
-      <th>2023-10-10</th>
-      <th>25</th>
-    </tr>
+      <tr th:each="dto : ${boardArticleList}">
+        <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
+          </span>
+          <span>(대괄호 안에 댓글수)</span>
+        </td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">[[${dto.nickName}]]</span></td>
+        <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+        <td style="text-align: center">[[${dto.views}]]</td>
+        <td style="text-align: center">[[${dto.likes}]]</td>
+      </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-between">
+    <a href="/article-list" class="btn btn-outline-primary" role="button" aria-pressed="true">전체글</a>
+    <a href="/article-list" class="btn btn-outline-primary me-auto mx-2" role="button" aria-pressed="true">인기글</a>
+    <a th:if="${boardCat == 'free'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
+    <a th:if="${boardCat == 'sharing'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
+    <a th:if="${boardCat == 'qna'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
+    <a th:if="${boardCat == 'promotion'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
+  </div>
 
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">4</a></li>
-      <li class="page-item"><a class="page-link" href="#">5</a></li>
-      <li class="page-item"><a class="page-link" href="#">6</a></li>
-      <li class="page-item"><a class="page-link" href="#">7</a></li>
-      <li class="page-item"><a class="page-link" href="#">8</a></li>
-      <li class="page-item"><a class="page-link" href="#">9</a></li>
-      <li class="page-item"><a class="page-link" href="#">10</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="container d-flex justify-content-center">
+		<ul class="pagination">
+			<li class="page-item"><a href="/article-list" class="page-link">이전</a></li>
+			<li class="page-item"><a href="/article-list" class="page-link">1</a></li>
+			<li class="page-item"><a href="/article-list" class="page-link">다음</a></li>
+		</ul>
+  </div>
 
+  <div class="container d-flex justify-content-center">
+    <form class="col-4 mb-3 mb-lg-0" role="search">
+      <input type="search" class="form-control" placeholder="검색..." aria-label="Search">
+    </form>
+  </div>
 </div>
+
+<hr class="divider my-3">
 
 <footer class="page-footer">
   <div class="d-flex justify-content-center">
@@ -118,6 +109,5 @@
     </nav>
   </div>
 </footer>
-
 </body>
 </html>
