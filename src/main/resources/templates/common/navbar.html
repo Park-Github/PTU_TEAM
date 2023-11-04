@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<html lang="kr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      data-bs-theme="auto">
     <head th:fragment="header">
         <th:block th:replace="~{common/essential::header}"></th:block>
         <link href="/css/style.css" rel="stylesheet">
@@ -30,7 +33,10 @@
             <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
                 <span class="fs-4">대학 웹 커뮤니티</span>
             </a>
-            <div class="col-md-3 text-end">
+            <div sec:authorize="isAuthenticated()" class="col-md-3 text-end">
+                <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/logout'">로그아웃</button>
+            </div>
+            <div sec:authorize="!isAuthenticated()" class="col-md-3 text-end">
                 <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/login'">로그인</button>
                 <button type="button" class="btn btn-primary" onclick="location.href='/register'">회원가입</button>
             </div>
