@@ -1,5 +1,6 @@
 package SpringProject.WebCommunity.Controller;
 
+import SpringProject.WebCommunity.Domain.BoardArticle;
 import SpringProject.WebCommunity.Dto.BoardArticleCreateDto;
 import SpringProject.WebCommunity.Dto.BoardArticleReadDto;
 import SpringProject.WebCommunity.Dto.BoardArticleUpdateDto;
@@ -61,7 +62,7 @@ public class BoardArticleController {
     @GetMapping("/board/view")
     public String articleListView(@RequestParam(name = "category") String category, Model model) {
         // 모든 Article 가져오기
-        List<BoardArticleReadDto> articleList = articleService.findAll();
+        List<BoardArticle> articleList = articleService.findAllByTimeDesc(category);
         // Model에 등록
         model.addAttribute("boardArticleList", articleList);
         // URL 파라미터 값(category) Model 등록
@@ -97,14 +98,12 @@ public class BoardArticleController {
         log.info(id.toString() + "id");
 
         BoardArticleReadDto article = articleService.update(id, form);
-        Long newId = articleService.saveToUpdate(article);
-        articleService.delete(id);
 
         log.info(article.getCategory() + "카테고리");
 
         model.addAttribute("boardArticle", article);
 
-        return "redirect:/board/view/" + newId;
+        return "redirect:/board/view/" + id;
     }
 
     // 게시판 게시글 삭제 요청
