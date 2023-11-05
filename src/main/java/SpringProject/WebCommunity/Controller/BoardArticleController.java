@@ -5,6 +5,7 @@ import SpringProject.WebCommunity.Dto.BoardArticleCreateDto;
 import SpringProject.WebCommunity.Dto.BoardArticleReadDto;
 import SpringProject.WebCommunity.Dto.BoardArticleUpdateDto;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.MemberDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,12 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
-@Controller
 @Slf4j
+@Controller
+@RequiredArgsConstructor
 public class BoardArticleController {
 
     private final ArticleService articleService;
+    private final MemberDetailsService memberDetailsService;
 
     // 게시판 글쓰기 페이지 요청 처리
     @GetMapping("/board/form/{cat}")

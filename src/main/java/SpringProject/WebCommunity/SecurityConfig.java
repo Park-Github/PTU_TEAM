@@ -75,6 +75,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public MemberDetailsService memberDetailsService(MemberRepos memberRepos) {
+        return new MemberDetailsService(memberRepos);
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
