@@ -1,4 +1,4 @@
-package SpringProject.WebCommunity.Domain;
+package SpringProject.WebCommunity.Model.Domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

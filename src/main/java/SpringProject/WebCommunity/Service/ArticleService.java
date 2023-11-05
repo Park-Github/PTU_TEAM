@@ -1,9 +1,9 @@
 package SpringProject.WebCommunity.Service;
 
-import SpringProject.WebCommunity.Domain.BoardArticle;
-import SpringProject.WebCommunity.Dto.BoardArticleCreateDto;
-import SpringProject.WebCommunity.Dto.BoardArticleReadDto;
-import SpringProject.WebCommunity.Dto.BoardArticleUpdateDto;
+import SpringProject.WebCommunity.Model.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Dto.BoardArticleCreateDto;
+import SpringProject.WebCommunity.Model.Dto.BoardArticleReadDto;
+import SpringProject.WebCommunity.Model.Dto.BoardArticleUpdateDto;
 import SpringProject.WebCommunity.Repository.ArticleQueryRepos;
 import SpringProject.WebCommunity.Repository.ArticleRepos;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static SpringProject.WebCommunity.Domain.QBoardArticle.boardArticle;
 
 @RequiredArgsConstructor // final 필드 생성자 자동 생성
 @Service

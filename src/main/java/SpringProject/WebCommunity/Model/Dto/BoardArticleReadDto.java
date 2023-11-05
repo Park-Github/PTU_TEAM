@@ -1,6 +1,6 @@
-package SpringProject.WebCommunity.Dto;
+package SpringProject.WebCommunity.Model.Dto;
 
-import SpringProject.WebCommunity.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.BoardArticle;
 import lombok.Getter;
 import lombok.ToString;
 

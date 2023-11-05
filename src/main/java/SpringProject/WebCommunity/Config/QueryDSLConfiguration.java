@@ -1,4 +1,4 @@
-package SpringProject.WebCommunity;
+package SpringProject.WebCommunity.Config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 @Configuration
 @EnableJpaAuditing
 @RequiredArgsConstructor
-public class QuerydslConfiguration {
+public class QueryDSLConfiguration {
 
     @PersistenceContext
     private final EntityManager entityManager;

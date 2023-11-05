@@ -1,7 +1,7 @@
 package SpringProject.WebCommunity.Service;
 
-import SpringProject.WebCommunity.Domain.Member;
-import SpringProject.WebCommunity.Dto.MemberCreateDto;
+import SpringProject.WebCommunity.Model.Domain.Member;
+import SpringProject.WebCommunity.Model.Dto.MemberCreateDto;
 import SpringProject.WebCommunity.Exception.RegisterException;
 import SpringProject.WebCommunity.Model.Response.Response;
 import SpringProject.WebCommunity.Repository.MemberRepos;

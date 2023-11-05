@@ -1,4 +1,4 @@
-package SpringProject.WebCommunity.Domain;
+package SpringProject.WebCommunity.Model.Domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
