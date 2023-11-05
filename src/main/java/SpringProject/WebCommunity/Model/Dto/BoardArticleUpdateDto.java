@@ -9,6 +9,7 @@ public class BoardArticleUpdateDto {
     private final String title;
     private final String contents;
 
+
     public BoardArticleUpdateDto(Long id, String title, String contents) {
         this.id = id;
         this.title = title;

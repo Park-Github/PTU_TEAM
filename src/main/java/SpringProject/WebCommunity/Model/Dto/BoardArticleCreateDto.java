@@ -10,7 +10,9 @@ public class BoardArticleCreateDto {
     private final String contents;
     private final String category;
 
-    public BoardArticleCreateDto(String title, String contents, String category) {
+
+
+    public BoardArticleCreateDto(String title, String contents, String category, String nickName) {
         this.title = title;
         this.contents = contents;
         this.category = category;
@@ -23,4 +25,5 @@ public class BoardArticleCreateDto {
                 .category(getCategory())
                 .build();
     }
+
 }
