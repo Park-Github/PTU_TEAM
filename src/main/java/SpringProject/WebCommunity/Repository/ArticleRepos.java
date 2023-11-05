@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.BoardArticle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

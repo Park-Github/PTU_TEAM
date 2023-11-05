@@ -1,4 +1,4 @@
-package SpringProject.WebCommunity;
+package SpringProject.WebCommunity.Config;
 
 import SpringProject.WebCommunity.Repository.MemberRepos;
 import SpringProject.WebCommunity.Service.MemberDetailsService;
@@ -19,7 +19,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

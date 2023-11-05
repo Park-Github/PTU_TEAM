@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.BoardArticle;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

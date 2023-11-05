@@ -1,12 +1,12 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.BoardArticle;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import static SpringProject.WebCommunity.Domain.QBoardArticle.*;
+import static SpringProject.WebCommunity.Model.Domain.QBoardArticle.*;
 
 @Repository
 @Transactional

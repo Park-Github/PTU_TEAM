@@ -1,7 +1,7 @@
 package SpringProject.WebCommunity.Service;
 
-import SpringProject.WebCommunity.Domain.Member;
-import SpringProject.WebCommunity.Domain.MemberPrincipal;
+import SpringProject.WebCommunity.Model.Domain.Member;
+import SpringProject.WebCommunity.Model.Domain.MemberPrincipal;
 import SpringProject.WebCommunity.Repository.MemberRepos;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
