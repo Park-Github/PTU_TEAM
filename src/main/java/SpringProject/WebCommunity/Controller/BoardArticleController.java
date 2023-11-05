@@ -1,6 +1,7 @@
 package SpringProject.WebCommunity.Controller;
 
 import SpringProject.WebCommunity.Model.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.MemberPrincipal;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleCreateDto;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleReadDto;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleUpdateDto;
@@ -8,6 +9,7 @@ import SpringProject.WebCommunity.Service.ArticleService;
 import SpringProject.WebCommunity.Service.MemberDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,11 +39,15 @@ public class BoardArticleController {
     @PostMapping("/board/create")
     public String createBoardArticle(@RequestParam(name = "category")String category,
                                      BoardArticleCreateDto form,
+                                     @AuthenticationPrincipal MemberPrincipal memberPrincipal,
                                      RedirectAttributes redirectAttr) {
         log.info(form.getTitle());
         log.info(form.getContents());
         log.info(form.toString());
         log.info(category);
+        log.info(String.valueOf(memberPrincipal.isEnabled()));
+        log.info(memberPrincipal.getUsername());
+        log.info("----------------------------");
 
         Long boardId = articleService.saveToCreate(form);
         redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");

@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Domain.Member;
+import SpringProject.WebCommunity.Model.Domain.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static SpringProject.WebCommunity.Domain.QMember.*;
+import static SpringProject.WebCommunity.Model.Domain.QMember.*;
 
 @Repository
 @Transactional
