@@ -26,11 +26,6 @@ public class ArticleService {
     }
 
     @Transactional
-    public Long saveToUpdate(BoardArticleReadDto boardArticleReadDto){
-        return articleRepos.save(boardArticleReadDto.toEntity()).getId();
-    }
-
-    @Transactional
     public BoardArticleReadDto update(Long id, BoardArticleUpdateDto boardArticleUpdateDto) {
         BoardArticle entity = articleRepos.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
