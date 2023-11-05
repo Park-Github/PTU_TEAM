@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -22,7 +24,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityContextRepository scr) throws Exception {
         http.httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(c -> c
                         // 기본 리소스 접근 허용
@@ -41,6 +43,9 @@ public class SecurityConfiguration {
 
                         // 위에 명시되지 않은 요청은 인증된 사용자를 제외하고 불허
                         .anyRequest().authenticated()
+                )
+                .securityContext(ctx -> ctx
+                        .securityContextRepository(scr)
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -67,6 +72,11 @@ public class SecurityConfiguration {
         provider.setPasswordEncoder(passwordEncoder);
 
         return new ProviderManager(provider);
+    }
+
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new HttpSessionSecurityContextRepository();
     }
 
     @Bean
