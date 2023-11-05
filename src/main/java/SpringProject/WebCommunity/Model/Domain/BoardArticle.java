@@ -29,8 +29,9 @@ public class BoardArticle extends BaseTimeEntity{
     String category;
 
     @Builder
-    public BoardArticle(String category, String title, String contents, int views, int likes,
+    public BoardArticle(Long id, String category, String title, String contents, int views, int likes,
                         String createdBy, LocalDateTime createdTime, LocalDateTime revisedTime) {
+        this.id = id;
         this.category = category;
         this.title = title;
         this.contents = contents;

@@ -33,6 +33,7 @@ public class BoardArticleReadDto {
 
     public BoardArticle toEntity() {
         return BoardArticle.builder()
+                .id(getId())
                 .title(getTitle())
                 .contents(getContents())
                 .category(getCategory())
