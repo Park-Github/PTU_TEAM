@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices.RememberMeTokenAlgorithm;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
@@ -24,7 +27,11 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityContextRepository scr) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            SecurityContextRepository scr,
+            RememberMeServices rms
+    ) throws Exception {
         http.httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(c -> c
                         // 기본 리소스 접근 허용
@@ -44,9 +51,8 @@ public class SecurityConfiguration {
                         // 위에 명시되지 않은 요청은 인증된 사용자를 제외하고 불허
                         .anyRequest().authenticated()
                 )
-                .securityContext(ctx -> ctx
-                        .securityContextRepository(scr)
-                )
+                .securityContext(ctx -> ctx.securityContextRepository(scr))
+                .rememberMe(me -> me.rememberMeServices(rms))
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
@@ -60,6 +66,21 @@ public class SecurityConfiguration {
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public RememberMeServices rememberMeServices(
+            TokenProperties tokenProperties,
+            UserDetailsService userDetailsService
+    ) {
+        String key = tokenProperties.getRememberMeToken();
+        var sha256 = RememberMeTokenAlgorithm.SHA256;
+        var services = new TokenBasedRememberMeServices(key, userDetailsService, sha256);
+
+        services.setMatchingAlgorithm(sha256);
+        services.setParameter("remember-me");
+        services.setTokenValiditySeconds(2592000);  // 30 days
+        return services;
     }
 
     @Bean
