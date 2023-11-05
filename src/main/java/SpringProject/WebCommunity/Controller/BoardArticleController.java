@@ -1,15 +1,15 @@
 package SpringProject.WebCommunity.Controller;
 
 import SpringProject.WebCommunity.Model.Domain.BoardArticle;
-import SpringProject.WebCommunity.Model.Domain.MemberPrincipal;
+import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleCreateDto;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleReadDto;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleUpdateDto;
 import SpringProject.WebCommunity.Service.ArticleService;
-import SpringProject.WebCommunity.Service.MemberDetailsService;
+import SpringProject.WebCommunity.Service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class BoardArticleController {
 
     private final ArticleService articleService;
-    private final MemberDetailsService memberDetailsService;
+    private final MemberService memberService;
 
     // 게시판 글쓰기 페이지 요청 처리
     @GetMapping("/board/form/{cat}")
@@ -39,30 +39,27 @@ public class BoardArticleController {
     @PostMapping("/board/create")
     public String createBoardArticle(@RequestParam(name = "category")String category,
                                      BoardArticleCreateDto form,
-                                     @AuthenticationPrincipal MemberPrincipal memberPrincipal,
+                                     HttpServletRequest request,
                                      RedirectAttributes redirectAttr) {
-        log.info(form.getTitle());
-        log.info(form.getContents());
-        log.info(form.toString());
-        log.info(category);
-        log.info(String.valueOf(memberPrincipal.isEnabled()));
-        log.info(memberPrincipal.getUsername());
-        log.info("----------------------------");
 
-        Long boardId = articleService.saveToCreate(form);
-        redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
-        log.info(boardId.toString());
-
-        return "redirect:/board/view/" + boardId;
+        Optional<Member> member = memberService.getMember(request);
+        if (member.isPresent()) {
+            Long boardId = articleService.saveToCreate(form);
+            redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
+            log.info(boardId.toString());
+            return "redirect:/board/view/" + boardId;
+        }
+        else
+            return "redirect:/home";
     }
 
     // 게시판 게시글 조회
     @GetMapping("/board/view/{id}") // TODO: 2023-11-03 articleReadDto null 예외처리
     public String showArticle(@PathVariable Long id, Model model) {
         log.info("id = " + id);
-        Optional<BoardArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
-        articleReadDto.ifPresent(i -> model.addAttribute("boardArticle", i));
-        articleReadDto.orElseThrow();
+        Optional<BoardArticle> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+        boardArticle.ifPresent(i -> model.addAttribute("boardArticle", i));
+        boardArticle.orElseThrow();
         return "/menu/article";
     }
 
@@ -106,9 +103,6 @@ public class BoardArticleController {
         log.info(id.toString() + "id");
 
         BoardArticleReadDto article = articleService.update(id, form);
-
-        log.info(article.getCategory() + "카테고리");
-
         model.addAttribute("boardArticle", article);
 
         return "redirect:/board/view/" + id;

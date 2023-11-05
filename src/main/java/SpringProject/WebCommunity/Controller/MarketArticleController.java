@@ -1,8 +1,11 @@
 package SpringProject.WebCommunity.Controller;
 
+import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleCreateDto;
 import SpringProject.WebCommunity.Model.Dto.BoardArticleReadDto;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,13 +24,16 @@ import java.util.Optional;
 public class MarketArticleController {
 
     private final ArticleService articleService;
+    private final MemberService memberService;
 
     @GetMapping("/market/form")
     public String newArticleForm() {return "/form/market-write";}
 
     // 장터 게시글 Form 데이터 Post mapping
     @PostMapping("/market/articles/create")
-    public String createMarketArticle(BoardArticleCreateDto form) {
+    public String createMarketArticle(BoardArticleCreateDto form,
+                                      HttpServletRequest request,
+                                      RedirectAttributes redirectAttr) {
         log.info(form.getTitle());
         log.info(form.getContents());
         log.info(form.toString());

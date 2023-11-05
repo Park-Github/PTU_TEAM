@@ -28,14 +28,14 @@
 					<div class="col-sm-10 mx-auto">
 						<h4 class="h4 fw-normal">[[${boardArticle.title}]]</h4>
 							<div class="d-flex hstack gap-2"> <!-- 본문 헤더 -->
-								<div class="me-auto">닉네임: [[${boardArticle.nickName}]]</div>
+								<div class="me-auto">닉네임: [[${boardArticle.createdBy}]]</div>
 								<div>댓글 (숫자)</div>
 								<div class="vr"></div>
 								<div>조회수: [[${boardArticle.views}]]</div>
 								<div class="vr"></div>
-								<div>작성일: [[${#temporals.format(boardArticle.createdTime, 'yyyy-MM-dd HH:mm')}]]</div>
+								<div>작성일: [[${#temporals.format(boardArticle.createdTime, 'yyyy년 MM월 dd일 a h:mm')}]]</div>
 								<div class="vr"></div>
-								<div>수정일: [[${#temporals.format(boardArticle.revisedTime, 'yyyy-MM-dd HH:mm')}]]</div>
+								<div>수정일: [[${#temporals.format(boardArticle.revisedTime, 'yyyy년 MM월 dd일 a h:mm')}]]</div>
 							</div>
 						<hr class="divider">
 						<div class="py-1">
