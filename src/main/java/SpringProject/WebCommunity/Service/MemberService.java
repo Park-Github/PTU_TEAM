@@ -1,15 +1,19 @@
 package SpringProject.WebCommunity.Service;
 
-import SpringProject.WebCommunity.Model.Domain.Member;
-import SpringProject.WebCommunity.Model.Dto.MemberCreateDto;
 import SpringProject.WebCommunity.Exception.RegisterException;
+import SpringProject.WebCommunity.Model.Domain.Member;
+import SpringProject.WebCommunity.Model.Domain.MemberPrincipal;
+import SpringProject.WebCommunity.Model.Dto.MemberCreateDto;
 import SpringProject.WebCommunity.Model.Response.Response;
 import SpringProject.WebCommunity.Repository.MemberRepos;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,10 +28,22 @@ public class MemberService {
     private final MemberRepos memberRepos;
     private final PasswordEncoder passwordEncoder;
     private final ResponseService responseService;
+    private final SecurityContextRepository securityContextRepo;
 
+    @Deprecated(forRemoval = true)
     public Optional<Member> getMember(HttpSession session) {
         String id = (String) session.getAttribute("member-id");
         return Optional.empty();
+    }
+
+    public Optional<Member> getMember(HttpServletRequest request) {
+        SecurityContext ctx = securityContextRepo.loadDeferredContext(request).get();
+
+        return Optional.ofNullable(ctx.getAuthentication())
+                .map(auth -> {
+                    MemberPrincipal principal = (MemberPrincipal) auth.getPrincipal();
+                    return principal.getMember();
+                });
     }
 
     public Response register(MemberCreateDto dto) throws RegisterException {
