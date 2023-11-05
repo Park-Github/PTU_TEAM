@@ -1,7 +1,7 @@
 package SpringProject.WebCommunity.Controller;
 
-import SpringProject.WebCommunity.Dto.BoardArticleCreateDto;
-import SpringProject.WebCommunity.Dto.BoardArticleReadDto;
+import SpringProject.WebCommunity.Model.Dto.BoardArticleCreateDto;
+import SpringProject.WebCommunity.Model.Dto.BoardArticleReadDto;
 import SpringProject.WebCommunity.Service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

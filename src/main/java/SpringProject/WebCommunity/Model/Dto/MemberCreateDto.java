@@ -1,4 +1,4 @@
-package SpringProject.WebCommunity.Dto;
+package SpringProject.WebCommunity.Model.Dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

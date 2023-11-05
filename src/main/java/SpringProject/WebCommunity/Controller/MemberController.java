@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Controller;
 
-import SpringProject.WebCommunity.Dto.MemberCreateDto;
+import SpringProject.WebCommunity.Model.Dto.MemberCreateDto;
 import SpringProject.WebCommunity.Model.Response.Response;
 import SpringProject.WebCommunity.Service.MemberService;
 import lombok.RequiredArgsConstructor;
