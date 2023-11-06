@@ -15,9 +15,9 @@ public class BoardArticle extends BaseTimeEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) // PK auto_increment 옵션
     private Long id; //id 필드
-    @Column(columnDefinition = "INT default 0")
+    @Column
     int views;
-    @Column(columnDefinition = "INT default 0")
+    @Column
     int likes;
     @Column(length = 500, nullable = false)
     @NotBlank(message = "제목이 입력되지 않았습니다. 제목을 입력하세요.")
