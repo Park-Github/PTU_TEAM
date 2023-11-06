@@ -1,5 +1,6 @@
-package SpringProject.WebCommunity.Domain;
+package SpringProject.WebCommunity.Model.Domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -13,10 +14,15 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) // 클래스에 Auditing 기능을 추가시킴
 public class BaseTimeEntity {
 
+    @Column(updatable = false)
     @CreatedDate // 엔티티 생성시 시간 자동 저장
     private LocalDateTime createdTime;
     @LastModifiedDate // 엔티티 수정시 시간 자동 저장
     private LocalDateTime revisedTime;
+
+    public void updateRevisedTime() {
+        this.revisedTime = LocalDateTime.now();
+    }
 
 }
 

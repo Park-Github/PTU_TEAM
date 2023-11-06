@@ -1,16 +1,23 @@
 package SpringProject.WebCommunity.Controller;
 
+import SpringProject.WebCommunity.Model.Dto.MemberCreateDto;
+import SpringProject.WebCommunity.Model.Response.Response;
 import SpringProject.WebCommunity.Service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/member")
+@RestController
+@RequestMapping
+@RequiredArgsConstructor
 public class MemberController {
+
     private final MemberService memberService;
-    @Autowired
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
+
+    @PostMapping("/register")
+    public Response register(MemberCreateDto dto) {
+        return memberService.register(dto);
     }
+
 }

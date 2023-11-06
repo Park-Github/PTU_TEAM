@@ -24,12 +24,26 @@
     max-width: 8rem;
   }
 </style>
+<th:block th:if="${success}">
+  <div class="alert alert-primary alert-dismissible">
+    <h4 style="text-align: center">[[${success}]]</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</th:block>
+<th:block th:if="${fail}">
+  <div class="alert alert-primary alert-dismissible">
+    <h4 style="text-align: center">[[${fail}]]</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</th:block>
 <div class="container mt-3">
-  <h1 class="h3 fw-normal">(게시판명)</h1>
-  <hr style="border: solid 1px rgb(0, 0, 0);"></hr>
-  </hr-solid>
+  <h1 th:if="${boardCat == 'free'}" class="h3 fw-normal">자유게시판</h1>
+  <h1 th:if="${boardCat == 'sharing'}" class="h3 fw-normal">정보공유게시판</h1>
+  <h1 th:if="${boardCat == 'qna'}" class="h3 fw-normal">질문답변게시판</h1>
+  <h1 th:if="${boardCat == 'promotion'}" class="h3 fw-normal">홍보게시판</h1>
+  <hr style="border: solid 1px rgb(0, 0, 0);">
   <div class="d-flex justify-content-between">
-    <select class="form-select" select style="width:125px;font-size:16px" aria-label="Default select example">
+    <select class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
       <option selected>등록순</option>
       <option value="1">공감순</option>
       <option value="2">댓글순</option>
@@ -39,7 +53,6 @@
   <table class="table table-hover table-striped">
     <thead>
       <tr>
-        <th style="text-align: center">번호</th>
         <th>제목</th>
         <th>작성자</th>
         <th style="text-align: center">작성일</th>
@@ -48,66 +61,33 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td style="text-align: center">(번호)</td>
+      <tr th:each="dto : ${boardArticleList}">
         <td style="width: 60%">
           <span class="title-short text-truncate">
-            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
           </span>
           <span>(대괄호 안에 댓글수)</span>
         </td>
-        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
-        <td style="text-align: center">(글 작성일, 시간)</td>
-        <td style="text-align: center">(조회수)</td>
-        <td style="text-align: center">(공감수)</td>
-      </tr>
-      <tr>
-        <td style="text-align: center">(번호)</td>
-        <td style>
-          <span class="title-short text-truncate">
-            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
-          </span>
-          <span>(대괄호 안에 댓글수)</span>
-        </td>
-        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
-        <td style="text-align: center">(글 작성일, 시간)</td>
-        <td style="text-align: center">(조회수)</td>
-        <td style="text-align: center">(공감수)</td>
-      </tr>
-      <tr>
-        <td style="text-align: center">(번호)</td>
-        <td style>
-          <span class="title-short text-truncate">
-            <a href="/article-list/article" class="link-body-emphasis text-decoration-none">(글 제목)</a>
-          </span>
-          <span>(대괄호 안에 댓글수)</span>
-        </td>
-        <td style="width: 5%"><span class="nickname-short text-truncate">(작성자명)</span></td>
-        <td style="text-align: center">(글 작성일, 시간)</td>
-        <td style="text-align: center">(조회수)</td>
-        <td style="text-align: center">(공감수)</td>
+        <td style="width: 5%"><span class="nickname-short text-truncate">[[${dto.nickName}]]</span></td>
+        <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+        <td style="text-align: center">[[${dto.views}]]</td>
+        <td style="text-align: center">[[${dto.likes}]]</td>
       </tr>
     </tbody>
   </table>
-
   <div class="d-flex justify-content-between">
     <a href="/article-list" class="btn btn-outline-primary" role="button" aria-pressed="true">전체글</a>
     <a href="/article-list" class="btn btn-outline-primary me-auto mx-2" role="button" aria-pressed="true">인기글</a>
-    <a href="/article-list/form" class="btn btn-primary">글쓰기</a>
+    <a th:if="${boardCat == 'free'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
+    <a th:if="${boardCat == 'sharing'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
+    <a th:if="${boardCat == 'qna'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
+    <a th:if="${boardCat == 'promotion'}" th:href="@{/board/form/{cat}(cat = ${boardCat})}" class="btn btn-primary">글쓰기</a>
   </div>
 
   <div class="container d-flex justify-content-center">
 		<ul class="pagination">
 			<li class="page-item"><a href="/article-list" class="page-link">이전</a></li>
 			<li class="page-item"><a href="/article-list" class="page-link">1</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">2</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">3</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">4</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">5</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">6</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">7</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">8</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">9</a></li>
 			<li class="page-item"><a href="/article-list" class="page-link">다음</a></li>
 		</ul>
   </div>

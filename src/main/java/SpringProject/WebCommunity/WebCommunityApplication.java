@@ -1,10 +1,11 @@
 package SpringProject.WebCommunity;
 
+import SpringProject.WebCommunity.Config.QueryDSLConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.context.annotation.Import;
 
-@EnableJpaAuditing //JPA Auditing 활성화
+@Import(QueryDSLConfiguration.class)
 @SpringBootApplication
 public class WebCommunityApplication {
 
