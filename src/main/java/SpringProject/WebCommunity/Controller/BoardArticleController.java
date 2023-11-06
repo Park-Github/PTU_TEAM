@@ -2,9 +2,7 @@ package SpringProject.WebCommunity.Controller;
 
 import SpringProject.WebCommunity.Model.Domain.BoardArticle;
 import SpringProject.WebCommunity.Model.Domain.Member;
-import SpringProject.WebCommunity.Model.Dto.BoardArticleCreateDto;
-import SpringProject.WebCommunity.Model.Dto.BoardArticleReadDto;
-import SpringProject.WebCommunity.Model.Dto.BoardArticleUpdateDto;
+import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
 import SpringProject.WebCommunity.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -58,21 +56,31 @@ public class BoardArticleController {
     public String showArticle(@PathVariable Long id, Model model) {
         log.info("id = " + id);
         Optional<BoardArticle> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
-        boardArticle.ifPresent(i -> model.addAttribute("boardArticle", i));
-        boardArticle.orElseThrow();
-        return "/menu/article";
+
+        if (boardArticle.isPresent()){
+            model.addAttribute("boardArticle", boardArticle.get());
+            articleService.updateViewCount(id);
+            return "/menu/article";
+        }
+        else {
+            return "redirect:/home";
+        }
     }
 
     // 게시판 게시글 목록 조회
     @GetMapping("/board/view")
-    public String articleListView(@RequestParam(name = "category") String category, Model model) {
-        // 모든 Article 가져오기
-        List<BoardArticle> articleList = articleService.findAllByTimeDesc(category);
+    public String articleListView(@RequestParam(name = "category") String category,
+                                  PageRequestDto pageRequestDto,
+                                  Model model) {
+        PageResultDto<BoardArticleReadDto, BoardArticle> resultDto
+                = articleService.getList(pageRequestDto, "createdTime");
         // Model에 등록
-        model.addAttribute("boardArticleList", articleList);
+        model.addAttribute("boardArticleList", resultDto);
+
         // URL 파라미터 값(category) Model 등록
         model.addAttribute("boardCat", category);
         return "/menu/article-list";
+
     }
 
     // 게시판 게시글 수정 페이지 요청 처리
@@ -102,7 +110,7 @@ public class BoardArticleController {
         log.info(form.getContents() + "내용");
         log.info(id.toString() + "id");
 
-        BoardArticleReadDto article = articleService.update(id, form);
+        BoardArticleReadDto article = articleService.updateTitleAndContents(id, form);
         model.addAttribute("boardArticle", article);
 
         return "redirect:/board/view/" + id;
@@ -133,6 +141,21 @@ public class BoardArticleController {
                 case "qna" -> "redirect:/board/view?category=qna";
                 case "promotion" -> "redirect:/board/view?category=promotion";
             };
+        }
+    }
+    @GetMapping("/board/like/{id}")
+    public String clickLikes(@PathVariable(name = "id") Long id,
+                             Model model) {
+        Optional<BoardArticle> boardArticle;
+        boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+
+        if (boardArticle.isPresent()){
+            model.addAttribute("boardArticle", boardArticle.get());
+            articleService.updateLikeCount(id);
+            return "redirect:/board/view/" + id;
+        }
+        else {
+            return "redirect:/home";
         }
     }
 }

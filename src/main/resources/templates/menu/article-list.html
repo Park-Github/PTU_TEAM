@@ -61,7 +61,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="dto : ${boardArticleList}">
+      <tr th:each="dto : ${boardArticleList.dtoList}">
         <td style="width: 60%">
           <span class="title-short text-truncate">
             <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
@@ -86,9 +86,14 @@
 
   <div class="container d-flex justify-content-center">
 		<ul class="pagination">
-			<li class="page-item"><a href="/article-list" class="page-link">이전</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">1</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">다음</a></li>
+			<li class="page-item" th:if="${boardArticleList.prev}">
+              <a href="/#" class="page-link" tabindex="-1">이전</a>
+            </li>
+			<li class="'page-item' + ${boardArticleList.current == current ? 'activate' : ''}"
+                th:each="page : ${boardArticleList.pageList}">
+              <a href="/#" class="page-link">[[${page}]]</a></li>
+			<li class="page-item" th:if="${boardArticleList.next}">
+              <a href="/#" class="page-link">다음</a></li>
 		</ul>
   </div>
 

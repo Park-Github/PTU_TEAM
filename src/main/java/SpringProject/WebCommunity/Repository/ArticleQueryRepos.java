@@ -64,4 +64,23 @@ public class ArticleQueryRepos {
                 .orderBy(boardArticle.views.desc())
                 .fetch();
     }
+
+    public void updateViewCount(Long id) {
+        queryFactory
+                .update(boardArticle)
+                .set(boardArticle.views, boardArticle.views.add(1))
+                .where(boardArticle.id.eq(id))
+                .execute();
+
+    }
+
+    public void updateLikeCount(Long id) {
+        queryFactory
+                .update(boardArticle)
+                .set(boardArticle.likes, boardArticle.likes.add(1))
+                .where(boardArticle.id.eq(id))
+                .execute();
+
+    }
+
 }
