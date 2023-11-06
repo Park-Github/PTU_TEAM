@@ -42,7 +42,8 @@
 							<div><div>[[${boardArticle.contents}]]</div></div>
 						</div>
 						<div class="text-center mt-5">
-							<button type="button" class="btn btn-primary me-2">공감 [[${boardArticle.likes}]]</button>
+							<button type="button" class="btn btn-primary me-2"
+									th:onclick="|location.href='@{/board/like/{id}(id=${boardArticle.id})}'|">공감 [[${boardArticle.likes}]]</button>
 							<button type="button"
 									id="deleteErrorBtn" th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
 									class="btn btn-primary me-2">수정</button>

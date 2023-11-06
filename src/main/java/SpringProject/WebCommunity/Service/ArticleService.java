@@ -1,17 +1,19 @@
 package SpringProject.WebCommunity.Service;
 
 import SpringProject.WebCommunity.Model.Domain.BoardArticle;
-import SpringProject.WebCommunity.Model.Dto.BoardArticleCreateDto;
-import SpringProject.WebCommunity.Model.Dto.BoardArticleReadDto;
-import SpringProject.WebCommunity.Model.Dto.BoardArticleUpdateDto;
+import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Repository.ArticleQueryRepos;
 import SpringProject.WebCommunity.Repository.ArticleRepos;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor // final 필드 생성자 자동 생성
@@ -26,13 +28,22 @@ public class ArticleService {
     }
 
     @Transactional
-    public BoardArticleReadDto update(Long id, BoardArticleUpdateDto boardArticleUpdateDto) {
+    public BoardArticleReadDto updateTitleAndContents(Long id, BoardArticleUpdateDto boardArticleUpdateDto) {
         BoardArticle entity = articleRepos.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
         entity.update(boardArticleUpdateDto.getTitle(), boardArticleUpdateDto.getContents());
         return new BoardArticleReadDto(entity);
     }
 
+    @Transactional
+    public void updateViewCount(Long id) {
+        articleQueryRepos.updateViewCount(id);
+    }
+
+    @Transactional
+    public void updateLikeCount(Long id) {
+        articleQueryRepos.updateLikeCount(id);
+    }
 
     @Transactional(readOnly = true)
     public BoardArticleReadDto findById(Long id) {
@@ -62,6 +73,14 @@ public class ArticleService {
         return articleRepos.findAll().stream()
                 .map(BoardArticleReadDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public PageResultDto<BoardArticleReadDto, BoardArticle> getList(PageRequestDto requestDto, String sort) {
+        Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
+        Page<BoardArticle> result = articleRepos.findAll(pageable);
+        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+
+        return new PageResultDto<>(result, function);
     }
 
     /// Using Query DSL
