@@ -75,13 +75,49 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-    public PageResultDto<BoardArticleReadDto, BoardArticle> getList(PageRequestDto requestDto, String sort) {
+    public PageResultDto<BoardArticleReadDto, BoardArticle> getList(PageRequestDto requestDto,
+                                                                    String sort, String category) {
         Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
-        Page<BoardArticle> result = articleRepos.findAll(pageable);
+        Page<BoardArticle> result =
+                articleRepos.findAllByCategory(category, pageable);
         Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
 
         return new PageResultDto<>(result, function);
     }
+
+    public PageResultDto<BoardArticleReadDto, BoardArticle> getListByTitle(PageRequestDto requestDto,
+                                                                           String sort, String category,
+                                                                           String title) {
+        Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
+        Page<BoardArticle> result =
+                articleRepos.findAllByCategoryAndTitleContaining(category, title, pageable);
+        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+
+        return new PageResultDto<>(result, function);
+    }
+
+    public PageResultDto<BoardArticleReadDto, BoardArticle> getListByContents(PageRequestDto requestDto,
+                                                                              String sort, String category,
+                                                                              String contents) {
+        Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
+        Page<BoardArticle> result =
+                articleRepos.findAllByCategoryAndContentsContaining(category, contents, pageable);
+        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+
+        return new PageResultDto<>(result, function);
+    }
+
+    public PageResultDto<BoardArticleReadDto, BoardArticle> getListByUserName(PageRequestDto requestDto,
+                                                                              String sort, String category,
+                                                                              String createdBy) {
+        Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
+        Page<BoardArticle> result =
+                articleRepos.findAllByCategoryAndCreatedByContaining(category, createdBy, pageable);
+        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+
+        return new PageResultDto<>(result, function);
+    }
+
 
     /// Using Query DSL
 

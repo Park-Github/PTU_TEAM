@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -35,8 +34,7 @@ public class BoardArticleController {
 
     // 게시판 게시글 입력 데이터 POST mapping
     @PostMapping("/board/create")
-    public String createBoardArticle(@RequestParam(name = "category")String category,
-                                     BoardArticleCreateDto form,
+    public String createBoardArticle(BoardArticleCreateDto form,
                                      HttpServletRequest request,
                                      RedirectAttributes redirectAttr) {
 
@@ -70,15 +68,18 @@ public class BoardArticleController {
     // 게시판 게시글 목록 조회
     @GetMapping("/board/view")
     public String articleListView(@RequestParam(name = "category") String category,
+                                  @RequestParam(name = "sort", defaultValue = "createdTime") String sort,
                                   PageRequestDto pageRequestDto,
                                   Model model) {
+        log.info(sort);
         PageResultDto<BoardArticleReadDto, BoardArticle> resultDto
-                = articleService.getList(pageRequestDto, "createdTime");
-        // Model에 등록
+                = articleService.getList(pageRequestDto, sort, category);
+
         model.addAttribute("boardArticleList", resultDto);
 
-        // URL 파라미터 값(category) Model 등록
         model.addAttribute("boardCat", category);
+
+        model.addAttribute("sort", sort);
         return "/menu/article-list";
 
     }
@@ -143,6 +144,49 @@ public class BoardArticleController {
             };
         }
     }
+
+    @PostMapping("/board/search")
+    public String articleSearch(@RequestParam(name = "category") String category,
+                                @RequestParam(name = "condition", defaultValue = "") String condition,
+                                @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
+                                @RequestParam(name = "sort") String sort,
+                                PageRequestDto pageRequestDto,
+                                Model model) {
+
+        log.info("-----PostMapping Start-----");
+        log.info(condition);
+        switch (condition) {
+            case "title":
+                log.info(category);
+                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto1
+                        = articleService.getListByTitle(pageRequestDto, sort, category, keyWord);
+                model.addAttribute("boardArticleList", resultDto1);
+                break;
+            case "contents":
+                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto2
+                        = articleService.getListByContents(pageRequestDto, sort, category, keyWord);
+                model.addAttribute("boardArticleList", resultDto2);
+                break;
+            case "createdBy":
+                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto3
+                        = articleService.getListByUserName(pageRequestDto, sort, category, keyWord);
+                model.addAttribute("boardArticleList", resultDto3);
+                break;
+            default:
+                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto4
+                        = articleService.getList(pageRequestDto, sort, category);
+                model.addAttribute("boardArticleList", resultDto4);
+                break;
+        }
+        model.addAttribute("boardCat", category);
+        model.addAttribute("sort", sort);
+        log.info(keyWord);
+        log.info("-----PostMapping End-----");
+
+        return "menu/article-list";
+    }
+
+    // 게시글 공감 버튼 요청
     @GetMapping("/board/like/{id}")
     public String clickLikes(@PathVariable(name = "id") Long id,
                              Model model) {
@@ -158,5 +202,6 @@ public class BoardArticleController {
             return "redirect:/home";
         }
     }
+
 }
 
