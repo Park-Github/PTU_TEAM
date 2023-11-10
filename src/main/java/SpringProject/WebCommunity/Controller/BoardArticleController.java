@@ -66,7 +66,7 @@ public class BoardArticleController {
     }
 
     // 게시판 게시글 목록 조회
-    @GetMapping("/board/view")
+    @GetMapping("/board/view") // TODO: 2023/11/10 현재 URL 경로 model 등록
     public String articleListView(@RequestParam(name = "category") String category,
                                   @RequestParam(name = "sort", defaultValue = "createdTime") String sort,
                                   PageRequestDto pageRequestDto,
