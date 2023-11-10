@@ -118,11 +118,10 @@ public class ArticleService {
         return new PageResultDto<>(result, function);
     }
 
-
     /// Using Query DSL
 
-    public List<BoardArticle> findAllByTitle(String title) {
-        return articleQueryRepos.findAllByTitle(title);
+    public List<BoardArticle> find2ByCategoryDesc(String category) {
+        return articleQueryRepos.find2ByCategoryDesc(category);
     }
     public List<BoardArticle> findAllByContents(String contents) {
         return articleQueryRepos.findAllByContents(contents);

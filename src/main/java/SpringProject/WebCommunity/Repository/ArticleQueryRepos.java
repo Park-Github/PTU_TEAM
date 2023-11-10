@@ -16,11 +16,13 @@ public class ArticleQueryRepos {
         this.queryFactory = new JPAQueryFactory(entityManager);
     }
 
-    public List<BoardArticle> findAllByTitle(String title) {
+    public List<BoardArticle> find2ByCategoryDesc(String category) {
         return queryFactory
                 .select(boardArticle)
                 .from(boardArticle)
-                .where(boardArticle.title.like("%" + title + "%"))
+                .where(boardArticle.category.eq(category))
+                .orderBy(boardArticle.createdTime.desc())
+                .limit(2)
                 .fetch();
     }
 
