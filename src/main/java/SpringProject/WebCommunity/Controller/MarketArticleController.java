@@ -34,15 +34,16 @@ public class MarketArticleController {
     public String createMarketArticle(BoardArticleCreateDto form,
                                       HttpServletRequest request,
                                       RedirectAttributes redirectAttr) {
-        log.info(form.getTitle());
-        log.info(form.getContents());
-        log.info(form.toString());
 
-        Long boardId = articleService.saveToCreate(form);
-
-        log.info(boardId.toString());
-
-        return "redirect:/market/articles/" + boardId;
+        Optional<Member> member = memberService.getMember(request);
+        log.info(member.toString());
+        if (member.isPresent()) {
+            Long boardId = articleService.saveToCreate(form);
+            redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
+            log.info(boardId.toString());
+            return "redirect:/market/articles/" + boardId;
+        }
+        else return "redirect:/menu/home";
     }
 
     // 장터 게시판 게시글 조회
