@@ -13,29 +13,33 @@
 						<h4 class="fw-normal m-2"><a href="/board-all" class="link-body-emphasis text-decoration-none color-inherit">게시판</a></h4>
 						<hr class="divider m-2">
 					</div>
-	      			<div class="d-flex hstack gap-2 m-2"> 
-						<button type="button" class="btn btn-secondary btn-sm" disabled>자유</button>
-						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
-						<div class="text-black-50">(글 작성일/시간)</div>
-					</div>
-					<div class="d-flex hstack gap-2 m-2">
-						<button type="button" class="btn btn-secondary btn-sm" disabled>정보</button>
-						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
-						<div class="text-black-50">(글 작성일/시간)</div>
-					</div>
-					<div class="d-flex hstack gap-2 m-2"> 
-						<button type="button" class="btn btn-secondary btn-sm" disabled>질문</button>
-						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
-						<div class="text-black-50">(글 작성일/시간)</div>
-					</div>
-					<div class="d-flex hstack gap-2 m-2"> 
-						<button type="button" class="btn btn-secondary btn-sm" disabled>홍보</button>
-						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
-						<div class="text-black-50">(글 작성일/시간)</div>
+						<div th:each="dto : ${BoardMap.get('free')}" class="d-flex hstack gap-2 m-2">
+							<button th:if="${dto.category == 'free'}" th:text="${'자유'}" type="button"
+									class="btn btn-secondary btn-sm" disabled></button>
+							<div th:text="${dto.title}"><a></a></div>
+							<div class="me-auto">(댓글 수)</div>
+							<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
+						</div>
+						<div th:each="dto : ${BoardMap.get('sharing')}" class="d-flex hstack gap-2 m-2">
+							<button th:if="${dto.category == 'sharing'}" th:text="${'정보'}" type="button"
+									class="btn btn-secondary btn-sm" disabled></button>
+							<div th:text="${dto.title}"><a></a></div>
+							<div class="me-auto">(댓글 수)</div>
+							<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
+						</div>
+						<div th:each="dto : ${BoardMap.get('qna')}" class="d-flex hstack gap-2 m-2">
+							<button th:if="${dto.category == 'qna'}" th:text="${'질문'}" type="button"
+									class="btn btn-secondary btn-sm" disabled></button>
+							<div th:text="${dto.title}"><a></a></div>
+							<div class="me-auto">(댓글 수)</div>
+							<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
+						</div>
+					<div th:each="dto : ${BoardMap.get('promotion')}" class="d-flex hstack gap-2 m-2">
+						<button th:if="${dto.category == 'promotion'}" th:text="${'홍보'}" type="button"
+								class="btn btn-secondary btn-sm" disabled></button>
+						<div th:text="${dto.title}"><a></a></div>
+						<div class="me-auto">(댓글 수)</div>
+						<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
 					</div>
 				</div>
 				<th:block th:if="${errorMessage != null}">
@@ -67,19 +71,19 @@
 	      			<div class="d-flex hstack gap-2 m-2">
 						<button type="button" class="btn btn-secondary btn-sm" disabled>채용공고</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2">
 						<button type="button" class="btn btn-secondary btn-sm" disabled>취업컨텐츠</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2">
 						<button type="button" class="btn btn-secondary btn-sm" disabled>취업교육</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 				</div>
@@ -91,37 +95,37 @@
 	      			<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>자격증</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>어학</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>국가고시</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>공무원시험</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>전공시험</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>기타</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 				</div>
@@ -133,13 +137,13 @@
 	      			<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>판매</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>구매</button>
 						<div><a>(글 제목)</a></div>
-						<div th:inline="none" class="me-auto">(댓글 수)</div>
+						<div class="me-auto">(댓글 수)</div>
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 				</div>
