@@ -23,22 +23,32 @@
             .dropdown-toggle:not(:focus) {
                 outline: 0;
             }
+
+            .button-back {
+                position: absolute;
+                top: 20px;
+                left: 30px;
+            }
         </style>
         <title>대학 웹 커뮤니티</title>
     </head>
 <body>
     <div th:fragment="headline" class="py-3 border-bottom"> <!-- 상단바 -->
+        <div class="button-back">
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="72" height="72"><path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z" fill="rgba(70,146,221,1)"></path></svg></a>
+        </div>
         <div class="container d-flex flex-wrap justify-content-center">
             <img class="mx-3" src="/img/ptuteam_logo.png" alt="" width="88" height="88">
-            <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+            <a href="#" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
                 <span class="fs-4">대학 웹 커뮤니티</span>
             </a>
-            <div sec:authorize="isAuthenticated()" class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/logout'">로그아웃</button>
+            <div sec:authorize="isAuthenticated()" class="col-auto text-end d-flex align-items-center">
+                <button type="button" class="btn btn-outline-primary btn-lg me-2" onclick="location.href='/logout'">로그아웃</button>
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path d="M3 4.99509C3 3.89323 3.89262 3 4.99509 3H19.0049C20.1068 3 21 3.89262 21 4.99509V19.0049C21 20.1068 20.1074 21 19.0049 21H4.99509C3.89323 21 3 20.1074 3 19.0049V4.99509ZM6.35687 18H17.8475C16.5825 16.1865 14.4809 15 12.1022 15C9.72344 15 7.62182 16.1865 6.35687 18ZM12 13C13.933 13 15.5 11.433 15.5 9.5C15.5 7.567 13.933 6 12 6C10.067 6 8.5 7.567 8.5 9.5C8.5 11.433 10.067 13 12 13Z" fill="rgba(70,146,221,1)"></path></svg></a>
             </div>
-            <div sec:authorize="!isAuthenticated()" class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/login'">로그인</button>
-                <button type="button" class="btn btn-primary" onclick="location.href='/register'">회원가입</button>
+            <div sec:authorize="!isAuthenticated()" class="col-auto text-end d-flex align-items-center">
+                <button type="button" class="btn btn-outline-primary btn-lg me-2" onclick="location.href='/login'">로그인</button>
+                <button type="button" class="btn btn-primary btn-lg" onclick="location.href='/register'">회원가입</button>
             </div>
         </div>
     </div>
