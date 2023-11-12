@@ -6,14 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageRenderingController {
     // -- menu --
-//    @GetMapping("/")
-//    public String welcomeHome() { return "home"; }
     @GetMapping("/register")
     public String registerView() { return "/certification/register"; }
     @GetMapping("/login")
     public String loginView() { return "/certification/login"; }
     @GetMapping("/profile")
-    public String profileView() { return "/profile/profile-page";}
+    public String profileView() { return "/profile/mypage";}
     @GetMapping("/sitemap")
     public String sitemapView(){
         return "/menu/sitemap";
