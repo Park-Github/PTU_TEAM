@@ -46,10 +46,13 @@ public class SecurityConfiguration {
                         .requestMatchers(antMatcher("/logout")).permitAll()
 
                         // 공개 페이지 허용
-                        .requestMatchers(antMatcher("/")).permitAll()
+//                        .requestMatchers(antMatcher("/")).permitAll()
+                                .requestMatchers(antMatcher("/board/form/**")).authenticated()
+                                .requestMatchers(antMatcher("/market/form/**")).authenticated()
 
-                        // 위에 명시되지 않은 요청은 인증된 사용자를 제외하고 불허
-                        .anyRequest().authenticated()
+                                // 위에 명시되지 않은 요청은 인증된 사용자를 제외하고 불허
+//                        .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .securityContext(ctx -> ctx.securityContextRepository(scr))
                 .rememberMe(me -> me.rememberMeServices(rms))
