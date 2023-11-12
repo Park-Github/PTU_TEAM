@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Controller;
 
-import SpringProject.WebCommunity.Model.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
@@ -26,7 +26,8 @@ public class BoardArticleController {
     // 게시판 글쓰기 페이지 요청 처리
     @GetMapping("/board/form/{cat}")
     public String newArticleForm(@PathVariable(name = "cat") String category,
-                                 Model model, BoardArticleCreateDto dto) {
+                                 Model model,
+                                 ArticleCreateDto dto) {
         model.addAttribute("boardArticle", dto);
         model.addAttribute("category", category);
         return "/form/post-write";
@@ -34,7 +35,7 @@ public class BoardArticleController {
 
     // 게시판 게시글 입력 데이터 POST mapping
     @PostMapping("/board/create")
-    public String createBoardArticle(BoardArticleCreateDto form,
+    public String createBoardArticle(ArticleCreateDto form,
                                      HttpServletRequest request,
                                      RedirectAttributes redirectAttr) {
 
@@ -53,7 +54,7 @@ public class BoardArticleController {
     @GetMapping("/board/view/{id}") // TODO: 2023-11-03 articleReadDto null 예외처리
     public String showArticle(@PathVariable Long id, Model model) {
         log.info("id = " + id);
-        Optional<BoardArticle> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+        Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
 
         if (boardArticle.isPresent()){
             model.addAttribute("boardArticle", boardArticle.get());
@@ -72,7 +73,7 @@ public class BoardArticleController {
                                   PageRequestDto pageRequestDto,
                                   Model model) {
         log.info(sort);
-        PageResultDto<BoardArticleReadDto, BoardArticle> resultDto
+        PageResultDto<ArticleReadDto, Article> resultDto
                 = articleService.getList(pageRequestDto, sort, category);
 
         model.addAttribute("boardArticleList", resultDto);
@@ -89,8 +90,8 @@ public class BoardArticleController {
     public String articleEditPageView(@RequestParam(name = "category") String category,
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
-        BoardArticleReadDto readDto = articleService.findById(id);
-        BoardArticleUpdateDto updateDto = new BoardArticleUpdateDto(id, readDto.getTitle(), readDto.getContents());
+        ArticleReadDto readDto = articleService.findById(id);
+        ArticleUpdateDto updateDto = new ArticleUpdateDto(id, readDto.getTitle(), readDto.getContents());
         log.info(String.valueOf(id));
         log.info(updateDto.getTitle());
         log.info(updateDto.getContents());
@@ -105,13 +106,13 @@ public class BoardArticleController {
     // 게시판 게시글 수정 데이터 POST mapping
     @PostMapping ("/board/edit")
     public String editBoardArticle(@RequestParam(name = "id") Long id,
-                                   BoardArticleUpdateDto form,
+                                   ArticleUpdateDto form,
                                    Model model) {
         log.info(form.getTitle() + "제목");
         log.info(form.getContents() + "내용");
         log.info(id.toString() + "id");
 
-        BoardArticleReadDto article = articleService.updateTitleAndContents(id, form);
+        ArticleReadDto article = articleService.updateTitleAndContents(id, form);
         model.addAttribute("boardArticle", article);
 
         return "redirect:/board/view/" + id;
@@ -122,7 +123,7 @@ public class BoardArticleController {
     public String articleDeletePageView(@RequestParam(name = "id") Long id,
                                         @PathVariable(name = "category") String category,
                                         RedirectAttributes redirectAttr) {
-        Optional<BoardArticleReadDto> dto = articleService.optionalFindById(id);
+        Optional<ArticleReadDto> dto = articleService.optionalFindById(id);
 
         if (dto.isPresent()) {
             articleService.delete(id);
@@ -158,22 +159,22 @@ public class BoardArticleController {
         switch (condition) {
             case "title":
                 log.info(category);
-                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto1
+                PageResultDto<ArticleReadDto, Article> resultDto1
                         = articleService.getListByTitle(pageRequestDto, sort, category, keyWord);
                 model.addAttribute("boardArticleList", resultDto1);
                 break;
             case "contents":
-                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto2
+                PageResultDto<ArticleReadDto, Article> resultDto2
                         = articleService.getListByContents(pageRequestDto, sort, category, keyWord);
                 model.addAttribute("boardArticleList", resultDto2);
                 break;
             case "createdBy":
-                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto3
+                PageResultDto<ArticleReadDto, Article> resultDto3
                         = articleService.getListByUserName(pageRequestDto, sort, category, keyWord);
                 model.addAttribute("boardArticleList", resultDto3);
                 break;
             default:
-                PageResultDto<BoardArticleReadDto, BoardArticle> resultDto4
+                PageResultDto<ArticleReadDto, Article> resultDto4
                         = articleService.getList(pageRequestDto, sort, category);
                 model.addAttribute("boardArticleList", resultDto4);
                 break;
@@ -190,7 +191,7 @@ public class BoardArticleController {
     @GetMapping("/board/like/{id}")
     public String clickLikes(@PathVariable(name = "id") Long id,
                              Model model) {
-        Optional<BoardArticle> boardArticle;
+        Optional<Article> boardArticle;
         boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
 
         if (boardArticle.isPresent()){

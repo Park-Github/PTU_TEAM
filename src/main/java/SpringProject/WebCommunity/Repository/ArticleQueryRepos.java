@@ -1,12 +1,13 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Model.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.Article;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import static SpringProject.WebCommunity.Model.Domain.QBoardArticle.*;
+
+import static SpringProject.WebCommunity.Model.Domain.QArticle.article;
 
 @Repository
 @Transactional
@@ -16,71 +17,71 @@ public class ArticleQueryRepos {
         this.queryFactory = new JPAQueryFactory(entityManager);
     }
 
-    public List<BoardArticle> find2ByCategoryDesc(String category) {
+    public List<Article> find2ByCategoryDesc(String category) {
         return queryFactory
-                .select(boardArticle)
-                .from(boardArticle)
-                .where(boardArticle.category.eq(category))
-                .orderBy(boardArticle.createdTime.desc())
+                .select(article)
+                .from(article)
+                .where(article.category.eq(category))
+                .orderBy(article.createdTime.desc())
                 .limit(2)
                 .fetch();
     }
 
-    public List<BoardArticle> findAllByContents(String contents) {
+    public List<Article> findAllByContents(String contents) {
         return queryFactory
-                .select(boardArticle)
-                .from(boardArticle)
-                .where(boardArticle.contents.like("%" + contents + "%"))
+                .select(article)
+                .from(article)
+                .where(article.contents.like("%" + contents + "%"))
                 .fetch();
     }
 
-    public List<BoardArticle> findAllByCategory(String category) {
+    public List<Article> findAllByCategory(String category) {
         return queryFactory
-                .select(boardArticle)
-                .from(boardArticle)
-                .where(boardArticle.category.eq(category))
+                .select(article)
+                .from(article)
+                .where(article.category.eq(category))
                 .fetch();
     }
 
-    public List<BoardArticle> findAllOrderByTimeDesc(String category) {
+    public List<Article> findAllOrderByTimeDesc(String category) {
         return queryFactory
-                .select(boardArticle)
-                .from(boardArticle)
-                .where(boardArticle.category.eq(category))
-                .orderBy(boardArticle.createdTime.desc())
+                .select(article)
+                .from(article)
+                .where(article.category.eq(category))
+                .orderBy(article.createdTime.desc())
                 .fetch();
     }
 
-    public List<BoardArticle> findAllOrderByLikeDesc(String category) {
+    public List<Article> findAllOrderByLikeDesc(String category) {
         return queryFactory
-                .select(boardArticle)
-                .from(boardArticle)
-                .orderBy(boardArticle.likes.desc())
+                .select(article)
+                .from(article)
+                .orderBy(article.likes.desc())
                 .fetch();
     }
 
-    public List<BoardArticle> findAllOrderByViewDesc(String category) {
+    public List<Article> findAllOrderByViewDesc(String category) {
         return queryFactory
-                .select(boardArticle)
-                .from(boardArticle)
-                .orderBy(boardArticle.views.desc())
+                .select(article)
+                .from(article)
+                .orderBy(article.views.desc())
                 .fetch();
     }
 
     public void updateViewCount(Long id) {
         queryFactory
-                .update(boardArticle)
-                .set(boardArticle.views, boardArticle.views.add(1))
-                .where(boardArticle.id.eq(id))
+                .update(article)
+                .set(article.views, article.views.add(1))
+                .where(article.id.eq(id))
                 .execute();
 
     }
 
     public void updateLikeCount(Long id) {
         queryFactory
-                .update(boardArticle)
-                .set(boardArticle.likes, boardArticle.likes.add(1))
-                .where(boardArticle.id.eq(id))
+                .update(article)
+                .set(article.likes, article.likes.add(1))
+                .where(article.id.eq(id))
                 .execute();
 
     }

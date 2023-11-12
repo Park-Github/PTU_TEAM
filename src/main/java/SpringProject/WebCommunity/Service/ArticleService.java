@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Service;
 
-import SpringProject.WebCommunity.Model.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Repository.ArticleQueryRepos;
 import SpringProject.WebCommunity.Repository.ArticleRepos;
@@ -23,16 +23,16 @@ public class ArticleService {
     private final ArticleQueryRepos articleQueryRepos;
 
     @Transactional
-    public Long saveToCreate(BoardArticleCreateDto boardArticleCreateDto){
-     return articleRepos.save(boardArticleCreateDto.toEntity()).getId();
+    public Long saveToCreate(ArticleCreateDto articleCreateDto){
+     return articleRepos.save(articleCreateDto.toEntity()).getId();
     }
 
     @Transactional
-    public BoardArticleReadDto updateTitleAndContents(Long id, BoardArticleUpdateDto boardArticleUpdateDto) {
-        BoardArticle entity = articleRepos.findById(id)
+    public ArticleReadDto updateTitleAndContents(Long id, ArticleUpdateDto articleUpdateDto) {
+        Article entity = articleRepos.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
-        entity.update(boardArticleUpdateDto.getTitle(), boardArticleUpdateDto.getContents());
-        return new BoardArticleReadDto(entity);
+        entity.update(articleUpdateDto.getTitle(), articleUpdateDto.getContents());
+        return new ArticleReadDto(entity);
     }
 
     @Transactional
@@ -46,90 +46,90 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public BoardArticleReadDto findById(Long id) {
-        BoardArticle entity = articleRepos.findById(id)
+    public ArticleReadDto findById(Long id) {
+        Article entity = articleRepos.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다"));
 
-        return new BoardArticleReadDto(entity);
+        return new ArticleReadDto(entity);
     }
 
     @Transactional(readOnly = true)
-    public Optional<BoardArticleReadDto> optionalFindById(Long id) {
-        BoardArticle entity = articleRepos.findById(id).orElse(null);
+    public Optional<ArticleReadDto> optionalFindById(Long id) {
+        Article entity = articleRepos.findById(id).orElse(null);
 
-        return Optional.of(new BoardArticleReadDto(entity));
+        return Optional.of(new ArticleReadDto(entity));
     }
 
     @Transactional
     public void delete (Long id) {
-        BoardArticle boardArticle = articleRepos.findById(id)
+        Article article = articleRepos.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
 
-        articleRepos.delete(boardArticle);
+        articleRepos.delete(article);
     }
 
     @Transactional(readOnly = true)
-    public List<BoardArticleReadDto> findAll() {
+    public List<ArticleReadDto> findAll() {
         return articleRepos.findAll().stream()
-                .map(BoardArticleReadDto::new)
+                .map(ArticleReadDto::new)
                 .collect(Collectors.toList());
     }
 
-    public PageResultDto<BoardArticleReadDto, BoardArticle> getList(PageRequestDto requestDto,
-                                                                    String sort, String category) {
+    public PageResultDto<ArticleReadDto, Article> getList(PageRequestDto requestDto,
+                                                          String sort, String category) {
         Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
-        Page<BoardArticle> result =
+        Page<Article> result =
                 articleRepos.findAllByCategory(category, pageable);
-        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+        Function<Article, ArticleReadDto> function = (articleRepos::entityToDto);
 
         return new PageResultDto<>(result, function);
     }
 
-    public PageResultDto<BoardArticleReadDto, BoardArticle> getListByTitle(PageRequestDto requestDto,
-                                                                           String sort, String category,
-                                                                           String title) {
+    public PageResultDto<ArticleReadDto, Article> getListByTitle(PageRequestDto requestDto,
+                                                                 String sort, String category,
+                                                                 String title) {
         Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
-        Page<BoardArticle> result =
+        Page<Article> result =
                 articleRepos.findAllByCategoryAndTitleContaining(category, title, pageable);
-        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+        Function<Article, ArticleReadDto> function = (articleRepos::entityToDto);
 
         return new PageResultDto<>(result, function);
     }
 
-    public PageResultDto<BoardArticleReadDto, BoardArticle> getListByContents(PageRequestDto requestDto,
-                                                                              String sort, String category,
-                                                                              String contents) {
+    public PageResultDto<ArticleReadDto, Article> getListByContents(PageRequestDto requestDto,
+                                                                    String sort, String category,
+                                                                    String contents) {
         Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
-        Page<BoardArticle> result =
+        Page<Article> result =
                 articleRepos.findAllByCategoryAndContentsContaining(category, contents, pageable);
-        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+        Function<Article, ArticleReadDto> function = (articleRepos::entityToDto);
 
         return new PageResultDto<>(result, function);
     }
 
-    public PageResultDto<BoardArticleReadDto, BoardArticle> getListByUserName(PageRequestDto requestDto,
-                                                                              String sort, String category,
-                                                                              String createdBy) {
+    public PageResultDto<ArticleReadDto, Article> getListByUserName(PageRequestDto requestDto,
+                                                                    String sort, String category,
+                                                                    String createdBy) {
         Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));
-        Page<BoardArticle> result =
+        Page<Article> result =
                 articleRepos.findAllByCategoryAndCreatedByContaining(category, createdBy, pageable);
-        Function<BoardArticle, BoardArticleReadDto> function = (articleRepos::entityToDto);
+        Function<Article, ArticleReadDto> function = (articleRepos::entityToDto);
 
         return new PageResultDto<>(result, function);
     }
 
     /// Using Query DSL
 
-    public List<BoardArticle> find2ByCategoryDesc(String category) {
+    public List<Article> find2ByCategoryDesc(String category) {
         return articleQueryRepos.find2ByCategoryDesc(category);
     }
-    public List<BoardArticle> findAllByContents(String contents) {
+    public List<Article> findAllByContents(String contents) {
         return articleQueryRepos.findAllByContents(contents);
     }
-    public List<BoardArticle> findAllByCategory(String category) {
+    public List<Article> findAllByCategory(String category) {
         return articleQueryRepos.findAllByCategory(category);
     }
-    public List<BoardArticle> findAllByTimeDesc(String category) {
+    public List<Article> findAllByTimeDesc(String category) {
         return articleQueryRepos.findAllOrderByTimeDesc(category);
     }
 }

@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Repository;
 
-import SpringProject.WebCommunity.Model.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.Article;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +21,7 @@ public class ArticleRepoTest {
         {
             Long randomNum = (long) (Math.random() * 1000);
             LocalDateTime localDateTime = LocalDateTime.now();
-            BoardArticle article = BoardArticle.builder()
+            Article article = Article.builder()
                 .id(randomNum)
                 .title("title" + i)
                 .likes(i)
