@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Model.Dto;
 
-import SpringProject.WebCommunity.Model.Domain.BoardArticle;
+import SpringProject.WebCommunity.Model.Domain.Article;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @ToString
-public class BoardArticleReadDto {
+public class ArticleReadDto {
     private final Long id;
     private final String title;
     private final String contents;
@@ -19,7 +19,7 @@ public class BoardArticleReadDto {
     private final LocalDateTime createdTime;
     private final LocalDateTime revisedTime;
 
-    public BoardArticleReadDto(BoardArticle entity) {
+    public ArticleReadDto(Article entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.contents = entity.getContents();
@@ -31,8 +31,8 @@ public class BoardArticleReadDto {
         this.revisedTime = entity.getRevisedTime();
     }
 
-    public BoardArticle toEntity() {
-        return BoardArticle.builder()
+    public Article toEntity() {
+        return Article.builder()
                 .id(getId())
                 .title(getTitle())
                 .contents(getContents())

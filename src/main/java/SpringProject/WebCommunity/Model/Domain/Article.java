@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor //기본 생성자 추가
 @AllArgsConstructor// 모든 필드 생성자 추가
 @Getter
-public class BoardArticle extends BaseTimeEntity{
+public class Article extends BaseTimeEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) // PK auto_increment 옵션
     private Long id; //id 필드
@@ -29,8 +29,8 @@ public class BoardArticle extends BaseTimeEntity{
     String category;
 
     @Builder
-    public BoardArticle(Long id, String category, String title, String contents, int views, int likes,
-                        String createdBy, LocalDateTime createdTime, LocalDateTime revisedTime) {
+    public Article(Long id, String category, String title, String contents, int views, int likes,
+                   String createdBy, LocalDateTime createdTime, LocalDateTime revisedTime) {
         this.id = id;
         this.category = category;
         this.title = title;
