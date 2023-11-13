@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageRenderingController {
     // -- menu --
-    @GetMapping("/")
-    public String welcomeHome() { return "home"; }
     @GetMapping("/register")
     public String registerView() { return "/certification/register"; }
     @GetMapping("/login")
