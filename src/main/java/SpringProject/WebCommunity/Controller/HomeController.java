@@ -28,21 +28,30 @@ public class HomeController {
 //            model.addAttribute("prevURL", URLDecoder.decode(url, StandardCharsets.UTF_8));
 //            log.info(url);
 //        }
-        ArrayList<String> categoryList = new ArrayList<>(List.of("free", "sharing", "qna", "promotion"));
+        ArrayList<String> boardCatList = new ArrayList<>(List.of("free", "sharing", "qna", "promotion"));
+        ArrayList<String> marketCatList = new ArrayList<>(List.of("market-sell", "market-buy"));
         Map<String, List<Article>> boardMap = new HashMap<>();
+        Map<String, List<Article>> marketMap = new HashMap<>();
 
-        model.addAttribute("BoardMap", initBoardMap(boardMap, categoryList));
+        model.addAttribute("BoardMap", initMap(boardMap, boardCatList));
+        model.addAttribute("MarketMap", initMap(marketMap, marketCatList));
 
         return "/home";
     }
 
-    private Map<String, List<Article>> initBoardMap(
-            Map<String, List<Article>> boardMap,
+    private Map<String, List<Article>> initMap(
+            Map<String, List<Article>> Map,
             ArrayList<String> category) {
         category.stream().forEach((element) -> {
-            List<Article> list = articleService.find2ByCategoryDesc(element);
-            boardMap.put(element, list);
+            if (category.get(0).equals("free")) {
+                List<Article> list = articleService.find2ByCategoryDesc(element);
+                Map.put(element, list);
+
+            } else if (category.get(0).equals("market-sell")) {
+                List<Article> list = articleService.find3ByCategoryDesc(element);
+                Map.put(element, list);
+            }
         });
-        return boardMap;
+        return Map;
     }
 }

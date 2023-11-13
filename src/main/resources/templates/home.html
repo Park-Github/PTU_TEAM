@@ -14,32 +14,36 @@
 						<hr class="divider m-2">
 					</div>
 						<div th:each="dto : ${BoardMap.get('free')}" class="d-flex hstack gap-2 m-2">
-							<button th:if="${dto.category == 'free'}" th:text="${'자유'}" type="button"
-									class="btn btn-secondary btn-sm" disabled></button>
-							<div th:text="${dto.title}"><a></a></div>
-							<div class="me-auto">(댓글 수)</div>
-							<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
+							<button type="button" class="btn btn-secondary btn-sm"
+									th:if="${dto.category == 'free'}" th:text="${'자유'}" disabled></button>
+							<div><a class="link-body-emphasis text-decoration-none"
+									th:text="${dto.title}" th:href="@{/board/view/{id}(id = ${dto.id})}"></a></div>
+<!--							<div class="me-auto">(댓글 수)</div>-->
+							<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}"></div>
 						</div>
 						<div th:each="dto : ${BoardMap.get('sharing')}" class="d-flex hstack gap-2 m-2">
-							<button th:if="${dto.category == 'sharing'}" th:text="${'정보'}" type="button"
-									class="btn btn-secondary btn-sm" disabled></button>
-							<div th:text="${dto.title}"><a></a></div>
-							<div class="me-auto">(댓글 수)</div>
-							<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
+							<button type="button" class="btn btn-secondary btn-sm"
+									th:if="${dto.category == 'sharing'}" th:text="${'정보'}" disabled></button>
+							<div><a class="link-body-emphasis text-decoration-none"
+									th:text="${dto.title}" th:href="@{/board/view/{id}(id = ${dto.id})}"></a></div>
+<!--							<div class="me-auto">(댓글 수)</div>-->
+							<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}"></div>
 						</div>
 						<div th:each="dto : ${BoardMap.get('qna')}" class="d-flex hstack gap-2 m-2">
-							<button th:if="${dto.category == 'qna'}" th:text="${'질문'}" type="button"
-									class="btn btn-secondary btn-sm" disabled></button>
-							<div th:text="${dto.title}"><a></a></div>
-							<div class="me-auto">(댓글 수)</div>
-							<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
+							<button type="button" class="btn btn-secondary btn-sm"
+									th:if="${dto.category == 'qna'}" th:text="${'질문'}" disabled></button>
+							<div><a class="link-body-emphasis text-decoration-none"
+									th:text="${dto.title}" th:href="@{/board/view/{id}(id = ${dto.id})}"></a></div>
+<!--							<div class="me-auto">(댓글 수)</div>-->
+							<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}"></div>
 						</div>
 					<div th:each="dto : ${BoardMap.get('promotion')}" class="d-flex hstack gap-2 m-2">
-						<button th:if="${dto.category == 'promotion'}" th:text="${'홍보'}" type="button"
-								class="btn btn-secondary btn-sm" disabled></button>
-						<div th:text="${dto.title}"><a></a></div>
-						<div class="me-auto">(댓글 수)</div>
-						<div th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}" class="text-black-50"></div>
+						<button type="button" class="btn btn-secondary btn-sm"
+								th:if="${dto.category == 'promotion'}" th:text="${'홍보'}" disabled></button>
+						<div><a class="link-body-emphasis text-decoration-none"
+								th:text="${dto.title}" th:href="@{/board/view/{id}(id = ${dto.id})}"></a></div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
+						<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}"></div>
 					</div>
 				</div>
 				<th:block th:if="${errorMessage != null}">
@@ -71,19 +75,19 @@
 	      			<div class="d-flex hstack gap-2 m-2">
 						<button type="button" class="btn btn-secondary btn-sm" disabled>채용공고</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2">
 						<button type="button" class="btn btn-secondary btn-sm" disabled>취업컨텐츠</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2">
 						<button type="button" class="btn btn-secondary btn-sm" disabled>취업교육</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 				</div>
@@ -95,37 +99,37 @@
 	      			<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>자격증</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>어학</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>국가고시</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>공무원시험</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>전공시험</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 					<div class="d-flex hstack gap-2 m-2"> 
 						<button type="button" class="btn btn-secondary btn-sm" disabled>기타</button>
 						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
 						<div class="text-black-50">(글 작성일/시간)</div>
 					</div>
 				</div>
@@ -134,17 +138,32 @@
 						<h4 class="fw-normal m-2"><a href="/market" class="link-body-emphasis text-decoration-none color-inherit">중고장터</a></h4>
 						<hr class="divider m-2">
 					</div>
-	      			<div class="d-flex hstack gap-2 m-2"> 
-						<button type="button" class="btn btn-secondary btn-sm" disabled>판매</button>
-						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
-						<div class="text-black-50">(글 작성일/시간)</div>
+
+	      			<div th:each="dto : ${MarketMap.get('market-buy')}" class="d-flex hstack gap-2 m-2">
+						<button type="button" class="btn btn-secondary btn-sm"
+								th:if="${dto.category == 'market-buy'}" th:text="${'구매'}" disabled>
+						</button>
+						<div>
+							<a class="link-body-emphasis text-decoration-none"
+								th:text="${dto.title}" th:href="@{/market/buy/articles/{id}(id = ${dto.id})}">
+
+							</a>
+						</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
+						<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}"></div>
 					</div>
-					<div class="d-flex hstack gap-2 m-2"> 
-						<button type="button" class="btn btn-secondary btn-sm" disabled>구매</button>
-						<div><a>(글 제목)</a></div>
-						<div class="me-auto">(댓글 수)</div>
-						<div class="text-black-50">(글 작성일/시간)</div>
+					<div th:each="dto : ${MarketMap.get('market-sell')}" class="d-flex hstack gap-2 m-2">
+						<button type="button" class="btn btn-secondary btn-sm"
+								th:if="${dto.category == 'market-sell'}" th:text="${'판매'}" disabled>
+						</button>
+						<div>
+							<a class="link-body-emphasis text-decoration-none"
+								th:text="${dto.title}" th:href="@{/market/sell/articles/{id}(id = ${dto.id})}">
+
+							</a>
+						</div>
+<!--						<div class="me-auto">(댓글 수)</div>-->
+						<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}"></div>
 					</div>
 				</div>
 			</div>
