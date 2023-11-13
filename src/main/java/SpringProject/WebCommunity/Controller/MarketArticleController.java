@@ -1,8 +1,8 @@
 package SpringProject.WebCommunity.Controller;
 
+import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
-import SpringProject.WebCommunity.Model.Dto.ArticleCreateDto;
-import SpringProject.WebCommunity.Model.Dto.ArticleReadDto;
+import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
 import SpringProject.WebCommunity.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,11 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+
+import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
 
 @RequiredArgsConstructor
 @Controller
@@ -34,7 +35,7 @@ public class MarketArticleController {
         return "/form/market-write";
     }
 
-    // 장터 게시글 Form 데이터 Post mapping
+    // 장터 게시글 Form 데이터 Post Request 처리
     @PostMapping("/market/create")
     public String createMarketArticle(ArticleCreateDto form,
                                       HttpServletRequest request,
@@ -61,24 +62,79 @@ public class MarketArticleController {
 
     }
 
-    // 장터 게시판 게시글 조회
+    // 장터 게시판 - 게시글 조회 Request 처리
     @GetMapping(value = {"/market/buy/articles/{id}", "/market/sell/articles/{id}"})
     public String showArticle(@PathVariable Long id,
                               Model model) {
-        log.info("id = " + id);
         Optional<ArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
         articleReadDto.ifPresent(i -> model.addAttribute("boardArticle", i));
         articleReadDto.orElseThrow();
         return "/menu/article";
     }
 
-    // 장터 게시판 게시글 목록 조회
+    // 장터 게시판 - 게시글 목록 조회 Request 처리
     @GetMapping("/market")
-    public String articleListView(Model model) {
-        // 모든 Article 가져오기
-        List<ArticleReadDto> articleList = articleService.findAll();
+    public String articleListView(@RequestParam(name = "sort", defaultValue = "createdTime") String condition,
+                                  PageRequestDto pageRequestDto1,
+                                  PageRequestDto pageRequestDto2,
+                                  Model model) {
+
+        PageResultDto<ArticleReadDto, Article> pageResultDto1
+                = articleService.getList(pageRequestDto1, condition, "market-sell");
+        PageResultDto<ArticleReadDto, Article> pageResultDto2
+                = articleService.getList(pageRequestDto2, condition, "market-buy");
+
         // Model에 등록
-        model.addAttribute("articleList", articleList);
+
+        model.addAttribute("sellList", pageResultDto1);
+        model.addAttribute("buyList", pageResultDto2);
         return "/menu/market";
     }
+
+    // 장터 게시글 수정 페이지 Request 처리
+    @GetMapping("/market/edit") // TODO: 2023-11-03 findById nullPointException 예외처리
+    public String articleEditPageView(@RequestParam(name = "category") String category,
+                                      @RequestParam(name = "id") Long id,
+                                      Model model) {
+        UpdateAndRegisterModel(category, id, model, articleService);
+        return "/form/market-edit";
+    }
+
+    // 장터 게시글 UPDATE 및 게시글 Redirect
+    @PostMapping ("/market/edit")
+    public String editBoardArticle(@RequestParam(name = "id") Long id,
+                                   @RequestParam(name = "category") String category,
+                                   ArticleUpdateDto form,
+                                   Model model) {
+        ArticleReadDto article = articleService.updateTitleAndContents(id, form);
+        model.addAttribute("boardArticle", article);
+
+        String redirect = "";
+        log.info(category);
+        if (category.equals("market-sell"))
+            redirect += "redirect:/market/sell/articles/" + id;
+        else if (category.equals("market-buy"))
+            redirect += "redirect:/market/buy/articles/" + id;
+
+        return redirect;
+    }
+
+    // 게시판 게시글 삭제 Request 처리
+    @GetMapping("/market/delete") // TODO: 2023-11-02 게시글 삭제 요청시 삭제글 없을 시 예외 처리
+    public String articleDeletePageView(@RequestParam(name = "id") Long id,
+                                        RedirectAttributes redirectAttr) {
+        Optional<ArticleReadDto> dto = articleService.optionalFindById(id);
+
+        if (dto.isPresent()) {
+            articleService.delete(id);
+            redirectAttr.addFlashAttribute("success", "게시글이 삭제되었습니다.");
+            return "redirect:/market?sort=";
+        }
+        else {
+            redirectAttr.addFlashAttribute("fail", "게시글을 찾을 수 없어 삭제에 실패하였습니다..");
+            return "redirect:/market?sort=";
+        }
+
+    }
+
 }

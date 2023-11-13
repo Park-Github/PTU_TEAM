@@ -123,13 +123,8 @@ public class ArticleService {
     public List<Article> find2ByCategoryDesc(String category) {
         return articleQueryRepos.find2ByCategoryDesc(category);
     }
-    public List<Article> findAllByContents(String contents) {
-        return articleQueryRepos.findAllByContents(contents);
+    public List<Article> find3ByCategoryDesc(String category) {
+        return articleQueryRepos.find3ByCategoryDesc(category);
     }
-    public List<Article> findAllByCategory(String category) {
-        return articleQueryRepos.findAllByCategory(category);
-    }
-    public List<Article> findAllByTimeDesc(String category) {
-        return articleQueryRepos.findAllOrderByTimeDesc(category);
-    }
+
 }

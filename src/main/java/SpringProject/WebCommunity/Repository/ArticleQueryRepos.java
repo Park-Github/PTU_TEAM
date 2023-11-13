@@ -27,44 +27,13 @@ public class ArticleQueryRepos {
                 .fetch();
     }
 
-    public List<Article> findAllByContents(String contents) {
-        return queryFactory
-                .select(article)
-                .from(article)
-                .where(article.contents.like("%" + contents + "%"))
-                .fetch();
-    }
-
-    public List<Article> findAllByCategory(String category) {
-        return queryFactory
-                .select(article)
-                .from(article)
-                .where(article.category.eq(category))
-                .fetch();
-    }
-
-    public List<Article> findAllOrderByTimeDesc(String category) {
+    public List<Article> find3ByCategoryDesc(String category) {
         return queryFactory
                 .select(article)
                 .from(article)
                 .where(article.category.eq(category))
                 .orderBy(article.createdTime.desc())
-                .fetch();
-    }
-
-    public List<Article> findAllOrderByLikeDesc(String category) {
-        return queryFactory
-                .select(article)
-                .from(article)
-                .orderBy(article.likes.desc())
-                .fetch();
-    }
-
-    public List<Article> findAllOrderByViewDesc(String category) {
-        return queryFactory
-                .select(article)
-                .from(article)
-                .orderBy(article.views.desc())
+                .limit(3)
                 .fetch();
     }
 
