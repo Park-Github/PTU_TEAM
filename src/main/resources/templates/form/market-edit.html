@@ -1,0 +1,34 @@
+<!--게시글 입력 화면 /article-list/form-->
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<th:block th:replace="~{/common/navbar::header}"></th:block>
+<body>
+	<div th:replace="~{/common/navbar::headline}"></div>
+	<div th:replace="~{/common/navbar::navigation}"></div>
+		<main>
+			<div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
+				<h1 th:if="${cat == 'market-sell'}" class="h3 fw-normal"> [판매] 수정 </h1>
+				<h1 th:if="${cat == 'market-buy'}" class="h3 fw-normal"> [구매] 수정 </h1>
+			</div>
+			<form th:action="@{/market/edit(category = ${cat}, id = ${id})}" th:object="${articleDto}" method="POST">
+				<div class="container my-1"> <!-- 글쓰기 공간 -->
+					<div class="bg-body-tertiary py-3 rounded">
+						<div class="col-sm-10 mx-auto">
+							<div><input type="text" class="form-control" th:field="*{title}" placeholder="제목"></div>
+							<div class="py-3">
+								<textarea class="form-control" th:field="*{contents}" rows="16" placeholder="내용"></textarea>
+							</div>
+							<div class="input-group mb-3">
+								<input type="file" class="form-control" id="inputGroupFile">
+							</div>
+							<div class="text-center">
+								<button type="button" class="btn btn-outline-primary me-2">취소</button>
+								<button type="submit" class="btn btn-primary">등록</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</main>
+</body>
+</html>
