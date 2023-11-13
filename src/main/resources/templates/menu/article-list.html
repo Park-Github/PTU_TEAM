@@ -42,14 +42,16 @@
   <h1 th:if="${boardCat == 'qna'}" class="h3 fw-normal">질문답변게시판</h1>
   <h1 th:if="${boardCat == 'promotion'}" class="h3 fw-normal">홍보게시판</h1>
   <hr style="border: solid 1px rgb(0, 0, 0);">
-  <div class="d-flex justify-content-between">
-    <select class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
-      <option selected>등록순</option>
-      <option value="1">공감순</option>
-      <option value="2">댓글순</option>
-    </select>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      정렬 기준
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark">
+      <li><a class="dropdown-item active" th:href="@{/board/view(category = ${boardCat}, sort = ${'createdTime'})}">시간순</a></li>
+      <li><a class="dropdown-item" th:href="@{/board/view(category = ${boardCat}, sort = ${'views'})}">조회순</a></li>
+      <li><a class="dropdown-item" th:href="@{/board/view(category = ${boardCat}, sort = ${'likes'})}">공감순</a></li>
+    </ul>
   </div>
-
   <table class="table table-hover table-striped">
     <thead>
       <tr>
@@ -61,15 +63,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="dto : ${boardArticleList}">
+      <tr th:each="dto : ${boardArticleList.dtoList}">
         <td style="width: 60%">
           <span class="title-short text-truncate">
             <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
           </span>
-          <span>(대괄호 안에 댓글수)</span>
+<!--          <span>(대괄호 안에 댓글수)</span>-->
         </td>
-        <td style="width: 5%"><span class="nickname-short text-truncate">[[${dto.nickName}]]</span></td>
-        <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+        <td style="width: 5%;"><span class="nickname-short text-truncate">[[${dto.createdBy}]]</span></td>
+        <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy년 MM월 dd일 a h:mm')}]]</td>
         <td style="text-align: center">[[${dto.views}]]</td>
         <td style="text-align: center">[[${dto.likes}]]</td>
       </tr>
@@ -86,15 +88,29 @@
 
   <div class="container d-flex justify-content-center">
 		<ul class="pagination">
-			<li class="page-item"><a href="/article-list" class="page-link">이전</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">1</a></li>
-			<li class="page-item"><a href="/article-list" class="page-link">다음</a></li>
+			<li class="page-item" th:if="${boardArticleList.prev}">
+              <a th:href="@{/board/view(category = ${boardCat}, page = ${boardArticleList.current - 1})}" class="page-link" tabindex="-1">이전</a>
+            </li>
+			<li class="'page-item' + ${boardArticleList.current == current ? 'activate' : ''}"
+                th:each="page : ${boardArticleList.pageList}">
+              <a th:href="@{/board/view(category = ${boardCat}, page = ${page})}" class="page-link">[[${page}]]</a>
+            </li>
+			<li class="page-item" th:if="${boardArticleList.next}">
+              <a th:href="@{/board/view(category = ${boardCat}, page = ${boardArticleList.current + 1})}" class="page-link">다음</a>
+            </li>
 		</ul>
   </div>
 
-  <div class="container d-flex justify-content-center">
-    <form class="col-4 mb-3 mb-lg-0" role="search">
-      <input type="search" class="form-control" placeholder="검색..." aria-label="Search">
+  <div class="container d-flex justify-content-center"> <!--검색 폼-->
+    <form class="col-4 mb-3 mb-lg-0" role="search" th:action="@{/board/search(category = ${boardCat}, sort = ${sort})}" method="POST">
+      <select name="condition" class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
+        <option value="" selected>검색 기준</option>
+        <option value="title">제목</option>
+        <option value="contents">내용</option>
+        <option value="createdBy">작성자</option>
+      </select>
+      <input type="search" name="keyWord" class="form-control" placeholder="키워드를 입력하세요." aria-label="Search">
+      <button type="submit" class="btn btn-outline-info">검색</button>
     </form>
   </div>
 </div>

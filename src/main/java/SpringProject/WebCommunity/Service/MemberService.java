@@ -30,12 +30,6 @@ public class MemberService {
     private final ResponseService responseService;
     private final SecurityContextRepository securityContextRepo;
 
-    @Deprecated(forRemoval = true)
-    public Optional<Member> getMember(HttpSession session) {
-        String id = (String) session.getAttribute("member-id");
-        return Optional.empty();
-    }
-
     public Optional<Member> getMember(HttpServletRequest request) {
         SecurityContext ctx = securityContextRepo.loadDeferredContext(request).get();
 
