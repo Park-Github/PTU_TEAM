@@ -15,6 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
+import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
+
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -90,17 +93,8 @@ public class BoardArticleController {
     public String articleEditPageView(@RequestParam(name = "category") String category,
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
-        ArticleReadDto readDto = articleService.findById(id);
-        ArticleUpdateDto updateDto = new ArticleUpdateDto(id, readDto.getTitle(), readDto.getContents());
-        log.info(String.valueOf(id));
-        log.info(updateDto.getTitle());
-        log.info(updateDto.getContents());
-
-        model.addAttribute("cat", category);
-        model.addAttribute("articleDto", updateDto);
-        model.addAttribute("id", id);
-
-        return "/form/post-edit";
+       UpdateAndRegisterModel(category, id, model, articleService);
+       return "/form/post-edit";
     }
 
     // 게시판 게시글 수정 데이터 POST mapping
@@ -108,9 +102,6 @@ public class BoardArticleController {
     public String editBoardArticle(@RequestParam(name = "id") Long id,
                                    ArticleUpdateDto form,
                                    Model model) {
-        log.info(form.getTitle() + "제목");
-        log.info(form.getContents() + "내용");
-        log.info(id.toString() + "id");
 
         ArticleReadDto article = articleService.updateTitleAndContents(id, form);
         model.addAttribute("boardArticle", article);
