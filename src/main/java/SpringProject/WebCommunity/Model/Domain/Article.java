@@ -7,30 +7,38 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 
-@Entity // 게시글 엔티티 클래스
-@NoArgsConstructor //기본 생성자 추가
-@AllArgsConstructor// 모든 필드 생성자 추가
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class Article extends BaseTimeEntity{
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) // PK auto_increment 옵션
-    private Long id; //id 필드
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column
     int views;
+
     @Column
     int likes;
+
     @Column(length = 500, nullable = false)
     @NotBlank(message = "제목이 입력되지 않았습니다. 제목을 입력하세요.")
     String title;
+
     @Column(columnDefinition = "TEXT", nullable = false)
     @NotBlank(message = "내용이 입력되지 않았습니다. 내용을 입력하세요.")
     String contents;
+
     @Column @NotBlank(message = "카테고리 데이터가 입력되지 않았습니다.")
     String category;
 
+    @ManyToOne @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
     public Article(Long id, String category, String title, String contents, int views, int likes,
-                   String createdBy, LocalDateTime createdTime, LocalDateTime revisedTime) {
+                   String createdBy, LocalDateTime createdTime, LocalDateTime revisedTime, Member member) {
         this.id = id;
         this.category = category;
         this.title = title;
@@ -40,6 +48,8 @@ public class Article extends BaseTimeEntity{
         super.createdBy = createdBy;
         super.createdTime = createdTime;
         super.revisedTime = revisedTime;
+        this.member = member;
+
     }
 
     public void update(String title, String contents){

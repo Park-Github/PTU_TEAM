@@ -44,7 +44,9 @@ public class BoardArticleController {
 
         Optional<Member> member = memberService.getMember(request);
         if (member.isPresent()) {
-            Long boardId = articleService.saveToCreate(form);
+            Member user = member.get();
+            ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
+            Long boardId = articleService.saveToCreate(dto);
             redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
             log.info(boardId.toString());
             return "redirect:/board/view/" + boardId;
