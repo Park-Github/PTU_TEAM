@@ -11,7 +11,7 @@ public class PageRenderingController {
     @GetMapping("/login")
     public String loginView() { return "/certification/login"; }
     @GetMapping("/profile")
-    public String profileView() { return "/profile/mypage";}
+    public String profileView() { return "/profile/profile-page";}
     @GetMapping("/sitemap")
     public String sitemapView(){
         return "/menu/sitemap";
