@@ -23,12 +23,13 @@
 							<div class="input-group mb-3">
 								<input type="file" class="form-control" id="inputGroupFile">
 							</div>
-							<div class="form-check">
-								<input class="form-check-input text-center" type="checkbox" value="remember-me" id="flexCheckDefault">
-								<label class="form-check-label" for="flexcheckdefault">익명으로 글쓰기</label>
-							</div>
+<!--							<div class="form-check">-->
+<!--								<input class="form-check-input text-center" type="checkbox" value="remember-me" id="flexCheckDefault">-->
+<!--								<label class="form-check-label" for="flexcheckdefault">익명으로 글쓰기</label>-->
+<!--							</div>-->
 							<div class="text-center">
-								<button type="button" class="btn btn-outline-primary me-2">취소</button>
+								<button type="button" class="btn btn-outline-primary me-2"
+								th:href="@{/board/view(category = ${category})}">취소</button>
 								<button type="submit" class="btn btn-primary">등록</button>
 							</div>
 						</div>

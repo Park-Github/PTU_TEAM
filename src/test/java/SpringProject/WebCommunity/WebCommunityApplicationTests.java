@@ -1,12 +1,12 @@
 package SpringProject.WebCommunity;
 
-import SpringProject.WebCommunity.Domain.BoardArticle;
-import SpringProject.WebCommunity.Repository.ArticleRepos;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import SpringProject.WebCommunity.Config.QueryDSLConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootTest
+@Import(QueryDSLConfiguration.class)
 class WebCommunityApplicationTests {
 
 }

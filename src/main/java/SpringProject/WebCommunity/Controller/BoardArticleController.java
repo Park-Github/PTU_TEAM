@@ -1,10 +1,11 @@
 package SpringProject.WebCommunity.Controller;
 
-import SpringProject.WebCommunity.Domain.BoardArticle;
-import SpringProject.WebCommunity.Dto.BoardArticleCreateDto;
-import SpringProject.WebCommunity.Dto.BoardArticleReadDto;
-import SpringProject.WebCommunity.Dto.BoardArticleUpdateDto;
+import SpringProject.WebCommunity.Model.Domain.Article;
+import SpringProject.WebCommunity.Model.Domain.Member;
+import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,20 +13,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
-@Controller
+import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
+
+
 @Slf4j
+@Controller
+@RequiredArgsConstructor
 public class BoardArticleController {
 
     private final ArticleService articleService;
+    private final MemberService memberService;
 
     // 게시판 글쓰기 페이지 요청 처리
     @GetMapping("/board/form/{cat}")
     public String newArticleForm(@PathVariable(name = "cat") String category,
-                                 Model model, BoardArticleCreateDto dto) {
+                                 Model model,
+                                 ArticleCreateDto dto) {
         model.addAttribute("boardArticle", dto);
         model.addAttribute("category", category);
         return "/form/post-write";
@@ -33,41 +38,54 @@ public class BoardArticleController {
 
     // 게시판 게시글 입력 데이터 POST mapping
     @PostMapping("/board/create")
-    public String createBoardArticle(@RequestParam(name = "category")String category,
-                                     BoardArticleCreateDto form,
+    public String createBoardArticle(ArticleCreateDto form,
+                                     HttpServletRequest request,
                                      RedirectAttributes redirectAttr) {
-        log.info(form.getTitle());
-        log.info(form.getContents());
-        log.info(form.toString());
-        log.info(category);
 
-        Long boardId = articleService.saveToCreate(form);
-        redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
-        log.info(boardId.toString());
-
-        return "redirect:/board/view/" + boardId;
+        Optional<Member> member = memberService.getMember(request);
+        if (member.isPresent()) {
+            Long boardId = articleService.saveToCreate(form);
+            redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
+            log.info(boardId.toString());
+            return "redirect:/board/view/" + boardId;
+        }
+        else
+            return "redirect:/home";
     }
 
     // 게시판 게시글 조회
     @GetMapping("/board/view/{id}") // TODO: 2023-11-03 articleReadDto null 예외처리
     public String showArticle(@PathVariable Long id, Model model) {
         log.info("id = " + id);
-        Optional<BoardArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
-        articleReadDto.ifPresent(i -> model.addAttribute("boardArticle", i));
-        articleReadDto.orElseThrow();
-        return "/menu/article";
+        Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+
+        if (boardArticle.isPresent()){
+            model.addAttribute("boardArticle", boardArticle.get());
+            articleService.updateViewCount(id);
+            return "/menu/article";
+        }
+        else {
+            return "redirect:/home";
+        }
     }
 
     // 게시판 게시글 목록 조회
-    @GetMapping("/board/view")
-    public String articleListView(@RequestParam(name = "category") String category, Model model) {
-        // 모든 Article 가져오기
-        List<BoardArticle> articleList = articleService.findAllByTimeDesc(category);
-        // Model에 등록
-        model.addAttribute("boardArticleList", articleList);
-        // URL 파라미터 값(category) Model 등록
+    @GetMapping("/board/view") // TODO: 2023/11/10 현재 URL 경로 model 등록
+    public String articleListView(@RequestParam(name = "category") String category,
+                                  @RequestParam(name = "sort", defaultValue = "createdTime") String sort,
+                                  PageRequestDto pageRequestDto,
+                                  Model model) {
+        log.info(sort);
+        PageResultDto<ArticleReadDto, Article> resultDto
+                = articleService.getList(pageRequestDto, sort, category);
+
+        model.addAttribute("boardArticleList", resultDto);
+
         model.addAttribute("boardCat", category);
+
+        model.addAttribute("sort", sort);
         return "/menu/article-list";
+
     }
 
     // 게시판 게시글 수정 페이지 요청 처리
@@ -75,32 +93,17 @@ public class BoardArticleController {
     public String articleEditPageView(@RequestParam(name = "category") String category,
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
-        BoardArticleReadDto readDto = articleService.findById(id);
-        BoardArticleUpdateDto updateDto = new BoardArticleUpdateDto(id, readDto.getTitle(), readDto.getContents());
-        log.info(String.valueOf(id));
-        log.info(updateDto.getTitle());
-        log.info(updateDto.getContents());
-
-        model.addAttribute("cat", category);
-        model.addAttribute("articleDto", updateDto);
-        model.addAttribute("id", id);
-
-        return "/form/post-edit";
+       UpdateAndRegisterModel(category, id, model, articleService);
+       return "/form/post-edit";
     }
 
     // 게시판 게시글 수정 데이터 POST mapping
     @PostMapping ("/board/edit")
     public String editBoardArticle(@RequestParam(name = "id") Long id,
-                                   BoardArticleUpdateDto form,
+                                   ArticleUpdateDto form,
                                    Model model) {
-        log.info(form.getTitle() + "제목");
-        log.info(form.getContents() + "내용");
-        log.info(id.toString() + "id");
 
-        BoardArticleReadDto article = articleService.update(id, form);
-
-        log.info(article.getCategory() + "카테고리");
-
+        ArticleReadDto article = articleService.updateTitleAndContents(id, form);
         model.addAttribute("boardArticle", article);
 
         return "redirect:/board/view/" + id;
@@ -111,7 +114,7 @@ public class BoardArticleController {
     public String articleDeletePageView(@RequestParam(name = "id") Long id,
                                         @PathVariable(name = "category") String category,
                                         RedirectAttributes redirectAttr) {
-        Optional<BoardArticleReadDto> dto = articleService.optionalFindById(id);
+        Optional<ArticleReadDto> dto = articleService.optionalFindById(id);
 
         if (dto.isPresent()) {
             articleService.delete(id);
@@ -133,5 +136,64 @@ public class BoardArticleController {
             };
         }
     }
+
+    @PostMapping("/board/search")
+    public String articleSearch(@RequestParam(name = "category") String category,
+                                @RequestParam(name = "condition", defaultValue = "") String condition,
+                                @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
+                                @RequestParam(name = "sort") String sort,
+                                PageRequestDto pageRequestDto,
+                                Model model) {
+
+        log.info("-----PostMapping Start-----");
+        log.info(condition);
+        switch (condition) {
+            case "title":
+                log.info(category);
+                PageResultDto<ArticleReadDto, Article> resultDto1
+                        = articleService.getListByTitle(pageRequestDto, sort, category, keyWord);
+                model.addAttribute("boardArticleList", resultDto1);
+                break;
+            case "contents":
+                PageResultDto<ArticleReadDto, Article> resultDto2
+                        = articleService.getListByContents(pageRequestDto, sort, category, keyWord);
+                model.addAttribute("boardArticleList", resultDto2);
+                break;
+            case "createdBy":
+                PageResultDto<ArticleReadDto, Article> resultDto3
+                        = articleService.getListByUserName(pageRequestDto, sort, category, keyWord);
+                model.addAttribute("boardArticleList", resultDto3);
+                break;
+            default:
+                PageResultDto<ArticleReadDto, Article> resultDto4
+                        = articleService.getList(pageRequestDto, sort, category);
+                model.addAttribute("boardArticleList", resultDto4);
+                break;
+        }
+        model.addAttribute("boardCat", category);
+        model.addAttribute("sort", sort);
+        log.info(keyWord);
+        log.info("-----PostMapping End-----");
+
+        return "menu/article-list";
+    }
+
+    // 게시글 공감 버튼 요청
+    @GetMapping("/board/like/{id}")
+    public String clickLikes(@PathVariable(name = "id") Long id,
+                             Model model) {
+        Optional<Article> boardArticle;
+        boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+
+        if (boardArticle.isPresent()){
+            model.addAttribute("boardArticle", boardArticle.get());
+            articleService.updateLikeCount(id);
+            return "redirect:/board/view/" + id;
+        }
+        else {
+            return "redirect:/home";
+        }
+    }
+
 }
 
