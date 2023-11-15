@@ -147,35 +147,9 @@ public class BoardArticleController {
                                 PageRequestDto pageRequestDto,
                                 Model model) {
 
-        log.info("-----PostMapping Start-----");
-        log.info(condition);
-        switch (condition) {
-            case "title":
-                log.info(category);
-                PageResultDto<ArticleReadDto, Article> resultDto1
-                        = articleService.getListByTitle(pageRequestDto, sort, category, keyWord);
-                model.addAttribute("boardArticleList", resultDto1);
-                break;
-            case "contents":
-                PageResultDto<ArticleReadDto, Article> resultDto2
-                        = articleService.getListByContents(pageRequestDto, sort, category, keyWord);
-                model.addAttribute("boardArticleList", resultDto2);
-                break;
-            case "createdBy":
-                PageResultDto<ArticleReadDto, Article> resultDto3
-                        = articleService.getListByUserName(pageRequestDto, sort, category, keyWord);
-                model.addAttribute("boardArticleList", resultDto3);
-                break;
-            default:
-                PageResultDto<ArticleReadDto, Article> resultDto4
-                        = articleService.getList(pageRequestDto, sort, category);
-                model.addAttribute("boardArticleList", resultDto4);
-                break;
-        }
-        model.addAttribute("boardCat", category);
-        model.addAttribute("sort", sort);
-        log.info(keyWord);
-        log.info("-----PostMapping End-----");
+        CommonController.registerPageModels(category, condition, keyWord,
+                sort, pageRequestDto, model, articleService, log);
+
 
         return "menu/article-list";
     }

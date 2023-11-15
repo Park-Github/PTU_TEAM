@@ -159,12 +159,18 @@
       <table class="table table-borderless">
         <tbody>
         <tr>
+          <td>
+            <select name="condition-cat" class="form-select" style="width:115px;font-size:16px;" aria-label="Default select example">
+              <option value="" selected>카테고리</option>
+              <option value="market-sell">판매</option>
+              <option value="market-buy">구매</option>
+            </select>
+          </td>
           <td style="width:10%">
-            <select name="condition" class="form-select" style="width:125px;font-size:16px;" aria-label="Default select example">
+            <select name="condition-search" class="form-select" style="width:125px;font-size:16px;" aria-label="Default select example">
               <option value="" selected>검색 기준</option>
               <option value="title">제목</option>
               <option value="contents">내용</option>
-              <option value="createdBy">작성자</option>
             </select>
           </td>
           <td><input type="search" name="keyWord" class="form-control" placeholder="키워드를 입력하세요." aria-label="Search"></td>

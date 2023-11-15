@@ -89,6 +89,7 @@ public class MarketArticleController {
 
         model.addAttribute("sellList", pageResultDto1);
         model.addAttribute("buyList", pageResultDto2);
+        model.addAttribute("sort", condition);
         return "/menu/market";
     }
 
@@ -138,4 +139,30 @@ public class MarketArticleController {
 
     }
 
+    @PostMapping("/market/search")
+    public String articleSearch(@RequestParam(name = "condition-cat") String conditionCategory,
+                                @RequestParam(name = "condition-search", defaultValue = "") String conditionSearch,
+                                @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
+                                @RequestParam(name = "sort") String sort,
+                                PageRequestDto pageRequestDto1,
+                                PageRequestDto pageRequestDto2,
+                                Model model) {
+        if (conditionCategory.equals("market-buy")){
+            CommonController.registerPageModels(conditionCategory, conditionSearch,
+                    keyWord, sort, pageRequestDto1, model, articleService, log);
+            PageResultDto<ArticleReadDto, Article> sellList
+                    = articleService.getList(pageRequestDto2, sort, "market-sell");
+            model.addAttribute("sellList", sellList);
+
+        } else if (conditionCategory.equals("market-sell")) {
+            CommonController.registerPageModels(conditionCategory, conditionSearch,
+                    keyWord, sort, pageRequestDto1, model, articleService, log);
+            PageResultDto<ArticleReadDto, Article> buyList
+                    = articleService.getList(pageRequestDto2, sort, "market-buy");
+            model.addAttribute("buyList", buyList);
+        }
+
+        return "menu/market";
+    }
 }
+

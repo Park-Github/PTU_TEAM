@@ -7,7 +7,6 @@ import SpringProject.WebCommunity.Model.Dto.MemberCreateDto;
 import SpringProject.WebCommunity.Model.Response.Response;
 import SpringProject.WebCommunity.Repository.MemberRepos;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
