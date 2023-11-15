@@ -8,9 +8,7 @@ import SpringProject.WebCommunity.Model.Dto.PageResultDto;
 import SpringProject.WebCommunity.Service.ArticleService;
 import org.slf4j.Logger;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 public class CommonController {
 
