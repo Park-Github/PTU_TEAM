@@ -72,7 +72,7 @@
 						<div class="text-center mt-5">
 							<th:block th:if="${boardArticle.category == 'free' or boardArticle.category == 'sharing'
 											or boardArticle.category == 'qna' or boardArticle.category == 'promotion'}">
-								<button type="button" class="btn btn-primary me-2"
+								<button type="button" class="btn btn-info me-2"
 										th:onclick="|location.href='@{/board/like/{id}(id=${boardArticle.id})}'|">
 										공감 [[${boardArticle.likes}]]
 								</button>
@@ -102,40 +102,62 @@
 								</button>
 							</th:block>
 							<hr class="divider">
-						</div>
-						<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
-						<table class="table">
-							<thead><tr></tr></thead>
-							<tbody>
-								<tr>
-									<th>(닉네임)</th>
-									<td style="width: 72%">(댓글 내용)</td>
-									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
-								</tr>
-								<tr>
-									<th>(닉네임)</th>
-									<td style="width: 72%">(댓글 내용)</td>
-									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
-								</tr>
-								<tr>
-									<th>(닉네임)</th>
-									<td style="width: 72%">(댓글 내용)</td>
-									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="bg-body-tertiary p-3 rounded">
-							<div class="form-group row">
-								<div class="input-group">
-									<label for="reply-input" class="col-form-label">(닉네임)</label>
-									<input class="form-control mx-3" type="text" id="reply-input">
-									<button class="btn btn-outline-secondary" type="button">작성</button>
-								</div>
+							<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
+							<div th:replace="~{/menu/comment::list}">
 							</div>
 						</div>
+						<button id="comment-create-btn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#comment-create-form">댓글 작성</button>
+<!--						<th:block>-->
+<!--							<div class="card m-2" id="comments-new">-->
+<!--								<div class="card-body">-->
+<!--									&lt;!&ndash; 댓글 작성 폼 &ndash;&gt;-->
+<!--									<form>-->
+<!--										&lt;!&ndash; 댓글 본문 입력 &ndash;&gt;-->
+<!--										<div class="mb-3">-->
+<!--											<label class="form-label">댓글 입력</label>-->
+<!--											<textarea type="text" class="form-control" rows="3"-->
+<!--													  id="new-comment-body"></textarea>-->
+<!--										</div>-->
+<!--										&lt;!&ndash; 히든 인풋 &ndash;&gt;-->
+<!--										<input type="hidden" id="new-comment-article-id" th:value="${boardArticle.id}">-->
+<!--										&lt;!&ndash; 전송 버튼 &ndash;&gt;-->
+<!--										<button type="button" class="btn btn-primary"-->
+<!--												id="comment-create-btn">댓글 작성</button>-->
+<!--									</form>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</th:block>-->
+						<div th:replace="~{/menu/comment::post-form}"></div>
+						<div th:replace="~{/menu/comment::edit-form}"></div>
 					</div>
 				</div>
 			</div>
 		</main>
+	<script>
+		{
+			let commentWriteBtn = document.querySelector("#submit-creating");
+			commentWriteBtn.addEventListener("click", function () {
+				let comment = {
+					articleId: document.getElementById("new-comment-article-id").value,
+					contents: document.getElementById("new-comment-body").value,
+
+				}
+				console.log(comment);
+				let url = "/api/articles/"+ comment.articleId + "/comments";
+				fetch(url, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(comment)
+				}).then(response => {
+					const msg = (response.ok) ? "댓글이 등록됐습니다." : "댓글 등록에 실패하였습니다.";
+					alert(msg);
+					window.location.reload();
+				})
+			});
+		}
+	</script>
 </body>
 </html>

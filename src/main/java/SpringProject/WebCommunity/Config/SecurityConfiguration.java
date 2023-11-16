@@ -32,7 +32,8 @@ public class SecurityConfiguration {
             SecurityContextRepository scr,
             RememberMeServices rms
     ) throws Exception {
-        http.httpBasic(Customizer.withDefaults())
+        http    .csrf().disable()
+                .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(c -> c
                         // 기본 리소스 접근 허용
                         .requestMatchers(antMatcher("/css/**")).permitAll()

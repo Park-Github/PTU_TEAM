@@ -4,6 +4,7 @@ import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
@@ -27,6 +29,7 @@ public class MarketArticleController {
 
     private final ArticleService articleService;
     private final MemberService memberService;
+    private final CommentService commentService;
 
     @GetMapping("/market/form")
     public String newArticleForm(ArticleCreateDto dto,
@@ -66,10 +69,22 @@ public class MarketArticleController {
     // 장터 게시판 - 게시글 조회 Request 처리
     @GetMapping(value = {"/market/buy/articles/{id}", "/market/sell/articles/{id}"})
     public String showArticle(@PathVariable Long id,
+                              HttpServletRequest request,
                               Model model) {
-        Optional<ArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
-        articleReadDto.ifPresent(i -> model.addAttribute("boardArticle", i));
-        articleReadDto.orElseThrow();
+        log.info("id = " + id);
+        Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+        Optional<Member> member = memberService.getMember(request);
+        List<CommentDto> commentDtoList = commentService.findComments(id);
+        log.info(commentDtoList.toString());
+
+        member.ifPresent(value -> {
+            model.addAttribute("member", value);
+        });
+        boardArticle.ifPresent(value -> {
+            model.addAttribute("boardArticle", value);
+            model.addAttribute("commentList", commentDtoList);
+            articleService.updateViewCount(id);
+        });
         return "/menu/article";
     }
 

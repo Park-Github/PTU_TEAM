@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto" xmlns="http://www.w3.org/1999/html">
+<th:block th:replace="~{/common/essential::header}"></th:block>
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <th:block th:fragment="list" th:if="${!commentList.isEmpty()}"
+              th:each="comment, status : ${commentList}">
+        <div class="card text-center" style="width: 50%; float: left">
+            <div class="card-header">
+                <p class="fw-bold" th:text="${comment.createdBy}"></p>
+                <button class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#comment-edit-form"
+                   th:if="${comment.createdBy == member.nickName}">수정</button>
+                <a href="#" class="btn btn-danger"
+                   th:if="${comment.createdBy == member.nickName}">삭제</a>
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${comment.contents}"></p>
+            </div>
+            <div class="card-footer text-body-secondary"
+                 th:text="${#temporals.format(comment.revisedTime, 'yyyy년 MM월 dd일 a h:mm')}">
+            </div>
+        </div>
+    </th:block>
+    <th:block th:fragment="post-form">
+        <div class="modal fade" id="comment-create-form" tabindex="-1"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="label-post">댓글 작성</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="userName" class="col-form-label">닉네임: </label>
+                                <input type="text" readonly class="form-control" id="userName"
+                                       th:value="${member.nickName}">
+                            </div>
+                            <input type="hidden" id="new-comment-article-id" th:value="${boardArticle.id}">
+                            <div class="mb-3">
+                                <label for="new-comment-body" class="col-form-label">내용:</label>
+                                <textarea class="form-control" id="new-comment-body"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        <button id="submit-creating" type="button" class="btn btn-primary">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:fragment="edit-form">
+        <div class="modal fade" id="comment-edit-form" tabindex="-1"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="label-edit">댓글 수정</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="nickName" class="col-form-label">닉네임: </label>
+                                <input type="text" readonly class="form-control" id="nickName"
+                                       th:value="${member.nickName}">
+                            </div>
+                            <input type="hidden" id="edit-comment-article-id" th:value="${boardArticle.id}">
+                            <div class="mb-3">
+                                <label for="new-comment-body" class="col-form-label">내용:</label>
+                                <textarea class="form-control" id="edit-comment-body"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        <button id="submit-editing" type="button" class="btn btn-primary">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>
