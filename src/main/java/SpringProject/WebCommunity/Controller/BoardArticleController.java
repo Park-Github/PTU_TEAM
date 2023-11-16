@@ -4,6 +4,7 @@ import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
@@ -25,6 +27,7 @@ public class BoardArticleController {
 
     private final ArticleService articleService;
     private final MemberService memberService;
+    private final CommentService commentService;
 
     // 게시판 글쓰기 페이지 요청 처리
     @GetMapping("/board/form/{cat}")
@@ -57,18 +60,24 @@ public class BoardArticleController {
 
     // 게시판 게시글 조회
     @GetMapping("/board/view/{id}") // TODO: 2023-11-03 articleReadDto null 예외처리
-    public String showArticle(@PathVariable Long id, Model model) {
+    public String showArticle(@PathVariable Long id,
+                              HttpServletRequest request,
+                              Model model) {
         log.info("id = " + id);
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+        Optional<Member> member = memberService.getMember(request);
+        List<CommentDto> commentDtoList = commentService.findComments(id);
+        log.info(commentDtoList.toString());
 
-        if (boardArticle.isPresent()){
-            model.addAttribute("boardArticle", boardArticle.get());
+        member.ifPresent(value -> {
+            model.addAttribute("member", value);
+        });
+        boardArticle.ifPresent(value -> {
+            model.addAttribute("boardArticle", value);
+            model.addAttribute("commentList", commentDtoList);
             articleService.updateViewCount(id);
-            return "/menu/article";
-        }
-        else {
-            return "redirect:/home";
-        }
+        });
+        return "/menu/article";
     }
 
     // 게시판 게시글 목록 조회
