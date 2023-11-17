@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class CommentController {
+public class CommentApiController {
     private final CommentService commentService;
 
     // 댓글 READ
@@ -29,7 +29,6 @@ public class CommentController {
     @PostMapping("/api/articles/{id}/comments")
     public ResponseEntity<CommentDto> createComment(@PathVariable Long id,
                                                     @RequestBody CommentDto reqestDto) {
-        log.info(reqestDto.toString());
         // Service 계층에서 Comment를 생성
         CommentDto responseDto = commentService.createComment(id, reqestDto);
         return  ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -41,6 +40,7 @@ public class CommentController {
                                                      @RequestBody CommentDto requestDto){
         // Service 계층에서 Comment를 수정
         CommentDto responseDto = commentService.updateComment(id, requestDto);
+
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
