@@ -7,32 +7,28 @@
 	<div th:replace="~{/common/navbar::navigation}"></div>
 		<main>
 			<div class="container d-flex flex-wrap my-3"> <!-- 제목 -->
-				<h1 class="h3 fw-normal"> (게시판명) - 글쓰기</h1>
+				<h1 class="h3 fw-normal"> 글쓰기 </h1>
 			</div>
-			<form action="/market/articles/create" method="POST">
+			<form th:action="@{/market/create}" th:object="${boardArticle}" method="POST">
 				<div class="container my-1"> <!-- 글쓰기 공간 -->
 					<div class="bg-body-tertiary py-3 rounded">
 						<div class="col-sm-10 mx-auto">
-							<div><input type="text" class="form-control" id="article-title" name="title" placeholder="제목"></div>
+							<div><input type="text" class="form-control" th:field="*{title}" placeholder="제목"></div>
 							<div class="py-3">
-								<textarea class="form-control" id="article-content" name="contents" rows="16" placeholder="내용"></textarea>
+								<textarea class="form-control" th:field="*{contents}" rows="16" placeholder="내용"></textarea>
 							</div>
 							<div class="input-group mb-3">
 								<input type="file" class="form-control" id="inputGroupFile">
 							</div>
-							<div class="form-check">
-								<input class="form-check-input text-center" type="checkbox" value="remember-me" id="flexCheckDefault">
-								<label class="form-check-label" for="flexcheckdefault">익명으로 글쓰기</label>
-							</div>
 							<div class="d-flex justify-content-center my-3">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="writeCategory" id="writesell" checked>
+									<input class="form-check-input" type="radio" name="category" id="writesell" value="market-sell" checked>
 									<label class="form-check-label" for="writesell">
 										판매글 쓰기
 									</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="writeCategory" id="writebuy">
+									<input class="form-check-input" type="radio" name="category" id="writebuy" value="market-buy">
 									<label class="form-check-label" for="writebuy">
 										구매글 쓰기
 									</label>

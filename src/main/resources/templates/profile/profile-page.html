@@ -1,10 +1,171 @@
 <!--마이페이지 /profile-->
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
-  <th:block th:replace="~{/common/essential::header}"></th:block>
-  <div th:replace="~{/common/navbar::headline}"></div>
-<div th:replace="~{/common/navbar::navigation}"></div> <!-- 네비게이션 바 o -->
+  <head>
+    <th:block th:replace="~{/common/essential::header}"></th:block>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .mypage-image {
+            position: absolute;
+            height: 300px;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-center {
+            width: 1000px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <title>대학 웹 커뮤니티</title>
+</head>
 <body>
 
+<div class="mypage-image">
+    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+        <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    </svg></a>
+</div>
+
+<main>
+    <div class="mypage-center">
+        <div class="d-grid gap-4 my-3" style="grid-template-columns: 1fr 1fr 1fr;">
+            <div class="container">
+                <div class="bg-tertiary border rounded-3">
+                    <div class="text-center">
+                        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">내 정보</a></h4>
+                        <hr class="divider m-2">
+                    </div>
+                    <div class="list-group">
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">이메일</a>
+                                    <ul class="list-group list-group-horizontal-xxl">
+                                        <li class="list-group-item list-group-horizontal list-group-item-info">name@example.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">비밀번호 변경</a>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">닉네임</a>
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-horizontal list-group-item-info">나는 홍길동</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">연락처</a>
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-horizontal list-group-item-info">000-1234-5678</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">생년월일</a>
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-horizontal list-group-item-info">0000-00-00</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="bg-tertiary border rounded-3">
+                    <div class="text-center">
+                        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">글 관리</a></h4>
+                        <hr class="divider m-2">
+                    </div>
+                    <div class="list-group">
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">내가 쓴 글</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">댓글 단 글</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">공감한 글</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">스크랩한 글</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="bg-tertiary border rounded-3">
+                    <div class="text-center">
+                        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">기타</a></h4>
+                        <hr class="divider m-2">
+                    </div>
+                    <div class="list-group">
+                        <div class="row justify-content-center">
+                            <div class="col-auto text-center">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">공지사항</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">로그아웃</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">문의하기</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="d-flex hstack gap-2 m-2">
+                                    <a href="#" class="list-group-item list-group-item-info">탈퇴하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>
