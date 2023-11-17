@@ -16,7 +16,7 @@
                         th:attr="data-bs-id=${comment.id}, data-bs-nickName=${comment.createdBy},
                          data-bs-contents=${comment.contents}, data-bs-articleId=${comment.articleId}"
                    th:if="${comment.createdBy == member.nickName}">수정</button>
-                <button type="button" class="btn btn-danger"
+                <button type="button" class="btn btn-danger comment-delete-btn"
                    th:attr="data-commentId=${comment.id}"
                    th:if="${comment.createdBy == member.nickName}">삭제</button>
             </div>

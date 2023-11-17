@@ -5,6 +5,30 @@ let commentEditCompleteBtn = document.querySelector("#submit-editing");
 const header = document.querySelector('meta[name="_csrf_header"]').content;
 const token = document.querySelector('meta[name="_csrf"]').content;
 
+// comment 등록 버튼 이벤트
+commentWriteBtn.addEventListener("click", function () {
+    let comment = {
+        articleId: document.getElementById("new-comment-article-id").value,
+        contents: document.getElementById("new-comment-body").value,
+
+    }
+    let url = "/api/articles/"+ comment.articleId + "/comments";
+    fetch(url, {
+        method: "POST",
+        headers: {
+            'header': header,
+            'X-Requested-With': 'XMLHttpRequest',
+            "Content-Type": "application/json",
+            'X-CSRF-Token': token
+        },
+        body: JSON.stringify(comment)
+    }).then(response => {
+        const msg = (response.ok) ? "댓글이 등록됐습니다." : "댓글 등록에 실패하였습니다.";
+        alert(msg);
+        window.location.reload();
+    })
+});
+
 // comment 수정 버튼 modal 이벤트
 commentEditBtn.addEventListener("show.bs.modal", function (event) {
     const targetBtn = event.relatedTarget;
@@ -45,29 +69,13 @@ commentEditCompleteBtn.addEventListener("click", function () {
    })
 });
 
-
-
-// comment 등록 버튼 이벤트
-
-commentWriteBtn.addEventListener("click", function () {
-    let comment = {
-        articleId: document.getElementById("new-comment-article-id").value,
-        contents: document.getElementById("new-comment-body").value,
-
-    }
-    let url = "/api/articles/"+ comment.articleId + "/comments";
-    fetch(url, {
-        method: "POST",
-        headers: {
-            'header': header,
-            'X-Requested-With': 'XMLHttpRequest',
-            "Content-Type": "application/json",
-            'X-CSRF-Token': token
-        },
-        body: JSON.stringify(comment)
-    }).then(response => {
-        const msg = (response.ok) ? "댓글이 등록됐습니다." : "댓글 등록에 실패하였습니다.";
-        alert(msg);
-        window.location.reload();
-    })
+// comment 삭제 이벤트
+let deleteBtns = document.querySelectorAll(".comment-delete-btn");
+deleteBtns.forEach(btn => {
+    btn.addEventListener("click", (event) => {
+        console.log("삭제 버튼 감지");
+        const deleteBtn = event.target;
+        const commentId = deleteBtn.getAttribute("data-commentId");
+        console.log(`삭제 버튼 클릭 : ${commentId}번 댓글`)
+    });
 });
