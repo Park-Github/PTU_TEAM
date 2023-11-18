@@ -68,13 +68,6 @@ public class ArticleService {
         articleRepos.delete(article);
     }
 
-    @Transactional(readOnly = true)
-    public List<ArticleReadDto> findAll() {
-        return articleRepos.findAll().stream()
-                .map(ArticleReadDto::new)
-                .collect(Collectors.toList());
-    }
-
     public PageResultDto<ArticleReadDto, Article> getList(PageRequestDto requestDto,
                                                           String sort, String category) {
         Pageable pageable = requestDto.getPageRequest(Sort.by(Sort.Direction.DESC, sort));

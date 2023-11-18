@@ -4,6 +4,7 @@ import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
@@ -27,6 +29,7 @@ public class MarketArticleController {
 
     private final ArticleService articleService;
     private final MemberService memberService;
+    private final CommentService commentService;
 
     @GetMapping("/market/form")
     public String newArticleForm(ArticleCreateDto dto,
@@ -44,14 +47,15 @@ public class MarketArticleController {
         Optional<Member> member = memberService.getMember(request);
         if (member.isPresent()) {
             String articleUri = "";
-            Long boardId = articleService.saveToCreate(form);
+            Member user = member.get();
+            ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
+            Long boardId = articleService.saveToCreate(dto);
             redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
-            if(form.getCategory().equals("market-buy")){
+            if(dto.getCategory().equals("market-buy")){
                 articleUri = "redirect:/market/buy/articles/" + boardId;
-                log.info(articleUri);
             }
 
-            else if (form.getCategory().equals("market-sell")) {
+            else if (dto.getCategory().equals("market-sell")) {
                 articleUri = "redirect:/market/sell/articles/" + boardId;
             }
 
@@ -65,10 +69,22 @@ public class MarketArticleController {
     // 장터 게시판 - 게시글 조회 Request 처리
     @GetMapping(value = {"/market/buy/articles/{id}", "/market/sell/articles/{id}"})
     public String showArticle(@PathVariable Long id,
+                              HttpServletRequest request,
                               Model model) {
-        Optional<ArticleReadDto> articleReadDto = Optional.ofNullable(articleService.findById(id));
-        articleReadDto.ifPresent(i -> model.addAttribute("boardArticle", i));
-        articleReadDto.orElseThrow();
+        log.info("id = " + id);
+        Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
+        Optional<Member> member = memberService.getMember(request);
+        List<CommentDto> commentDtoList = commentService.findComments(id);
+        log.info(commentDtoList.toString());
+
+        member.ifPresent(value -> {
+            model.addAttribute("member", value);
+        });
+        boardArticle.ifPresent(value -> {
+            model.addAttribute("boardArticle", value);
+            model.addAttribute("commentList", commentDtoList);
+            articleService.updateViewCount(id);
+        });
         return "/menu/article";
     }
 
@@ -88,6 +104,7 @@ public class MarketArticleController {
 
         model.addAttribute("sellList", pageResultDto1);
         model.addAttribute("buyList", pageResultDto2);
+        model.addAttribute("sort", condition);
         return "/menu/market";
     }
 
@@ -137,4 +154,30 @@ public class MarketArticleController {
 
     }
 
+    @PostMapping("/market/search")
+    public String articleSearch(@RequestParam(name = "condition-cat") String conditionCategory,
+                                @RequestParam(name = "condition-search", defaultValue = "") String conditionSearch,
+                                @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
+                                @RequestParam(name = "sort") String sort,
+                                PageRequestDto pageRequestDto1,
+                                PageRequestDto pageRequestDto2,
+                                Model model) {
+        if (conditionCategory.equals("market-buy")){
+            CommonController.registerPageModels(conditionCategory, conditionSearch,
+                    keyWord, sort, pageRequestDto1, model, articleService, log);
+            PageResultDto<ArticleReadDto, Article> sellList
+                    = articleService.getList(pageRequestDto2, sort, "market-sell");
+            model.addAttribute("sellList", sellList);
+
+        } else if (conditionCategory.equals("market-sell")) {
+            CommonController.registerPageModels(conditionCategory, conditionSearch,
+                    keyWord, sort, pageRequestDto1, model, articleService, log);
+            PageResultDto<ArticleReadDto, Article> buyList
+                    = articleService.getList(pageRequestDto2, sort, "market-buy");
+            model.addAttribute("buyList", buyList);
+        }
+
+        return "menu/market";
+    }
 }
+
