@@ -76,6 +76,30 @@ deleteBtns.forEach(btn => {
         console.log("삭제 버튼 감지");
         const deleteBtn = event.target;
         const commentId = deleteBtn.getAttribute("data-commentId");
-        console.log(`삭제 버튼 클릭 : ${commentId}번 댓글`)
+        console.log(`삭제 버튼 클릭 : ${commentId}번 댓글`);
+        const url = `/api/comments/${commentId}`;
+
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                'header': header,
+                'X-Requested-With': 'XMLHttpRequest',
+                "Content-Type": "application/json",
+                'X-CSRF-Token': token
+            }
+        }).then(response => {
+            if (!response.ok) {
+                alert("댓글을 삭제할 수 없습니다!(오류)");
+                return
+            }
+
+            const target = document.querySelector(`#commentId-${commentId}`);
+            target.remove();
+
+            const msg = `댓글을 삭제했습니다.`;
+            alert(msg);
+
+            window.location.reload();
+        })
     });
 });

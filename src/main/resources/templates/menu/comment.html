@@ -8,7 +8,7 @@
     <th:block th:fragment="list" th:if="${!commentList.isEmpty()}"
               th:each="comment, status : ${commentList}">
         <div class="card text-center" style="width: 50%; float: left"
-            th:id="${comment.id}">
+            th:id="|commentId-${comment.id}|">
             <div class="card-header">
                 <p class="fw-bold" th:text="${comment.createdBy}"></p>
                 <button class="btn btn-primary"
