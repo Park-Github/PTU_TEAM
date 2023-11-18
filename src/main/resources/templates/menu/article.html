@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="kr" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
 <th:block th:replace="~{/common/navbar::header}"></th:block>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <body>
 	<div th:replace="~{/common/navbar::headline}"></div>
 	<div th:replace="~{/common/navbar::navigation}"></div>
@@ -72,7 +74,7 @@
 						<div class="text-center mt-5">
 							<th:block th:if="${boardArticle.category == 'free' or boardArticle.category == 'sharing'
 											or boardArticle.category == 'qna' or boardArticle.category == 'promotion'}">
-								<button type="button" class="btn btn-primary me-2"
+								<button type="button" class="btn btn-info me-2"
 										th:onclick="|location.href='@{/board/like/{id}(id=${boardArticle.id})}'|">
 										공감 [[${boardArticle.likes}]]
 								</button>
@@ -102,40 +104,19 @@
 								</button>
 							</th:block>
 							<hr class="divider">
+							<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
+							<div th:replace="~{/menu/comment::list}"></div>
 						</div>
-						<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
-						<table class="table">
-							<thead><tr></tr></thead>
-							<tbody>
-								<tr>
-									<th>(닉네임)</th>
-									<td style="width: 72%">(댓글 내용)</td>
-									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
-								</tr>
-								<tr>
-									<th>(닉네임)</th>
-									<td style="width: 72%">(댓글 내용)</td>
-									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
-								</tr>
-								<tr>
-									<th>(닉네임)</th>
-									<td style="width: 72%">(댓글 내용)</td>
-									<td style="width: 15%; text-align: right; color:#a3a3a3">(댓글 작성일, 시간)</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="bg-body-tertiary p-3 rounded">
-							<div class="form-group row">
-								<div class="input-group">
-									<label for="reply-input" class="col-form-label">(닉네임)</label>
-									<input class="form-control mx-3" type="text" id="reply-input">
-									<button class="btn btn-outline-secondary" type="button">작성</button>
-								</div>
-							</div>
+						<div class="text-center">
+							<button id="comment-create-btn" type="button" class="text-center btn btn-primary mt-3" data-bs-toggle="modal"
+									data-bs-target="#comment-create-form">댓글 작성</button>
 						</div>
+						<div th:replace="~{/menu/comment::post-form}"></div>
+						<div th:replace="~{/menu/comment::edit-form}"></div>
 					</div>
 				</div>
 			</div>
 		</main>
+	<script src="/js/comment.js" type="module"></script>
 </body>
 </html>

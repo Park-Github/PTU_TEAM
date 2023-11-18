@@ -1,6 +1,8 @@
 package SpringProject.WebCommunity.Repository;
 
 import SpringProject.WebCommunity.Model.Domain.Article;
+import SpringProject.WebCommunity.Model.Domain.Comment;
+import SpringProject.WebCommunity.Model.Domain.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
@@ -8,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static SpringProject.WebCommunity.Model.Domain.QArticle.article;
+import static SpringProject.WebCommunity.Model.Domain.QComment.comment;
+import static SpringProject.WebCommunity.Model.Domain.QMember.member;
 
 @Repository
 @Transactional
@@ -53,6 +57,30 @@ public class ArticleQueryRepos {
                 .where(article.id.eq(id))
                 .execute();
 
+    }
+
+    public List<Comment> findAllComments(Long id) {
+        return queryFactory
+                .select(comment)
+                .from(comment)
+                .where(comment.article.id.eq(id))
+                .fetch();
+    }
+
+    public List<Comment> findAllComments(String nickName) {
+        return  queryFactory
+                .select(comment)
+                .from(comment)
+                .where(comment.createdBy.eq(nickName))
+                .fetch();
+    }
+
+    public Member findMember(Long id) {
+        return queryFactory
+                .select(member)
+                .from(member)
+                .where(member.id.eq(id))
+                .fetchOne();
     }
 
 }
