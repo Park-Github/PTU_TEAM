@@ -10,15 +10,27 @@
         <div class="card text-center" style="width: 50%; float: left"
             th:id="|commentId-${comment.id}|">
             <div class="card-header">
-                <p class="fw-bold" th:text="${comment.createdBy}"></p>
-                <button class="btn btn-primary"
-                        data-bs-toggle="modal" data-bs-target="#comment-edit-form"
-                        th:attr="data-bs-id=${comment.id}, data-bs-nickName=${comment.createdBy},
-                         data-bs-contents=${comment.contents}, data-bs-articleId=${comment.articleId}"
-                   th:if="${comment.createdBy == member.nickName}">수정</button>
-                <button type="button" class="btn btn-danger comment-delete-btn"
-                   th:attr="data-commentId=${comment.id}"
-                   th:if="${comment.createdBy == member.nickName}">삭제</button>
+                <table class="table-borderless table-sm">
+                    <tr>
+                        <td style="width: 11%;"></td>
+                        <td style="width: 11%;"></td>
+                        <td style="width: 50%; padding: -1px;">
+                            <div class="fw-bold" th:text="${comment.createdBy}"></div>
+                        </td>
+                        <td style="width: 11%;">
+                            <button class="btn btn-primary btn-sm"
+                                    data-bs-toggle="modal" data-bs-target="#comment-edit-form"
+                                    th:attr="data-bs-id=${comment.id}, data-bs-nickName=${comment.createdBy},
+                                     data-bs-contents=${comment.contents}, data-bs-articleId=${comment.articleId}"
+                               th:if="${comment.createdBy == member.nickName}">수정</button>
+                        </td>
+                        <td style="width: 11%;">
+                            <button type="button" class="btn btn-danger comment-delete-btn btn-sm"
+                                    th:attr="data-commentId=${comment.id}"
+                                    th:if="${comment.createdBy == member.nickName}">삭제</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div class="card-body">
                 <p class="card-text" th:text="${comment.contents}"></p>

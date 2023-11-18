@@ -105,11 +105,12 @@
 							</th:block>
 							<hr class="divider">
 							<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
-							<div th:replace="~{/menu/comment::list}">
-							</div>
+							<div th:replace="~{/menu/comment::list}"></div>
 						</div>
-						<button id="comment-create-btn" type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#comment-create-form">댓글 작성</button>
+						<div class="text-center">
+							<button id="comment-create-btn" type="button" class="text-center btn btn-primary mt-3" data-bs-toggle="modal"
+									data-bs-target="#comment-create-form">댓글 작성</button>
+						</div>
 						<div th:replace="~{/menu/comment::post-form}"></div>
 						<div th:replace="~{/menu/comment::edit-form}"></div>
 					</div>
