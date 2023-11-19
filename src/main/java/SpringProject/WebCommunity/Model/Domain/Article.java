@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 public class Article extends BaseTimeEntity{
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
