@@ -162,4 +162,7 @@ src/main/generated
 # bin folder
 bin/
 
+# applicatio.properties
+src/main/resources/application.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/gradle,intellij,visualstudiocode
