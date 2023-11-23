@@ -4,17 +4,22 @@ import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.AttachmentService;
 import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
+import com.querydsl.core.Tuple;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
@@ -28,6 +33,7 @@ public class BoardArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
     private final CommentService commentService;
+    private final AttachmentService attachmentService;
 
     // 게시판 글쓰기 페이지 요청 처리
     @GetMapping("/board/form/{cat}")
@@ -40,16 +46,27 @@ public class BoardArticleController {
     }
 
     // 게시판 게시글 입력 데이터 POST mapping
+    @SneakyThrows
     @PostMapping("/board/create")
     public String createBoardArticle(ArticleCreateDto form,
+                                     @RequestParam List<MultipartFile> multipartFile,
                                      HttpServletRequest request,
                                      RedirectAttributes redirectAttr) {
 
         Optional<Member> member = memberService.getMember(request);
         if (member.isPresent()) {
             Member user = member.get();
+
             ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
-            Long boardId = articleService.saveToCreate(dto);
+            Long boardId = articleService.save(dto);
+
+            if (!multipartFile.isEmpty()){
+                List<Long> attachmentIdList = attachmentService.save(boardId, multipartFile);
+                Map<Long, String> fileMap = attachmentService.mappingFileName(attachmentIdList);
+                log.info("fileMap{}:", fileMap.toString());
+                redirectAttr.addFlashAttribute("fileMap", fileMap);
+            }
+
             redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
             log.info(boardId.toString());
             return "redirect:/board/view/" + boardId;
@@ -63,12 +80,12 @@ public class BoardArticleController {
     public String showArticle(@PathVariable Long id,
                               HttpServletRequest request,
                               Model model) {
-        log.info("id = " + id);
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
         Optional<Member> member = memberService.getMember(request);
         List<CommentDto> commentDtoList = commentService.findComments(id);
-        log.info(commentDtoList.toString());
+        List<Tuple> attachments = attachmentService.findAttachments(id);
 
+        log.info(attachments.toString());
         member.ifPresent(value -> {
             model.addAttribute("member", value);
         });

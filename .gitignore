@@ -165,4 +165,7 @@ bin/
 # applicatio.properties
 src/main/resources/application.properties
 
+# upload path
+src/main/resources/upload
+
 # End of https://www.toptal.com/developers/gitignore/api/gradle,intellij,visualstudiocode

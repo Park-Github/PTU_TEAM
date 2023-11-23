@@ -45,13 +45,16 @@ public class SecurityConfiguration {
                         .requestMatchers(antMatcher("/register")).permitAll()
                         .requestMatchers(antMatcher("/logout")).permitAll()
 
-                        // 공개 페이지 허용
-//                        .requestMatchers(antMatcher("/")).permitAll()
+                        // 인증된 사용자(회원)만 페이지 요청 허용
+//                        .requestMatchers(antMatcher("/")).authenticated()
                                 .requestMatchers(antMatcher("/board/form/**")).authenticated()
                                 .requestMatchers(antMatcher("/market/form/**")).authenticated()
+                                .requestMatchers(antMatcher("/board/view/{\\d+}")).authenticated()
+                                .requestMatchers(antMatcher("/market/buy/articles/{\\d+}")).authenticated()
+                                .requestMatchers(antMatcher("/market/sell/articles/{\\d+}")).authenticated()
 
-                                // 위에 명시되지 않은 요청은 인증된 사용자를 제외하고 불허
-//                        .anyRequest().authenticated()
+                                // 위에 명시된 요청 외의 모든 요청은 인증 관계 없이 항상 허용
+//                        .anyRequest().permitAll()
                                 .anyRequest().permitAll()
                 )
                 .securityContext(ctx -> ctx.securityContextRepository(scr))

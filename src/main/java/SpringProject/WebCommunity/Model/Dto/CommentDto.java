@@ -19,7 +19,6 @@ public class CommentDto {
     private LocalDateTime createdTime;
     private LocalDateTime revisedTime;
     private Long articleId;
-//    private Long memberId;
 
 
     public static CommentDto EntityToDto(Comment comment) {
@@ -30,7 +29,6 @@ public class CommentDto {
                 comment.getCreatedTime(),
                 comment.getRevisedTime(),
                 comment.getArticle().getId()
-//                comment.getMember().getId()
         );
     }
 }
