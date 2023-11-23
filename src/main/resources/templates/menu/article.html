@@ -71,6 +71,11 @@
 						<div class="py-1">
 							<div style="white-space:pre-wrap;">[[${boardArticle.contents}]]</div>
 						</div>
+						<div class="text-right" th:each="file, status : ${fileMap}">
+							<a th:if="${file}"
+							   th:text="${file.value}"
+							   th:href="@{/download/attachments/{id}(id=${file.key})}"></a>
+						</div>
 						<div class="text-center mt-5">
 							<th:block th:if="${boardArticle.category == 'free' or boardArticle.category == 'sharing'
 											or boardArticle.category == 'qna' or boardArticle.category == 'promotion'}">

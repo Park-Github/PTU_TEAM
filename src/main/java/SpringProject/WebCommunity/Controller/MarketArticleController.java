@@ -4,10 +4,12 @@ import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.AttachmentService;
 import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -30,6 +33,7 @@ public class MarketArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
     private final CommentService commentService;
+    private final AttachmentService attachmentService;
 
     @GetMapping("/market/form")
     public String newArticleForm(ArticleCreateDto dto,
@@ -39,8 +43,10 @@ public class MarketArticleController {
     }
 
     // 장터 게시글 Form 데이터 Post Request 처리
+    @SneakyThrows
     @PostMapping("/market/create")
     public String createMarketArticle(ArticleCreateDto form,
+                                      @RequestParam List<MultipartFile> multipartFile,
                                       HttpServletRequest request,
                                       RedirectAttributes redirectAttr) {
 
@@ -48,8 +54,10 @@ public class MarketArticleController {
         if (member.isPresent()) {
             String articleUri = "";
             Member user = member.get();
-            ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
-            Long boardId = articleService.saveToCreate(dto);
+            ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(),
+                    form.getCategory(), user);
+            Long boardId = articleService.save(dto);
+            attachmentService.save(boardId, multipartFile);
             redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
             if(dto.getCategory().equals("market-buy")){
                 articleUri = "redirect:/market/buy/articles/" + boardId;
