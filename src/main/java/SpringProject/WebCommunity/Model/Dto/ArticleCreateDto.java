@@ -3,8 +3,6 @@ package SpringProject.WebCommunity.Model.Dto;
 import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import lombok.*;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 @ToString // 데이터를 확인하기 위한 메서드 toString 추가

@@ -44,11 +44,11 @@ public class HomeController {
             ArrayList<String> category) {
         category.stream().forEach((element) -> {
             if (category.get(0).equals("free")) {
-                List<Article> list = articleService.find2ByCategoryDesc(element);
+                List<Article> list = articleService.articlesForHomeLayout1(element);
                 Map.put(element, list);
 
             } else if (category.get(0).equals("market-sell")) {
-                List<Article> list = articleService.find3ByCategoryDesc(element);
+                List<Article> list = articleService.articlesForHomeLayout2(element);
                 Map.put(element, list);
             }
         });
