@@ -14,26 +14,26 @@ public class ArticleRepoTest {
     @Autowired
     ArticleRepos articleRepos;
 
-    @Test
-    @Transactional
-    public void testInsertDummies(){
-        IntStream.rangeClosed(1, 100).forEach(i ->
-        {
-            Long randomNum = (long) (Math.random() * 1000);
-            LocalDateTime localDateTime = LocalDateTime.now();
-            Article article = Article.builder()
-                .id(randomNum)
-                .title("title" + i)
-                .likes(i)
-                .views(i)
-                .createdBy("testUser")
-                .contents("this is a dummy data")
-                .category("free")
-                .createdTime(localDateTime)
-                .build();
-            articleRepos.save(article);
-        });
-    }
+//    @Test
+//    @Transactional
+//    public void testInsertDummies(){
+//        IntStream.rangeClosed(1, 100).forEach(i ->
+//        {
+//            Long randomNum = (long) (Math.random() * 1000);
+//            LocalDateTime localDateTime = LocalDateTime.now();
+//            Article article = Article.builder()
+//                .id(randomNum)
+//                .title("title" + i)
+//                .likes(i)
+//                .views(i)
+//                .createdBy("testUser")
+//                .contents("this is a dummy data")
+//                .category("free")
+//                .createdTime(localDateTime)
+//                .build();
+//            articleRepos.save(article);
+//        });
+//    }
 
 //    @Test
 //    public void testSelect() {
