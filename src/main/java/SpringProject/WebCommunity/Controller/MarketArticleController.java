@@ -85,9 +85,7 @@ public class MarketArticleController {
         List<CommentDto> commentDtoList = commentService.findComments(id);
         log.info(commentDtoList.toString());
 
-        member.ifPresent(value -> {
-            model.addAttribute("member", value);
-        });
+        member.ifPresent(value -> model.addAttribute("member", value));
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
