@@ -50,21 +50,21 @@ public class PageRenderingController {
     }
     @GetMapping("/find-pw")
     public String findPwView(){
-        return "/certification/find-pw";
+        return "certification/find-pw";
     }
     @GetMapping("/change-pw")
     public String changePwView(){
-        return "/certification/change-pw";
+        return "certification/change-pw";
     }
 
     @GetMapping("/market-write")
     public String marketWrite(){
-        return "/form/market-write";
+        return "form/market-write";
     }
 
     @GetMapping("/job-info")
     public String jobInfo(){
-        return "/menu/job-info";
+        return "menu/job-info";
     }
 
 }
