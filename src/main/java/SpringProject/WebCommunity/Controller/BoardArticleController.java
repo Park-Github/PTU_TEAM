@@ -60,10 +60,9 @@ public class BoardArticleController {
             ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
             Long boardId = articleService.save(dto);
 
-            if (!multipartFile.isEmpty()){
+            if (!multipartFile.get(0).isEmpty()){
                 List<Long> attachmentIdList = attachmentService.save(boardId, multipartFile);
                 Map<Long, String> fileMap = attachmentService.mappingFileName(attachmentIdList);
-                log.info("fileMap{}:", fileMap.toString());
                 redirectAttr.addFlashAttribute("fileMap", fileMap);
             }
 
