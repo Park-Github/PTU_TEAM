@@ -42,7 +42,7 @@ public class BoardArticleController {
                                  ArticleCreateDto dto) {
         model.addAttribute("boardArticle", dto);
         model.addAttribute("category", category);
-        return "/form/post-write";
+        return "form/post-write";
     }
 
     // 게시판 게시글 입력 데이터 POST mapping
@@ -93,7 +93,7 @@ public class BoardArticleController {
             model.addAttribute("commentList", commentDtoList);
             articleService.updateViewCount(id);
         });
-        return "/menu/article";
+        return "menu/article";
     }
 
     // 게시판 게시글 목록 조회
@@ -111,7 +111,7 @@ public class BoardArticleController {
         model.addAttribute("boardCat", category);
 
         model.addAttribute("sort", sort);
-        return "/menu/article-list";
+        return "menu/article-list";
 
     }
 
@@ -121,7 +121,7 @@ public class BoardArticleController {
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
        UpdateAndRegisterModel(category, id, model, articleService);
-       return "/form/post-edit";
+       return "form/post-edit";
     }
 
     // 게시판 게시글 수정 데이터 POST mapping

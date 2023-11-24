@@ -39,7 +39,7 @@ public class MarketArticleController {
     public String newArticleForm(ArticleCreateDto dto,
                                  Model model) {
         model.addAttribute("boardArticle", dto);
-        return "/form/market-write";
+        return "form/market-write";
     }
 
     // 장터 게시글 Form 데이터 Post Request 처리
@@ -93,7 +93,7 @@ public class MarketArticleController {
             model.addAttribute("commentList", commentDtoList);
             articleService.updateViewCount(id);
         });
-        return "/menu/article";
+        return "menu/article";
     }
 
     // 장터 게시판 - 게시글 목록 조회 Request 처리
@@ -113,7 +113,7 @@ public class MarketArticleController {
         model.addAttribute("sellList", pageResultDto1);
         model.addAttribute("buyList", pageResultDto2);
         model.addAttribute("sort", condition);
-        return "/menu/market";
+        return "menu/market";
     }
 
     // 장터 게시글 수정 페이지 Request 처리
@@ -122,7 +122,7 @@ public class MarketArticleController {
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
         UpdateAndRegisterModel(category, id, model, articleService);
-        return "/form/market-edit";
+        return "form/market-edit";
     }
 
     // 장터 게시글 UPDATE 및 게시글 Redirect

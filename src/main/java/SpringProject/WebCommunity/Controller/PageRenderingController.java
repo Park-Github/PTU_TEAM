@@ -7,46 +7,46 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PageRenderingController {
     // -- menu --
     @GetMapping("/register")
-    public String registerView() { return "/certification/register"; }
+    public String registerView() { return "certification/register"; }
     @GetMapping("/login")
-    public String loginView() { return "/certification/login"; }
+    public String loginView() { return "certification/login"; }
     @GetMapping("/profile")
-    public String profileView() { return "/profile/profile-page";}
+    public String profileView() { return "profile/profile-page";}
     @GetMapping("/sitemap")
     public String sitemapView(){
-        return "/menu/sitemap";
+        return "menu/sitemap";
     }
     @GetMapping("/job")
     public String jobView(){
-        return "/menu/job";
+        return "menu/job";
     }
     @GetMapping("/study")
     public String studyView(){
-        return "/menu/study";
+        return "menu/study";
     }
     @GetMapping("/search")
     public String searchView(){
-        return "/menu/search";
+        return "menu/search";
     }
 
     // profile
     @GetMapping("/profile/comments")
     public String myCommentsView(){
-        return "/profile/comments";
+        return "profile/comments";
     }
     @GetMapping("/profile/articles")
     public String myArticlesView(){
-        return "/profile/articles";
+        return "profile/articles";
     }
     @GetMapping("/profile/scraps")
     public String myScrapView(){
-        return "/profile/scraps";
+        return "profile/scraps";
     }
 
     // find id & pw
     @GetMapping("/find-id")
     public String findIdView(){
-        return "/certification/find-id";
+        return "certification/find-id";
     }
     @GetMapping("/find-pw")
     public String findPwView(){
