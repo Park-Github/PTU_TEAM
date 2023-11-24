@@ -1,4 +1,4 @@
-# 개발 환경 세팅 방법
+# 개발 환경 세팅 방법 By IntelliJ IDEA
 ## application-xx.properties 적용 방법
 1. application.properties 에 해당 내용을 입력한다.
    
@@ -23,4 +23,11 @@
  
     - c.File upload directory config (파일 업로드 경로 설정)
     > upload.dir : '/src/main/resources/upload' 폴더의 절대 경로 + '/' (ex. C:/Users/.../PTU_TEAM/src/main/resources/upload/)
+    
+3. IntelliJ 실행/디버그 구성 (IntelliJ Run/Debug configuration) 변경
+
+   ![image](https://github.com/Park-Github/PTU_TEAM/assets/114387241/c8840d3d-1cef-428e-889e-38d02f9877bd)
+
+   ![image](https://github.com/Park-Github/PTU_TEAM/assets/114387241/d611259d-a10d-45f6-8b33-9c1c4660fc12)
+   활성화된 프로파일(activated profiles)에 프로파일 이름을 적는다. (ex. local)
 
