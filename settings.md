@@ -1,13 +1,16 @@
 # 개발 환경 세팅 방법
 ## application-xx.properties 적용 방법
 1. application.properties 에 해당 내용을 입력한다.
-> spring.profiles.active=local or dev or server
-> spring.profiles.include=local or dev or server
+   
+    > spring.profiles.active=local or dev or server
+    > 
+    > spring.profiles.include=local or dev or server
 
-- application.properties 설정 파일이 없을 시
-    1. src/main/resources 폴더 우클릭
-    2. 새로 만들기(New) -> 리소스 번들(Resource Bundle)
-    3. 리소스 번들 기본이름: application, 확인
+    - application.properties 설정 파일이 없을 시
+  
+        1. src/main/resources 폴더 우클릭
+        2. 새로 만들기(New) -> 리소스 번들(Resource Bundle)
+        3. 리소스 번들 기본이름: application, 확인
 
 2. application.properties 에 세팅 환경에 따라 설정 값을 추가한다.
     - a.Database config (DB 설정)
