@@ -7,6 +7,7 @@ import SpringProject.WebCommunity.Service.ArticleService;
 import SpringProject.WebCommunity.Service.AttachmentService;
 import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
+import com.querydsl.core.Tuple;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
@@ -57,7 +59,13 @@ public class MarketArticleController {
             ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(),
                     form.getCategory(), user);
             Long boardId = articleService.save(dto);
-            attachmentService.save(boardId, multipartFile);
+
+            if (!multipartFile.get(0).isEmpty()){
+                List<Long> attachmentIdList = attachmentService.save(boardId, multipartFile);
+                Map<Long, String> fileMap = attachmentService.mappingFileName(attachmentIdList);
+                redirectAttr.addFlashAttribute("fileMap", fileMap);
+            }
+
             redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
             if(dto.getCategory().equals("market-buy")){
                 articleUri = "redirect:/market/buy/articles/" + boardId;
@@ -83,12 +91,14 @@ public class MarketArticleController {
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
         Optional<Member> member = memberService.getMember(request);
         List<CommentDto> commentDtoList = commentService.findComments(id);
-        log.info(commentDtoList.toString());
+        Map<Long, String> fileMap = attachmentService.readFileMap(id);
+        log.info(fileMap.toString());
 
         member.ifPresent(value -> model.addAttribute("member", value));
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
+            model.addAttribute("fileMap", fileMap);
             articleService.updateViewCount(id);
         });
         return "menu/article";
@@ -133,7 +143,6 @@ public class MarketArticleController {
         model.addAttribute("boardArticle", article);
 
         String redirect = "";
-        log.info(category);
         if (category.equals("market-sell"))
             redirect += "redirect:/market/sell/articles/" + id;
         else if (category.equals("market-buy"))

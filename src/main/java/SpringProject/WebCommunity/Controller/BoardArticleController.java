@@ -56,7 +56,6 @@ public class BoardArticleController {
         Optional<Member> member = memberService.getMember(request);
         if (member.isPresent()) {
             Member user = member.get();
-
             ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
             Long boardId = articleService.save(dto);
 
@@ -82,15 +81,14 @@ public class BoardArticleController {
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
         Optional<Member> member = memberService.getMember(request);
         List<CommentDto> commentDtoList = commentService.findComments(id);
-        List<Tuple> attachments = attachmentService.findAttachments(id);
+        Map<Long, String> fileMap = attachmentService.readFileMap(id);
+        log.info(fileMap.toString());
 
-        log.info(attachments.toString());
-        member.ifPresent(value -> {
-            model.addAttribute("member", value);
-        });
+        member.ifPresent(value -> model.addAttribute("member", value));
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
+            model.addAttribute("fileMap", fileMap);
             articleService.updateViewCount(id);
         });
         return "menu/article";
