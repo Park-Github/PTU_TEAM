@@ -7,7 +7,6 @@ import SpringProject.WebCommunity.Service.ArticleService;
 import SpringProject.WebCommunity.Service.AttachmentService;
 import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
-import com.querydsl.core.Tuple;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
