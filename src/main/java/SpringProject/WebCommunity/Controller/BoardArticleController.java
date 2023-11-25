@@ -7,7 +7,6 @@ import SpringProject.WebCommunity.Service.ArticleService;
 import SpringProject.WebCommunity.Service.AttachmentService;
 import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
-import com.querydsl.core.Tuple;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -42,7 +41,7 @@ public class BoardArticleController {
                                  ArticleCreateDto dto) {
         model.addAttribute("boardArticle", dto);
         model.addAttribute("category", category);
-        return "/form/post-write";
+        return "form/post-write";
     }
 
     // 게시판 게시글 입력 데이터 POST mapping
@@ -56,14 +55,12 @@ public class BoardArticleController {
         Optional<Member> member = memberService.getMember(request);
         if (member.isPresent()) {
             Member user = member.get();
-
             ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
             Long boardId = articleService.save(dto);
 
-            if (!multipartFile.isEmpty()){
+            if (!multipartFile.get(0).isEmpty()){
                 List<Long> attachmentIdList = attachmentService.save(boardId, multipartFile);
                 Map<Long, String> fileMap = attachmentService.mappingFileName(attachmentIdList);
-                log.info("fileMap{}:", fileMap.toString());
                 redirectAttr.addFlashAttribute("fileMap", fileMap);
             }
 
@@ -83,18 +80,17 @@ public class BoardArticleController {
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
         Optional<Member> member = memberService.getMember(request);
         List<CommentDto> commentDtoList = commentService.findComments(id);
-        List<Tuple> attachments = attachmentService.findAttachments(id);
+        Map<Long, String> fileMap = attachmentService.readFileMap(id);
+        log.info(fileMap.toString());
 
-        log.info(attachments.toString());
-        member.ifPresent(value -> {
-            model.addAttribute("member", value);
-        });
+        member.ifPresent(value -> model.addAttribute("member", value));
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
+            model.addAttribute("fileMap", fileMap);
             articleService.updateViewCount(id);
         });
-        return "/menu/article";
+        return "menu/article";
     }
 
     // 게시판 게시글 목록 조회
@@ -112,7 +108,7 @@ public class BoardArticleController {
         model.addAttribute("boardCat", category);
 
         model.addAttribute("sort", sort);
-        return "/menu/article-list";
+        return "menu/article-list";
 
     }
 
@@ -122,7 +118,7 @@ public class BoardArticleController {
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
        UpdateAndRegisterModel(category, id, model, articleService);
-       return "/form/post-edit";
+       return "form/post-edit";
     }
 
     // 게시판 게시글 수정 데이터 POST mapping

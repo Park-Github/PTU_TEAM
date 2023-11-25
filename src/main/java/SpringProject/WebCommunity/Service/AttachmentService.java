@@ -6,18 +6,20 @@ import SpringProject.WebCommunity.Model.Domain.Attachment;
 import SpringProject.WebCommunity.Repository.ArticleRepos;
 import SpringProject.WebCommunity.Repository.AttachmentQueryRepos;
 import SpringProject.WebCommunity.Repository.AttachmentRepos;
-import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AttachmentService {
     private final ArticleRepos articleRepos;
     private final AttachmentRepos attachmentRepos;
@@ -35,9 +37,10 @@ public class AttachmentService {
         return idList;
     }
 
-    public List<Tuple> findAttachments(Long articleId) {
-        JPAQuery<Tuple> attachments = attachmentQueryRepos.findClientFileName(articleId);
-        return attachments.stream().toList();
+    public Map<Long, String> readFileMap(Long articleId) {
+        JPAQuery<Attachment> attachments = attachmentQueryRepos.findClientFileName(articleId);
+        log.info(attachments.toString());
+        return attachments.stream().collect(Collectors.toMap(Attachment::getId, Attachment::getClientFileName));
     }
 
     public Map<Long, String> mappingFileName(List<Long> idList) {

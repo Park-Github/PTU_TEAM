@@ -163,7 +163,7 @@ src/main/generated
 bin/
 
 # applicatio.properties
-src/main/resources/application.properties
+**/application.properties
 
 # upload path
 src/main/resources/upload

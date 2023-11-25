@@ -36,7 +36,7 @@ public class HomeController {
         model.addAttribute("BoardMap", initMap(boardMap, boardCatList));
         model.addAttribute("MarketMap", initMap(marketMap, marketCatList));
 
-        return "/home";
+        return "home";
     }
 
     private Map<String, List<Article>> initMap(

@@ -1,6 +1,6 @@
 package SpringProject.WebCommunity.Repository;
 
-import com.querydsl.core.Tuple;
+import SpringProject.WebCommunity.Model.Domain.Attachment;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -18,9 +18,9 @@ public class AttachmentQueryRepos {
         this.jpaQueryFactory = new JPAQueryFactory(entityManager);
     }
 
-    public JPAQuery<Tuple> findClientFileName(Long articleId) {
+    public JPAQuery<Attachment> findClientFileName(Long articleId) {
         return jpaQueryFactory
-                .select(attachment.id, attachment.clientFileName)
+                .select(attachment)
                 .from(article)
                 .join(attachment).on(attachment.article.id.eq(articleId))
                 .where(article.id.eq(articleId));
