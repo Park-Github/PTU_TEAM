@@ -25,9 +25,17 @@
     > upload.dir : '/src/main/resources/upload' 폴더의 절대 경로 + '/' (ex. C:/Users/.../PTU_TEAM/src/main/resources/upload/)
     
 3. IntelliJ 실행/디버그 구성 (IntelliJ Run/Debug configuration) 변경
-
+   - 로컬 환경(IntelliJ)
+   
    ![image](https://github.com/Park-Github/PTU_TEAM/assets/114387241/c8840d3d-1cef-428e-889e-38d02f9877bd)
 
    ![image](https://github.com/Park-Github/PTU_TEAM/assets/114387241/d611259d-a10d-45f6-8b33-9c1c4660fc12)
    활성화된 프로파일(activated profiles)에 프로파일 이름을 적는다. (ex. local)
+   
+   - 서버 환경
+
+      배포 스크립트에 프로파일로 설정할 이름을 옵션으로 지정하여 실행
+     ```
+     java -jar [jar-fileName.jar] —spring.profiles.active=server
+     ```    
 
