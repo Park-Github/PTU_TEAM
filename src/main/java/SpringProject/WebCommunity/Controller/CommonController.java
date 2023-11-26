@@ -54,7 +54,7 @@ public class CommonController {
                 }
                 else {
                     PageResultDto<ArticleReadDto, Article> resultDto1
-                            = articleService.getListByTitle(pageRequestDto, sort, category, keyWord);
+                            = articleService.getListByContents(pageRequestDto, sort, category, keyWord);
                     model.addAttribute("boardArticleList", resultDto1);
                     model.addAttribute("boardCat", category);
                 }
@@ -68,7 +68,7 @@ public class CommonController {
                 }
                 else {
                     PageResultDto<ArticleReadDto, Article> resultDto1
-                            = articleService.getListByTitle(pageRequestDto, sort, category, keyWord);
+                            = articleService.getListByUserName(pageRequestDto, sort, category, keyWord);
                     model.addAttribute("boardArticleList", resultDto1);
                     model.addAttribute("boardCat", category);
                 }

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor // final 필드 생성자 자동 생성
 @Service
@@ -23,7 +22,7 @@ public class ArticleService {
     private final ArticleQueryRepos articleQueryRepos;
 
     @Transactional
-    public Long saveToCreate(ArticleCreateDto articleCreateDto){
+    public Long save(ArticleCreateDto articleCreateDto){
      return articleRepos.save(articleCreateDto.toEntity()).getId();
     }
 
@@ -113,11 +112,11 @@ public class ArticleService {
 
     /// Using Query DSL
 
-    public List<Article> find2ByCategoryDesc(String category) {
+    public List<Article> articlesForHomeLayout1(String category) {
         return articleQueryRepos.find2ByCategoryDesc(category);
     }
-    public List<Article> find3ByCategoryDesc(String category) {
-        return articleQueryRepos.find3ByCategoryDesc(category);
+    public List<Article> articlesForHomeLayout2(String category) {
+        return articleQueryRepos.find4ByCategoryDesc(category);
     }
 
 }

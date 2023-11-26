@@ -31,13 +31,13 @@ public class ArticleQueryRepos {
                 .fetch();
     }
 
-    public List<Article> find3ByCategoryDesc(String category) {
+    public List<Article> find4ByCategoryDesc(String category) {
         return queryFactory
                 .select(article)
                 .from(article)
                 .where(article.category.eq(category))
                 .orderBy(article.createdTime.desc())
-                .limit(3)
+                .limit(4)
                 .fetch();
     }
 

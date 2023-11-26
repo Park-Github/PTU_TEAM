@@ -4,10 +4,12 @@ import SpringProject.WebCommunity.Model.Domain.Article;
 import SpringProject.WebCommunity.Model.Domain.Member;
 import SpringProject.WebCommunity.Model.Dto.*;
 import SpringProject.WebCommunity.Service.ArticleService;
+import SpringProject.WebCommunity.Service.AttachmentService;
 import SpringProject.WebCommunity.Service.CommentService;
 import SpringProject.WebCommunity.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static SpringProject.WebCommunity.Controller.CommonController.UpdateAndRegisterModel;
@@ -30,17 +34,20 @@ public class MarketArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
     private final CommentService commentService;
+    private final AttachmentService attachmentService;
 
     @GetMapping("/market/form")
     public String newArticleForm(ArticleCreateDto dto,
                                  Model model) {
         model.addAttribute("boardArticle", dto);
-        return "/form/market-write";
+        return "form/market-write";
     }
 
     // 장터 게시글 Form 데이터 Post Request 처리
+    @SneakyThrows
     @PostMapping("/market/create")
     public String createMarketArticle(ArticleCreateDto form,
+                                      @RequestParam List<MultipartFile> multipartFile,
                                       HttpServletRequest request,
                                       RedirectAttributes redirectAttr) {
 
@@ -48,8 +55,16 @@ public class MarketArticleController {
         if (member.isPresent()) {
             String articleUri = "";
             Member user = member.get();
-            ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(), form.getCategory(), user);
-            Long boardId = articleService.saveToCreate(dto);
+            ArticleCreateDto dto = new ArticleCreateDto(form.getTitle(), form.getContents(),
+                    form.getCategory(), user);
+            Long boardId = articleService.save(dto);
+
+            if (!multipartFile.get(0).isEmpty()){
+                List<Long> attachmentIdList = attachmentService.save(boardId, multipartFile);
+                Map<Long, String> fileMap = attachmentService.mappingFileName(attachmentIdList);
+                redirectAttr.addFlashAttribute("fileMap", fileMap);
+            }
+
             redirectAttr.addFlashAttribute("success", "게시글이 등록되었습니다.");
             if(dto.getCategory().equals("market-buy")){
                 articleUri = "redirect:/market/buy/articles/" + boardId;
@@ -75,17 +90,17 @@ public class MarketArticleController {
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
         Optional<Member> member = memberService.getMember(request);
         List<CommentDto> commentDtoList = commentService.findComments(id);
-        log.info(commentDtoList.toString());
+        Map<Long, String> fileMap = attachmentService.readFileMap(id);
+        log.info(fileMap.toString());
 
-        member.ifPresent(value -> {
-            model.addAttribute("member", value);
-        });
+        member.ifPresent(value -> model.addAttribute("member", value));
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
+            model.addAttribute("fileMap", fileMap);
             articleService.updateViewCount(id);
         });
-        return "/menu/article";
+        return "menu/article";
     }
 
     // 장터 게시판 - 게시글 목록 조회 Request 처리
@@ -105,7 +120,7 @@ public class MarketArticleController {
         model.addAttribute("sellList", pageResultDto1);
         model.addAttribute("buyList", pageResultDto2);
         model.addAttribute("sort", condition);
-        return "/menu/market";
+        return "menu/market";
     }
 
     // 장터 게시글 수정 페이지 Request 처리
@@ -114,7 +129,7 @@ public class MarketArticleController {
                                       @RequestParam(name = "id") Long id,
                                       Model model) {
         UpdateAndRegisterModel(category, id, model, articleService);
-        return "/form/market-edit";
+        return "form/market-edit";
     }
 
     // 장터 게시글 UPDATE 및 게시글 Redirect
@@ -127,7 +142,6 @@ public class MarketArticleController {
         model.addAttribute("boardArticle", article);
 
         String redirect = "";
-        log.info(category);
         if (category.equals("market-sell"))
             redirect += "redirect:/market/sell/articles/" + id;
         else if (category.equals("market-buy"))

@@ -45,9 +45,9 @@ public class Comment extends BaseTimeEntity{
     public static Comment commentToEntity(CommentDto dto, Article article) {
         // 예외 처리
         if (dto.getId() != null)
-            throw new IllegalArgumentException("댓글 생성 실패! 댓글 ID 제약사항 위반");
+            throw new IllegalArgumentException("댓글 생성 실패! 댓글 PK 제약사항 위반!");
         if (!dto.getArticleId().equals(article.getId()))
-            throw new IllegalArgumentException("댓글 생성 실패! 게시글 ID 제약사항 위반");
+            throw new IllegalArgumentException("댓글 생성 실패! 게시글 PK 제약사항 위반!");
 
         // 엔티티 생성 및 반환
         return new Comment(
@@ -60,7 +60,7 @@ public class Comment extends BaseTimeEntity{
         log.info(this.id.toString());
         // 예외처리
         if (!this.id.equals(requestDto.getId()))
-            throw new IllegalArgumentException("댓글 수정 실패! 댓글 ID 제약사항 위반");
+            throw new IllegalArgumentException("댓글 수정 실패! 댓글 PK 제약사항 위반!");
         // object 갱신
         if (!requestDto.getContents().isEmpty())
             this.contents = requestDto.getContents();

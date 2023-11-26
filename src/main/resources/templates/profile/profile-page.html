@@ -6,166 +6,713 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        .mypage-image {
+        .mypage-list {
+            width: 7.5%;
             position: absolute;
-            height: 300px;
-            top: 25%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 54%;
+            left: 19%;
+            transform: translate(-44%, -50%);
         }
 
-        .mypage-center {
-            width: 1000px;
-            height: 300px;
+        .mypage-box {
+            width: 52%;
+            position: absolute;
+            top: 54%;
+            left: 50%;
+            transform: translate(-44%, -50%);
+        }
+
+        .mypage-text {
+            width: 85%;
+            height: auto;
+            padding: 10px 10px;
+            border-radius: 10px 10px 10px 10px;
+            border: 1px solid #777777;
+            background-color: white;
+            text-align: center;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        .mypage-button {
+            position: absolute;
+            left: 50%;
+            top: 90%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-pwtext {
+            position: absolute;
+            left: 50%;
+            top: 15%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-buttonright {
+            position: absolute;
+            left: 90%;
+            top: 87%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-buttonright1 {
+            position: absolute;
+            left: 50%;
+            top: 87%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-texter {
+            position: absolute;
+            left: 49%;
+            top: 41%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-button2 {
+            position: absolute;
+            left: 20%;
+            top: 87%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-button3 {
+            position: absolute;
+            left: 50%;
+            top: 87%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-button4 {
+            position: absolute;
+            left: 80%;
+            top: 87%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mypage-pagination {
+            position: absolute;
+            left: 50%;
+            top: 90%;
+            transform: translate(-50%, -50%);
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        span {
+            vertical-align: middle;
+        }
+
+        .title-short {
+            display: inline-block;
+            max-width: 45rem;
+        }
+
+        .nickname-short {
+            display: inline-block;
+            max-width: 8rem;
+        }
+
+        #box0 {
+            visibility : visible;
+        }
+
+
+        #box1 {
+            visibility : hidden;
+        }
+
+
+        #box2 {
+            visibility : hidden;
+        }
+
+
+        #box3 {
+            visibility : hidden;
+        }
+
+
+        #box4 {
+            visibility : hidden;
+        }
+
+        #box5 {
+            visibility : hidden;
+        }
+
+        #box6 {
+            visibility : hidden;
+        }
+
+        #box7 {
+            visibility : hidden;
+        }
+
+        #box8 {
+            visibility : hidden;
+        }
+
+        #box9 {
+            visibility : hidden;
+        }
+
+        #box10 {
+            visibility : hidden;
+        }
+
+        #box11 {
+            visibility : hidden;
+        }
+
+        #box12 {
+            visibility : hidden;
+        }
+
+        #box13 {
+            visibility : hidden;
+        }
     </style>
+
     <title>대학 웹 커뮤니티</title>
 </head>
 <body>
-
-<div class="mypage-image">
-    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
-        <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
-        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-    </svg></a>
-</div>
-
 <main>
-    <div class="mypage-center">
-        <div class="d-grid gap-4 my-3" style="grid-template-columns: 1fr 1fr 1fr;">
-            <div class="container">
-                <div class="bg-tertiary border rounded-3">
-                    <div class="text-center">
-                        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">내 정보</a></h4>
-                        <hr class="divider m-2">
+    <div class="container d-flex justify-content-center">
+        <a href="#" id="btn0" onclick="toggleTxt0()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="120" height="120"><path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12.1597 16C10.1243 16 8.29182 16.8687 7.01276 18.2556C8.38039 19.3474 10.114 20 12 20C13.9695 20 15.7727 19.2883 17.1666 18.1081C15.8956 16.8074 14.1219 16 12.1597 16ZM12 4C7.58172 4 4 7.58172 4 12C4 13.8106 4.6015 15.4807 5.61557 16.8214C7.25639 15.0841 9.58144 14 12.1597 14C14.6441 14 16.8933 15.0066 18.5218 16.6342C19.4526 15.3267 20 13.7273 20 12C20 7.58172 16.4183 4 12 4ZM12 5C14.2091 5 16 6.79086 16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9C8 6.79086 9.79086 5 12 5ZM12 7C10.8954 7 10 7.89543 10 9C10 10.1046 10.8954 11 12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7Z" fill="rgba(173,184,194,1)"></path></svg></a>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <p class="h3">닉네임님 안녕하세요!</p>
+    </div>
+    <div class="mypage-list">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4">
+
+            <p class="h2">내 정보</p>
+            <a role="button" id="btn1" onclick="toggleTxt1()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">이메일</p>
+            </div></a>
+            <a role="button" id="btn2" onclick="toggleTxt2()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">닉네임</p>
+            </div></a>
+            <a role="button" id="btn3" onclick="toggleTxt3()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">연락처</p>
+            </div></a>
+            <a role="button" id="btn4" onclick="toggleTxt4()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">생년월일</p>
+            </div></a>
+            <a role="button" id="btn5" onclick="toggleTxt5()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">비밀번호 변경</p>
+            </div></a>
+            <div class="my-3">
+                <div class="py-3"></div>
+                <p class="h2">글 관리</p>
+            </div>
+            <a role="button" id="btn6" onclick="toggleTxt6()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">내가 쓴 글</p>
+            </div></a>
+            <a role="button" id="btn7" onclick="toggleTxt7()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">댓글 단 글</p>
+            </div></a>
+            <a role="button" id="btn8" onclick="toggleTxt8()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">공감한 글</p>
+            </div></a>
+            <a role="button" id="btn9" onclick="toggleTxt9()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">스크랩한 글</p>
+            </div></a>
+            <div class="my-3">
+                <div class="py-3"></div>
+                <p class="h2">기타</p>
+            </div>
+            <a role="button" id="btn10" onclick="toggleTxt10()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">공지사항</p>
+            </div></a>
+            <a role="button" id="btn11" onclick="toggleTxt11()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">문의하기</p>
+            </div></a>
+            <a role="button" id="btn13" onclick="toggleTxt13()" style="text-decoration: none"><div class="my-3">
+                <p class="h6 text-dark">탈퇴하기</p>
+            </div></a>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box0">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+
+            <div class="container mt-3">
+                <div class="text-center">
+                    <h1 class="h3 fw-normal">마이페이지</h1>
+                </div>
+                <hr style="border: solid 1px rgb(0, 0, 0);">
+            </div>
+
+            <div class="mypage-text">
+                <p class="h4 text-break">회원님의 정보와 활동을 확인할 수 있는 마이페이지 입니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box1">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+
+            <div class="container mt-3">
+                <div class="text-center">
+                    <h1 class="h3 fw-normal">이메일</h1>
+                </div>
+                <hr style="border: solid 1px rgb(0, 0, 0);">
+            </div>
+
+            <div class="mypage-text">
+                <p class="h4 text-break">회원님의 이메일은 name@example.com 입니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box2">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+
+            <div class="container mt-3">
+                <div class="text-center">
+                    <h1 class="h3 fw-normal">닉네임</h1>
+                </div>
+                <hr style="border: solid 1px rgb(0, 0, 0);">
+            </div>
+
+            <div class="mypage-text">
+                <p class="h4 text-break">회원님의 닉네임은 닉네임 입니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box3">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+
+            <div class="container mt-3">
+                <div class="text-center">
+                    <h1 class="h3 fw-normal">연락처</h1>
+                </div>
+                <hr style="border: solid 1px rgb(0, 0, 0);">
+            </div>
+
+            <div class="mypage-text">
+                <p class="h4 text-break">회원님의 연락처는 010-0000-0000 입니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box4">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+
+            <div class="container mt-3">
+                <div class="text-center">
+                    <h1 class="h3 fw-normal">생년월일</h1>
+                </div>
+                <hr style="border: solid 1px rgb(0, 0, 0);">
+            </div>
+
+            <div class="mypage-text">
+                <p class="h4 text-break">회원님의 생년월일은 0000년 0월 00일 입니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box5">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+
+            <div class="mypage-pwtext">
+                <p class="h3 text-center">비밀번호 변경</p><p class="h6 text-secondary text-center">비밀번호를 주기적으로 변경해주시기 바랍니다.</p>
+            </div>
+            <div class="position-absolute top-50 start-50 translate-middle">
+                <div class="my-4">
+                    <div class="form-floating" style="width: 550px;">
+                        <input type="password" class="form-control" id="floatingPassword1" placeholder="Password" minlength="8">
+                        <label for="floatingPassword1">현재 비밀번호</label>
                     </div>
-                    <div class="list-group">
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">이메일</a>
-                                    <ul class="list-group list-group-horizontal-xxl">
-                                        <li class="list-group-item list-group-horizontal list-group-item-info">name@example.com</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">비밀번호 변경</a>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">닉네임</a>
-                                    <ul class="list-group">
-                                        <li class="list-group-item list-group-horizontal list-group-item-info">나는 홍길동</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">연락처</a>
-                                    <ul class="list-group">
-                                        <li class="list-group-item list-group-horizontal list-group-item-info">000-1234-5678</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-horizontal list-group-item-info">생년월일</a>
-                                    <ul class="list-group">
-                                        <li class="list-group-item list-group-horizontal list-group-item-info">0000-00-00</li>
-                                    </ul>
-                                </div>
-                            </div>
+                </div>
+                <div class="my-4">
+                    <div class="form-floating" style="width: 550px;">
+                        <input type="password" class="form-control" id="floatingPassword2" placeholder="Password" minlength="8">
+                        <label for="floatingPassword2">새 비밀번호 (8글자 이상)</label>
+                    </div>
+                </div>
+                <div class="my-4">
+                    <div class="thraw-password">
+                        <div class="form-floating" style="width: 550px;">
+                            <input type="password" class="form-control" id="floatingPassword3" placeholder="Password" minlength="8">
+                            <label for="floatingPassword3">새 비밀번호 확인</label>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="container">
-                <div class="bg-tertiary border rounded-3">
-                    <div class="text-center">
-                        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">글 관리</a></h4>
-                        <hr class="divider m-2">
-                    </div>
-                    <div class="list-group">
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">내가 쓴 글</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">댓글 단 글</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">공감한 글</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">스크랩한 글</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="mypage-button">
+                <button type="button" class="btn btn-primary btn-lg" onclick="location.href='#'">변경하기</button>
             </div>
+        </div>
+    </div>
 
-            <div class="container">
-                <div class="bg-tertiary border rounded-3">
+    <div class="mypage-box" id="box6">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+            <div class="container bg-body border rounded-3 mt-3 mb-4" style="height: 615px;">
+                <div class="container mt-3">
                     <div class="text-center">
-                        <h4 class="fw-normal m-2"><a href="#" class="link-body-emphasis text-decoration-none color-inherit">기타</a></h4>
-                        <hr class="divider m-2">
+                        <h1 class="h3 fw-normal">내가 쓴 글</h1>
                     </div>
-                    <div class="list-group">
-                        <div class="row justify-content-center">
-                            <div class="col-auto text-center">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">공지사항</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">로그아웃</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">문의하기</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <div class="d-flex hstack gap-2 m-2">
-                                    <a href="#" class="list-group-item list-group-item-info">탈퇴하기</a>
-                                </div>
-                            </div>
-                        </div>
+                    <hr style="border: solid 1px rgb(0, 0, 0);">
+
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th style="text-align: center">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${boardArticleList}">
+                            <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
+          </span>
+                                <span>(대괄호 안에 댓글수)</span>
+                            </td>
+                            <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mypage-pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="mypage-box" id="box7">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+            <div class="container bg-body border rounded-3 mt-3 mb-4" style="height: 615px;">
+                <div class="container mt-3">
+                    <div class="text-center">
+                        <h1 class="h3 fw-normal">댓글 단 글</h1>
+                    </div>
+                    <hr style="border: solid 1px rgb(0, 0, 0);">
+                    <div class="d-flex justify-content-between">
+                        <select class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
+                            <option selected>등록순</option>
+                            <option value="1">공감순</option>
+                            <option value="2">댓글순</option>
+                        </select>
+                    </div>
+
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th style="text-align: center">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${boardArticleList}">
+                            <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
+          </span>
+                                <span>(대괄호 안에 댓글수)</span>
+                            </td>
+                            <td style="width: 5%"><span class="nickname-short text-truncate">[[${dto.nickName}]]</span></td>
+                            <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mypage-pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box8">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+            <div class="container bg-body border rounded-3 mt-3 mb-4" style="height: 615px;">
+                <div class="container mt-3">
+                    <div class="text-center">
+                        <h1 class="h3 fw-normal">공감한 글</h1>
+                    </div>
+                    <hr style="border: solid 1px rgb(0, 0, 0);">
+                    <div class="d-flex justify-content-between">
+                        <select class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
+                            <option selected>등록순</option>
+                            <option value="1">공감순</option>
+                            <option value="2">댓글순</option>
+                        </select>
+                    </div>
+
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th style="text-align: center">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${boardArticleList}">
+                            <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
+          </span>
+                                <span>(대괄호 안에 댓글수)</span>
+                            </td>
+                            <td style="width: 5%"><span class="nickname-short text-truncate">[[${dto.nickName}]]</span></td>
+                            <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mypage-pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box9">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+            <div class="container bg-body border rounded-3 mt-3 mb-4" style="height: 615px;">
+                <div class="container mt-3">
+                    <div class="text-center">
+                        <h1 class="h3 fw-normal">스크랩한 글</h1>
+                    </div>
+                    <hr style="border: solid 1px rgb(0, 0, 0);">
+                    <div class="d-flex justify-content-between">
+                        <select class="form-select" style="width:125px;font-size:16px" aria-label="Default select example">
+                            <option selected>등록순</option>
+                            <option value="1">공감순</option>
+                            <option value="2">댓글순</option>
+                        </select>
+                    </div>
+
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th style="text-align: center">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${boardArticleList}">
+                            <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
+          </span>
+                                <span>(대괄호 안에 댓글수)</span>
+                            </td>
+                            <td style="width: 5%"><span class="nickname-short text-truncate">[[${dto.nickName}]]</span></td>
+                            <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mypage-pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box10">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+            <div class="container bg-body border rounded-3 mt-3 mb-4" style="height: 615px;">
+                <th:block th:if="${success}">
+                    <div class="alert alert-primary alert-dismissible">
+                        <h4 style="text-align: center">[[${success}]]</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </th:block>
+                <th:block th:if="${fail}">
+                    <div class="alert alert-primary alert-dismissible">
+                        <h4 style="text-align: center">[[${fail}]]</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </th:block>
+                <div class="container mt-3">
+                    <div class="text-center">
+                        <h1 class="h3 fw-normal">공지사항</h1>
+                    </div>
+                    <hr style="border: solid 1px rgb(0, 0, 0);">
+
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th style="text-align: center">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${boardArticleList}">
+                            <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
+          </span>
+                                <span>(대괄호 안에 댓글수)</span>
+                            </td>
+                            <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="mypage-pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box11">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+            <div class="container bg-body border rounded-3 mt-3 mb-4" style="height: 615px;">
+                <th:block th:if="${success}">
+                    <div class="alert alert-primary alert-dismissible">
+                        <h4 style="text-align: center">[[${success}]]</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </th:block>
+                <th:block th:if="${fail}">
+                    <div class="alert alert-primary alert-dismissible">
+                        <h4 style="text-align: center">[[${fail}]]</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </th:block>
+                <div class="container mt-3">
+                    <div class="text-center">
+                        <h1 class="h3 fw-normal">문의한 글</h1>
+                    </div>
+                    <hr style="border: solid 1px rgb(0, 0, 0);">
+
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th style="text-align: center">문의일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${boardArticleList}">
+                            <td style="width: 60%">
+          <span class="title-short text-truncate">
+            <a th:href="@{/board/view/{id}(id = ${dto.id})}" class="link-body-emphasis text-decoration-none">[[${dto.title}]]</a>
+          </span>
+                                <span>(대괄호 안에 댓글수)</span>
+                            </td>
+                            <td style="text-align: center">[[${#temporals.format(dto.revisedTime, 'yyyy-MM-dd HH:mm')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mypage-pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                        </ul>
+                    </div>
+                    <div class="mypage-buttonright">
+                        <a class="btn btn-primary" id="btn12" onclick="toggleTxt12()">문의하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box12">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+
+            <div class="py-3">
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="제목">
+            </div>
+            <div class="py-3">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="16" placeholder="내용"></textarea>
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile">
+            </div>
+
+        </div>
+        <div class="mypage-buttonright1">
+            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='#'">문의하기</button>
+        </div>
+    </div>
+
+    <div class="mypage-box" id="box13">
+        <div class="container bg-body-tertiary border rounded-3 mt-3 mb-4" style="height: 650px;">
+            <div class="container bg-body border rounded-3 mt-3 mb-4" style="height: 615px;">
+                <div class="mypage-texter">
+                    <div class="my-5">
+                        <p class="h5 text">• 회원 탈퇴 시 로그아웃과 함께 현재 사용 중이신 계정을 더 이상 사용할 수 없게 됩니다.</p>
+                    </div>
+                    <div class="my-5">
+                        <p class="h5 text-wrap" style="width: 50rem;">• 회원 탈퇴 시 회원님이 작성하신 게시글과 댓글 혹은 공감 등이 전부 삭제 처리가 되며, &nbsp;&nbsp;재 가입을 하더라도 탈퇴 전의 회원님의 정보나 활동 등은 복구되지 않습니다.</p>
+                    </div>
+                    <div class="my-5">
+                        <p class="h5 text">• 회원 탈퇴 후 동일 이메일로 재 가입 시 30일이 경과되어야 재 가입이 가능합니다.</p>
+                    </div>
+                </div>
+
+                <form class="was-validated">
+                    <div class="mypage-button2">
+                        <div class="form-floating" style="width: 300px;">
+                            <input type="password" class="form-control" id="floatingPassword4" placeholder="Password" minlength="8" required>
+                            <label for="floatingPassword4">현재 비밀번호</label>
+                            <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+                        </div>
+                    </div>
+
+                    <div class="mypage-button3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+                            <label class="form-check-label" for="validationFormCheck1">위 사항을 모두 확인했습니다.</label>
+                            <div class="invalid-feedback">체크 버튼을 확인해주세요.</div>
+                        </div>
+                    </div>
+                    <div class="mypage-button4">
+                        <button type="button" class="btn btn-danger btn-lg" onclick="location.href='#'">탈퇴하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/profile-btn.js"></script>
 </main>
 </body>
 </html>

@@ -23,14 +23,6 @@ public class CommentService {
     private final ArticleQueryRepos articleQueryRepos;
     private final CommentRepos commentRepos;
 
-    List<Comment> findArticleComment(Long id) {
-        return articleQueryRepos.findAllComments(id);
-    }
-
-    List<Comment> findArticleComment(String nickName) {
-        return articleQueryRepos.findAllComments(nickName);
-    }
-
     public List<CommentDto> findComments(Long id) {
         List<Comment> commentList = articleQueryRepos.findAllComments(id);
         log.info(commentList.toString());

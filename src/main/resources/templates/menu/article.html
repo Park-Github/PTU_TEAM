@@ -69,7 +69,7 @@
 							</div>
 						<hr class="divider">
 						<div class="py-1">
-							<div><div>[[${boardArticle.contents}]]</div></div>
+							<div style="white-space:pre-wrap;">[[${boardArticle.contents}]]</div>
 						</div>
 						<div class="text-center mt-5">
 							<th:block th:if="${boardArticle.category == 'free' or boardArticle.category == 'sharing'
@@ -103,6 +103,21 @@
 										삭제
 								</button>
 							</th:block>
+							<p class="d-inline-flex gap-1">
+								<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+									첨부파일
+								</button>
+							</p>
+							<div class="collapse" id="collapseExample">
+								<div class="card card-body">
+									<th:block th:if="${file}" th:each="file, status : ${fileMap}">
+										<span th:text="|파일${status.index + 1}: |"></span>
+										<a th:text="${file.value}"
+										   th:href="@{/download/attachments/{id}(id=${file.key})}">
+										</a>
+									</th:block>
+								</div>
+							</div>
 							<hr class="divider">
 							<h4 class="h5 mb-3">댓글</h4> <!--댓글 목록-->
 							<div th:replace="~{/menu/comment::list}"></div>
