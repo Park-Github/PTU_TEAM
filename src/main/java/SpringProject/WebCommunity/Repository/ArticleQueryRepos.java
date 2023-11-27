@@ -67,20 +67,4 @@ public class ArticleQueryRepos {
                 .fetch();
     }
 
-    public List<Comment> findAllComments(String nickName) {
-        return  queryFactory
-                .select(comment)
-                .from(comment)
-                .where(comment.createdBy.eq(nickName))
-                .fetch();
-    }
-
-    public Member findMember(Long id) {
-        return queryFactory
-                .select(member)
-                .from(member)
-                .where(member.id.eq(id))
-                .fetchOne();
-    }
-
 }

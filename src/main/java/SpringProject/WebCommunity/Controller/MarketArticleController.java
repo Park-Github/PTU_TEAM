@@ -157,6 +157,7 @@ public class MarketArticleController {
         Optional<ArticleReadDto> dto = articleService.optionalFindById(id);
 
         if (dto.isPresent()) {
+            attachmentService.deleteAll(id);
             articleService.delete(id);
             redirectAttr.addFlashAttribute("success", "게시글이 삭제되었습니다.");
             return "redirect:/market?sort=";

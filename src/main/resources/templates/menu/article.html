@@ -78,30 +78,34 @@
 										th:onclick="|location.href='@{/board/like/{id}(id=${boardArticle.id})}'|">
 										공감 [[${boardArticle.likes}]]
 								</button>
-								<button type="button"
-										id="deleteErrorBtn1"
-										th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
-										class="btn btn-primary me-2">
+								<th:block th:if="${member.id == boardArticle.member.id}">
+									<button type="button"
+											id="deleteErrorBtn1"
+											th:onclick="|location.href='@{/board/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+											class="btn btn-primary me-2">
 										수정
-								</button>
-								<button type="button"
-										th:onclick="|location.href='@{/board/delete/{category}(category=${boardArticle.category}, id=${boardArticle.id})}'|"
-										class="btn btn-danger me-2">
+									</button>
+									<button type="button"
+											th:onclick="|location.href='@{/board/delete/{category}(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+											class="btn btn-danger me-2">
 										삭제
-								</button>
+									</button>
+								</th:block>
 							</th:block>
 							<th:block th:if="${boardArticle.category == 'market-buy' or boardArticle.category == 'market-sell'}">
-								<button type="button"
-										id="deleteErrorBtn2"
-										th:onclick="|location.href='@{/market/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
-										class="btn btn-primary me-2">
+								<th:block th:if="${member.id == boardArticle.member.id}">
+									<button type="button"
+											id="deleteErrorBtn2"
+											th:onclick="|location.href='@{/market/edit(category=${boardArticle.category}, id=${boardArticle.id})}'|"
+											class="btn btn-primary me-2">
 										수정
-								</button>
-								<button type="button"
-										th:onclick="|location.href='@{/market/delete(id=${boardArticle.id})}'|"
-										class="btn btn-danger me-2">
+									</button>
+									<button type="button"
+											th:onclick="|location.href='@{/market/delete(id=${boardArticle.id})}'|"
+											class="btn btn-danger me-2">
 										삭제
-								</button>
+									</button>
+								</th:block>
 							</th:block>
 							<p class="d-inline-flex gap-1">
 								<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
