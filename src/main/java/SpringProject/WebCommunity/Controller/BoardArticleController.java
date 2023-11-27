@@ -81,10 +81,12 @@ public class BoardArticleController {
         Optional<Member> member = memberService.getMember(request);
         List<CommentDto> commentDtoList = commentService.findComments(id);
         Map<Long, String> fileMap = attachmentService.readFileMap(id);
-        log.info(fileMap.toString());
 
-        member.ifPresent(value -> model.addAttribute("member", value));
+        member.ifPresent(value -> {
+            model.addAttribute("member", value);
+        });
         boardArticle.ifPresent(value -> {
+            log.info(String.valueOf(value.getMember().getId()));
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
             model.addAttribute("fileMap", fileMap);
