@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -76,6 +77,7 @@ public class BoardArticleController {
     @GetMapping("/board/view/{id}") // TODO: 2023-11-03 articleReadDto null 예외처리
     public String showArticle(@PathVariable Long id,
                               HttpServletRequest request,
+                              Locale locale,
                               Model model) {
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
         Optional<Member> member = memberService.getMember(request);
@@ -84,6 +86,7 @@ public class BoardArticleController {
 
         member.ifPresent(value -> {
             model.addAttribute("member", value);
+            model.addAttribute("Locale", locale);
         });
         boardArticle.ifPresent(value -> {
             log.info(String.valueOf(value.getMember().getId()));
@@ -100,16 +103,16 @@ public class BoardArticleController {
     public String articleListView(@RequestParam(name = "category") String category,
                                   @RequestParam(name = "sort", defaultValue = "createdTime") String sort,
                                   PageRequestDto pageRequestDto,
+                                  Locale locale,
                                   Model model) {
         log.info(sort);
         PageResultDto<ArticleReadDto, Article> resultDto
                 = articleService.getList(pageRequestDto, sort, category);
 
         model.addAttribute("boardArticleList", resultDto);
-
         model.addAttribute("boardCat", category);
-
         model.addAttribute("sort", sort);
+        model.addAttribute("Locale", locale);
         return "menu/article-list";
 
     }
