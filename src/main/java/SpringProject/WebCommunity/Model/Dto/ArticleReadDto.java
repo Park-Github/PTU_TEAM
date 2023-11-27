@@ -1,6 +1,7 @@
 package SpringProject.WebCommunity.Model.Dto;
 
 import SpringProject.WebCommunity.Model.Domain.Article;
+import SpringProject.WebCommunity.Model.Domain.Member;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -18,6 +19,7 @@ public class ArticleReadDto {
     private final String createdBy;
     private final LocalDateTime createdTime;
     private final LocalDateTime revisedTime;
+    private final Member member;
 
     public ArticleReadDto(Article entity) {
         this.id = entity.getId();
@@ -29,6 +31,7 @@ public class ArticleReadDto {
         this.createdBy = entity.getCreatedBy();
         this.createdTime = entity.getCreatedTime();
         this.revisedTime = entity.getRevisedTime();
+        this.member = entity.getMember();
     }
 
     public Article toEntity() {
@@ -42,6 +45,7 @@ public class ArticleReadDto {
                 .createdBy(getCreatedBy())
                 .createdTime(getCreatedTime())
                 .revisedTime(getRevisedTime())
+                .member(getMember())
                 .build();
     }
 }
