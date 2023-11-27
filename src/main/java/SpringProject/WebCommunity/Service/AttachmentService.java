@@ -37,8 +37,15 @@ public class AttachmentService {
         return idList;
     }
 
+    @Transactional
+    public void deleteAll(Long articleId) {
+        List<Attachment> attachmentList = attachmentQueryRepos.findByArticleId(articleId)
+                .stream().collect(Collectors.toList());
+        attachmentRepos.deleteAll(attachmentList);
+    }
+
     public Map<Long, String> readFileMap(Long articleId) {
-        JPAQuery<Attachment> attachments = attachmentQueryRepos.findClientFileName(articleId);
+        JPAQuery<Attachment> attachments = attachmentQueryRepos.findByArticleId(articleId);
         log.info(attachments.toString());
         return attachments.stream().collect(Collectors.toMap(Attachment::getId, Attachment::getClientFileName));
     }

@@ -14,15 +14,17 @@ import static SpringProject.WebCommunity.Model.Domain.QAttachment.attachment;
 @Transactional
 public class AttachmentQueryRepos {
     private final JPAQueryFactory jpaQueryFactory;
+
     public AttachmentQueryRepos(EntityManager entityManager) {
         this.jpaQueryFactory = new JPAQueryFactory(entityManager);
     }
 
-    public JPAQuery<Attachment> findClientFileName(Long articleId) {
+    public JPAQuery<Attachment> findByArticleId(Long articleId) {
         return jpaQueryFactory
                 .select(attachment)
                 .from(article)
                 .join(attachment).on(attachment.article.id.eq(articleId))
                 .where(article.id.eq(articleId));
     }
+
 }
