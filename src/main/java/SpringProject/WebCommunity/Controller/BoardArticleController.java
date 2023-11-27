@@ -77,7 +77,6 @@ public class BoardArticleController {
     @GetMapping("/board/view/{id}") // TODO: 2023-11-03 articleReadDto null 예외처리
     public String showArticle(@PathVariable Long id,
                               HttpServletRequest request,
-                              Locale locale,
                               Model model) {
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
         Optional<Member> member = memberService.getMember(request);
@@ -86,7 +85,7 @@ public class BoardArticleController {
 
         member.ifPresent(value -> {
             model.addAttribute("member", value);
-            model.addAttribute("Locale", locale);
+            model.addAttribute("locale", new Locale("ko", "KR"));
         });
         boardArticle.ifPresent(value -> {
             log.info(String.valueOf(value.getMember().getId()));
@@ -112,7 +111,7 @@ public class BoardArticleController {
         model.addAttribute("boardArticleList", resultDto);
         model.addAttribute("boardCat", category);
         model.addAttribute("sort", sort);
-        model.addAttribute("Locale", locale);
+        model.addAttribute("locale", locale);
         return "menu/article-list";
 
     }

@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -85,6 +86,7 @@ public class MarketArticleController {
     @GetMapping(value = {"/market/buy/articles/{id}", "/market/sell/articles/{id}"})
     public String showArticle(@PathVariable Long id,
                               HttpServletRequest request,
+                              Locale locale,
                               Model model) {
         log.info("id = " + id);
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
@@ -93,7 +95,10 @@ public class MarketArticleController {
         Map<Long, String> fileMap = attachmentService.readFileMap(id);
         log.info(fileMap.toString());
 
-        member.ifPresent(value -> model.addAttribute("member", value));
+        member.ifPresent(value -> {
+            model.addAttribute("member", value);
+            model.addAttribute("locale", locale);
+        });
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
@@ -108,7 +113,8 @@ public class MarketArticleController {
     public String articleListView(@RequestParam(name = "sort", defaultValue = "createdTime") String condition,
                                   PageRequestDto pageRequestDto1,
                                   PageRequestDto pageRequestDto2,
-                                  Model model) {
+                                  Model model,
+                                  Locale locale) {
 
         PageResultDto<ArticleReadDto, Article> pageResultDto1
                 = articleService.getList(pageRequestDto1, condition, "market-sell");
@@ -120,6 +126,7 @@ public class MarketArticleController {
         model.addAttribute("sellList", pageResultDto1);
         model.addAttribute("buyList", pageResultDto2);
         model.addAttribute("sort", condition);
+        model.addAttribute("locale", locale);
         return "menu/market";
     }
 

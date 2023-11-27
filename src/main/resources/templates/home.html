@@ -150,7 +150,7 @@
 							</a>
 						</div>
 <!--						<div class="me-auto">(댓글 수)</div>-->
-						<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일')}"></div>
+						<div class="text-black-50" th:text="${#temporals.format(dto.createdTime, 'yyyy년 MM월 dd일', locale)}"></div>
 					</div>
 					<div th:each="dto : ${MarketMap.get('market-sell')}" class="d-flex hstack gap-2 m-2">
 						<button type="button" class="btn btn-secondary btn-sm"
