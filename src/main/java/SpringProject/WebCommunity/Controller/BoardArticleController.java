@@ -85,7 +85,6 @@ public class BoardArticleController {
 
         member.ifPresent(value -> {
             model.addAttribute("member", value);
-            model.addAttribute("locale", new Locale("ko", "KR"));
         });
         boardArticle.ifPresent(value -> {
             log.info(String.valueOf(value.getMember().getId()));
@@ -102,7 +101,6 @@ public class BoardArticleController {
     public String articleListView(@RequestParam(name = "category") String category,
                                   @RequestParam(name = "sort", defaultValue = "createdTime") String sort,
                                   PageRequestDto pageRequestDto,
-                                  Locale locale,
                                   Model model) {
         log.info(sort);
         PageResultDto<ArticleReadDto, Article> resultDto
@@ -111,7 +109,6 @@ public class BoardArticleController {
         model.addAttribute("boardArticleList", resultDto);
         model.addAttribute("boardCat", category);
         model.addAttribute("sort", sort);
-        model.addAttribute("locale", locale);
         return "menu/article-list";
 
     }

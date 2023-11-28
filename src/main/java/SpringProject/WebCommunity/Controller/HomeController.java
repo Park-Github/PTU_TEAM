@@ -21,7 +21,6 @@ public class HomeController {
     private final MemberService memberService;
     @GetMapping("/")
     public String randeringHome(Model model,
-                                Locale locale,
                                 HttpServletRequest request) {
 
 //        if (memberService.getMember(request).isEmpty()){ // TODO 현재 페이지 URL 경로 가져와서 뒤로가기 버튼 만들기 front programming 필요
@@ -36,7 +35,6 @@ public class HomeController {
 
         model.addAttribute("BoardMap", initMap(boardMap, boardCatList));
         model.addAttribute("MarketMap", initMap(marketMap, marketCatList));
-        model.addAttribute("locale", locale);
 
         return "home";
     }
