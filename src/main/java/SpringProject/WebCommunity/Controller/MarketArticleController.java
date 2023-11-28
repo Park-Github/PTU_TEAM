@@ -86,7 +86,6 @@ public class MarketArticleController {
     @GetMapping(value = {"/market/buy/articles/{id}", "/market/sell/articles/{id}"})
     public String showArticle(@PathVariable Long id,
                               HttpServletRequest request,
-                              Locale locale,
                               Model model) {
         log.info("id = " + id);
         Optional<Article> boardArticle = Optional.ofNullable(articleService.findById(id).toEntity());
@@ -97,7 +96,6 @@ public class MarketArticleController {
 
         member.ifPresent(value -> {
             model.addAttribute("member", value);
-            model.addAttribute("locale", locale);
         });
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
@@ -113,8 +111,8 @@ public class MarketArticleController {
     public String articleListView(@RequestParam(name = "sort", defaultValue = "createdTime") String condition,
                                   PageRequestDto pageRequestDto1,
                                   PageRequestDto pageRequestDto2,
-                                  Model model,
-                                  Locale locale) {
+                                  Model model
+                                 ) {
 
         PageResultDto<ArticleReadDto, Article> pageResultDto1
                 = articleService.getList(pageRequestDto1, condition, "market-sell");
@@ -126,7 +124,6 @@ public class MarketArticleController {
         model.addAttribute("sellList", pageResultDto1);
         model.addAttribute("buyList", pageResultDto2);
         model.addAttribute("sort", condition);
-        model.addAttribute("locale", locale);
         return "menu/market";
     }
 
