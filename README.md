@@ -87,11 +87,7 @@
 
 - Service Flow
 
-  ![슬라이드1.PNG](PTU_TEAM%20Repository%20Overview%20fca0d3ece3c944dbb166e5055f677949/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C1.png)
-
 - Application Architecture
-
-  ![슬라이드3.PNG](PTU_TEAM%20Repository%20Overview%20fca0d3ece3c944dbb166e5055f677949/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C3.png)
 
 
 ---
