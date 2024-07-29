@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -93,7 +94,9 @@ public class MarketArticleController {
         Map<Long, String> fileMap = attachmentService.readFileMap(id);
         log.info(fileMap.toString());
 
-        member.ifPresent(value -> model.addAttribute("member", value));
+        member.ifPresent(value -> {
+            model.addAttribute("member", value);
+        });
         boardArticle.ifPresent(value -> {
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
@@ -108,7 +111,8 @@ public class MarketArticleController {
     public String articleListView(@RequestParam(name = "sort", defaultValue = "createdTime") String condition,
                                   PageRequestDto pageRequestDto1,
                                   PageRequestDto pageRequestDto2,
-                                  Model model) {
+                                  Model model
+                                 ) {
 
         PageResultDto<ArticleReadDto, Article> pageResultDto1
                 = articleService.getList(pageRequestDto1, condition, "market-sell");
@@ -157,6 +161,7 @@ public class MarketArticleController {
         Optional<ArticleReadDto> dto = articleService.optionalFindById(id);
 
         if (dto.isPresent()) {
+            attachmentService.deleteAll(id);
             articleService.delete(id);
             redirectAttr.addFlashAttribute("success", "게시글이 삭제되었습니다.");
             return "redirect:/market?sort=";

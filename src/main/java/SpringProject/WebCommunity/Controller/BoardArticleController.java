@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -81,10 +82,12 @@ public class BoardArticleController {
         Optional<Member> member = memberService.getMember(request);
         List<CommentDto> commentDtoList = commentService.findComments(id);
         Map<Long, String> fileMap = attachmentService.readFileMap(id);
-        log.info(fileMap.toString());
 
-        member.ifPresent(value -> model.addAttribute("member", value));
+        member.ifPresent(value -> {
+            model.addAttribute("member", value);
+        });
         boardArticle.ifPresent(value -> {
+            log.info(String.valueOf(value.getMember().getId()));
             model.addAttribute("boardArticle", value);
             model.addAttribute("commentList", commentDtoList);
             model.addAttribute("fileMap", fileMap);
@@ -104,9 +107,7 @@ public class BoardArticleController {
                 = articleService.getList(pageRequestDto, sort, category);
 
         model.addAttribute("boardArticleList", resultDto);
-
         model.addAttribute("boardCat", category);
-
         model.addAttribute("sort", sort);
         return "menu/article-list";
 
