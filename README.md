@@ -9,7 +9,7 @@
   대학생들이 정보를 공유하고 소통할 수 있는 커뮤니티 사이트
 
 
----
+
 
 ## 주요 기능
 
@@ -19,7 +19,7 @@
 - 키워드 검색
 - 조회수 및 좋아요 조회
 
----
+
 
 ## 기술 스택
 
@@ -62,7 +62,7 @@
     <img src="https://img.shields.io/badge/ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
 
     <img src="https://img.shields.io/badge/jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
----
+
 
 ## 멤버 구성
 
@@ -71,26 +71,28 @@
 - 성지현 : UI Design
 - 이성연 : Markup (Publishing)
 
----
+
 
 ## 개발 기간
 
 - 2024년 10월 1일 ~ 2024년 11월 28일
 
----
+
 
 ## 화면 구성
 
----
+
 
 ## 시스템 아키텍쳐
 
 - Service Flow
+  <img src="https://github.com/user-attachments/assets/5e303da4-8b52-4e10-bd58-97468057f94d" width="1000" height="650">
 
 - Application Architecture
+  <img src="https://github.com/user-attachments/assets/1484fe59-e209-4e35-8b57-de253a139604" width="1000" height="800">
 
 
----
+
 
 ## 배포
 
