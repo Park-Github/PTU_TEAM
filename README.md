@@ -5,7 +5,6 @@
 ## 프로젝트 개요
 
 *   주제
-
     대학생들이 정보를 공유하고 소통할 수 있는 커뮤니티 사이트
 
 ## 주요 기능
@@ -15,6 +14,7 @@
 * 댓글 기능 (CRUD)
 * 키워드 검색
 * 조회수 및 좋아요 조회
+
 
 ## 기술 스택
 
@@ -74,22 +74,19 @@
 
 <figure><img src=".gitbook/assets/image (11).png" alt=""><figcaption><p>게시글 정렬 3</p></figcaption></figure>
 
+
 ## 시스템 아키텍쳐
 
-*   Service Flow
 
+*   Service Flow
     ![image](https://github.com/user-attachments/assets/5ff6aa18-f223-4851-a76a-d440ef0b7a90)
 *   Application Architecture
-
     ![image](https://github.com/user-attachments/assets/c7f97ea6-ce25-4601-80f9-cf326bd183b2)
 
 ## 배포
+
 
 *   도메인
 
     [http://connects.kro.kr/](http://connects.kro.kr/)
 
-
-
-
-</details>
