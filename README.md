@@ -8,8 +8,6 @@
 
     대학생들이 정보를 공유하고 소통할 수 있는 커뮤니티 사이트
 
-
-
 ## 주요 기능
 
 * 회원가입 및 로그인
@@ -17,8 +15,6 @@
 * 댓글 기능 (CRUD)
 * 키워드 검색
 * 조회수 및 좋아요 조회
-
-
 
 ## 기술 스택
 
@@ -41,8 +37,6 @@
 
     ![](https://img.shields.io/badge/ubuntu-E95420?style=for-the-badge\&logo=ubuntu\&logoColor=white) ![](https://img.shields.io/badge/jenkins-D24939?style=for-the-badge\&logo=jenkins\&logoColor=white)
 
-
-
 ## 멤버 구성
 
 * 박승호(팀장) : Back-end, Front-End
@@ -50,17 +44,11 @@
 * 성지현 : UI Design
 * 이성연 : Markup (Publishing)
 
-
-
 ## 개발 기간
 
 * 2024년 10월 1일 \~ 2024년 11월 28일
 
-
-
 ## 화면 구성
-
-
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption><p>로그인 화면</p></figcaption></figure>
 
@@ -88,19 +76,41 @@
 
 ## 시스템 아키텍쳐
 
-* Service Flow
+*   Service Flow
 
-  ![image](https://github.com/user-attachments/assets/5ff6aa18-f223-4851-a76a-d440ef0b7a90)
+    ![image](https://github.com/user-attachments/assets/5ff6aa18-f223-4851-a76a-d440ef0b7a90)
+*   Application Architecture
 
-* Application Architecture
-
-  ![image](https://github.com/user-attachments/assets/c7f97ea6-ce25-4601-80f9-cf326bd183b2)
-
-
-
+    ![image](https://github.com/user-attachments/assets/c7f97ea6-ce25-4601-80f9-cf326bd183b2)
 
 ## 배포
 
 *   도메인
 
     [http://connects.kro.kr/](http://connects.kro.kr/)
+
+
+
+|    |   |   |
+| -- | - | - |
+| ㄴㄴ |   |   |
+|    |   |   |
+|    |   |   |
+
+{% tabs %}
+{% tab title="First Tab" %}
+ㅇㅇㅇ
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
+
+<details>
+
+<summary>ㅇㅇ</summary>
+
+
+
+</details>
