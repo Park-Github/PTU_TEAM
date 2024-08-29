@@ -91,26 +91,5 @@
 
 
 
-|    |   |   |
-| -- | - | - |
-| ㄴㄴ |   |   |
-|    |   |   |
-|    |   |   |
-
-{% tabs %}
-{% tab title="First Tab" %}
-ㅇㅇㅇ
-{% endtab %}
-
-{% tab title="Second Tab" %}
-
-{% endtab %}
-{% endtabs %}
-
-<details>
-
-<summary>ㅇㅇ</summary>
-
-
 
 </details>
